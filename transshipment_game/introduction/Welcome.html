@@ -1,17 +1,23 @@
-{{ block title }}
-Welcome
-{{ endblock }}
-{{ block content }}
+{% extends "global/Page.html" %}
 
-<p> Thank you for participating in the experiment.</p>
+{% block title %}
+    Welcome
+{% endblock %}
+{% block content %}
 
-<p> In this experiment your decisions will impact your earnings. </p>
+    <div>
+        <p> Thank you for participating in the experiment.</p>
 
-<p> Please read the rules and instructions carefully. </p>
+        <p> In this experiment your decisions will impact your earnings. </p>
 
-<p> Your payout will be transferred to you via banking transfer, we will be redirected to a webpage at the end to fill out your bank information.</p>
+        <p> Please read the rules and instructions carefully. </p>
 
-{{ formfields }}
-{{ next_button }}
+        <p> Your payout will be transferred to you via banking transfer, we will be redirected to a webpage at the end to fill out your bank
+            information.</p>
+    </div>
 
-{{ endblock }}
+
+    {% formfields %}
+    {% next_button %}
+
+{% endblock %}

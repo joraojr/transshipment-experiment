@@ -1,6 +1,5 @@
 from otree.api import *
 
-
 doc = """
 Your app description
 """
@@ -25,16 +24,16 @@ class Player(BasePlayer):
 
 
 # PAGES
-class MyPage(Page):
+class Welcome(Page):
     pass
 
 
-class ResultsWaitPage(WaitPage):
+class Instructions(Page):
     pass
 
 
-class Results(Page):
+class Comprehension(Page):
     pass
 
 
-page_sequence = [MyPage, ResultsWaitPage, Results]
+page_sequence = [Welcome, Instructions, Comprehension]
