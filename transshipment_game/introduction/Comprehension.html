@@ -1,31 +1,25 @@
+{% extends "global/Page.html" %}
+
 {% block title %}
     Comprehension Questions
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p>
-            After this section, you will start the experiment. Before, we would like to ask you a few questions to make sure you understand the
-            rules of the game. Please answer the following questions to the best of your ability. If you answer incorrectly, you will be asked to try
-            again.
-        </p>
-    </div>
-    <br><br>
-    <div>
-        <div id="question_box"></div>
+    <p>
+        After this section, you will start the experiment. Before, we would like to ask you a few questions to make sure you understand the
+        rules of the game. Please answer the following questions to the best of your ability. If you answer incorrectly, you will be asked to try
+        again.
+    </p>
 
-        <div id="answer_box"></div>
+    <p id="question_box"></p>
 
-        <div id="prompt_box" class="alert"></div>
+    <p id="answer_box"></p>
 
-        <div id="next_box" style="text-align: right;">
-            <button class="btn btn-primary next_question" style="text-align: right;" disabled>Next</button>
-        </div>
+    <p id="prompt_box" class="alert"></p>
 
-    </div>
-    <div id="next_box" style="text-align: right;">
-        <button class="otree-btn-next btn btn-primary" style="display: none;">Start Experiment</button>
-    </div>
+    <button class="btn btn-primary next_question" style="float: right;" disabled>Next</button>
+
+    <button class="otree-btn-next btn btn-primary" style="float: right;display: none;">Start Experiment</button>
 
 
     <style type="text/css">
@@ -67,14 +61,6 @@
             display: none;
         }
 
-        #next_box {
-            min-height: 40px;
-            width: 100%;
-        }
-
-        #next_box .btn {
-            float: right;
-        }
     </style>
 
     <script type="text/javascript">
@@ -84,37 +70,41 @@
             {# Modify this array to include additional comprehension question#}
 
             var questions = [
-                "Comprehension Question 1",
-                "Comprehension Question 2",
-                "Comprehension Question 3",
-                "Comprehension Question 4",
-                "Comprehension Question 5"
+                "How is customer demand for your product determined each round?",
+                "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",
+                "You can carry over excess inventory from one round to the next.",
+                "What is the procurement cost per unit from the supplier?",
+                "If you and the other retailer decide to engage in a transfer, you will always be able to meet your excess demand."
             ];
 
             var answers_data = {
                 "first": {
                     "answers": [
-                        "Comprehension Answer 1",
-                        "Comprehension Answer 2",
-                        "Comprehension Answer 3"
+                        "It remains the same every round.",
+                        "It is influenced by the previous round's demand.",
+                        "It is randomly and independently drawn each round.",
+                        "It depends on the other retailer's demand."
                     ],
-                    "correct": 1,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct.", "This answer is incorrect. Please correct your answer."],
+                    "correct": 2,
+                    "prompts": ["This answer is incorrect. Please correct your answer.", "This answer is incorrect. Please correct your answer.", "Your answer is correct.", "This answer is incorrect. Please correct your answer."],
                     "showtable": false
                 },
                 "second": {
                     "answers": [
-                        "Comprehension Answer 1",
-                        "Comprehension Answer 2"]
+                        "Nothing.",
+                        "It is salvaged at a price of 10 ECU per unit.",
+                        "It is discarded without any compensation.",
+                        "It is transferred to the other retailer automatically."
+                    ]
                     ,
                     "correct": 1,
-                    "prompts": ["Your answer is correct", "This answer is incorrect. Please correct your answer."],
+                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct", "This answer is incorrect. Please correct your answer.", "Your answer is correct", "This answer is incorrect. Please correct your answer."],
                     "showtable": false
                 },
                 "third": {
                     "answers": [
-                        "Comprehension Answer 1",
-                        "Comprehension Answer 2"
+                        "True",
+                        "False"
                     ],
                     "correct": 1,
                     "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct."],
@@ -122,22 +112,22 @@
                 },
                 "fourth": {
                     "answers": [
-                        "Comprehension Answer 1",
-                        "Comprehension Answer 2",
-                        "Comprehension Answer 3"
+                        "10 ECU",
+                        "15 ECU",
+                        "20 ECU",
+                        "25 ECU",
                     ],
-                    "correct": 0,
-                    "prompts": ["Your answer is correct.", "This answer is incorrect. Please correct your answer.", "This answer is incorrect. Please correct your answer."],
+                    "correct": 2,
+                    "prompts": ["This answer is incorrect. Please correct your answer.", "This answer is incorrect. Please correct your answer.", "Your answer is correct.", "This answer is incorrect. Please correct your answer."],
                     "showtable": false
                 },
                 "fifth": {
                     "answers": [
-                        "Comprehension Answer 1",
-                        "Comprehension Answer 2",
-                        "Comprehension Answer 3"
+                        "True",
+                        "False",
                     ],
                     "correct": 1,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct.", "This answer is incorrect. Please correct your answer."],
+                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct."],
                     "showtable": false
                 }
             };
@@ -159,7 +149,7 @@
 
                 current_key = data_keys[i];
                 current_data = answers_data[current_key];
-                $("#question_box").html(questions[i]);
+                $("#question_box").html("<b>" + questions[i] + "</b>");
                 current_answers = current_data["answers"];
                 answers_length = current_answers.length;
 
@@ -172,7 +162,7 @@
                 // liveSend({'which_option': parseInt(1000), 'which_question': parseInt(i)});#}
 
                 for (var j = 0; j < answers_length; j++) {
-                    $("#answer_box").append('<div data-answer-option="' + j + '" class="answer_option"><input type="radio" name="radio_group" value="' + j + '"><label for="option' + j + '">' + current_answers[j] + '</label></div>');
+                    $("#answer_box").append('<p data-answer-option="' + j + '" class="answer_option"><input type="radio" name="radio_group" value="' + j + '"><label for="option' + j + '">' + current_answers[j] + '</label></p>');
                 }
 
                 if (i == limit) {

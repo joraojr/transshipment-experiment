@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    Part 1: Instructions (3/3)
+{% endblock %}
+{% block content %}
+
+    <p> In each round, you and the other retailer have <b>two tasks</b>:</p>
+    <ol>
+        <li> Decide whether you want to engage in a transfer with the other retailer, in case you face excess demand or excess inventory.</li>
+        <li> Place an inventory order to satisfy customer demand.</li>
+    </ol>
+
+    <p>After you have performed the two tasks, the round proceeds in <b>three stages</b>: </p>
+    <ol>
+        <li>Customer demand for your product will be drawn and displayed to you. Customer demand for the other retailer will be drawn and displayed to
+            the other retailer.
+        </li>
+        <li> Customer demand for your product will be satisfied from the inventory you ordered in task (2). Customer demand for the other retailer's
+            product
+            will be satisfied from the other retailer's inventory ordered in task (2).
+        </li>
+        <li> If you or the other retailer face excess demand or excess inventory and both of you decided to engage in a transfer in task (1), excess
+            demand
+            and excess inventory will be matched and transferred as described above. The transfer will be carried out automatically.
+        </li>
+    </ol>
+
+    <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
+
+    {#    You can earn from satisfying customer demand: Units sold to customers x retail price - procurement cost per unit x inventory ordered "#}
+
+    {% formfields %}
+    <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
+
+{% endblock %}

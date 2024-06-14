@@ -1,0 +1,54 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    Part 1: Instructions (2/3)
+{% endblock %}
+{% block content %}
+
+    {# TODO [START] ADD IF FOR TREATMENT HERE #}
+
+    <p>To deal with excess inventory and excess demand, you can decide to engage in a transfer with the other retailer.</p>
+    <p>If both you and the other retailer decide to engage in a transfer, this will happen:</p>
+
+    <p>If you face excess demand:</p>
+    <ol>
+        <li> If the other retailer has excess inventory, they will transfer it to you.</li>
+        <li> If your excess demand is higher than or equal to the other retailer's excess inventory, all the other retailer's excess inventory is
+            transferred to you.
+        </li>
+        <li> If your excess demand is lower than the other retailer's excess inventory, only the units required to satisfy your demand are
+            transferred. You
+            can satisfy customer demand fully.
+        </li>
+    </ol>
+    <p> For every unit transferred to you, you pay a transfer cost of <b>12 ECU</b> to the other retailer. </p>
+
+    <p>If you face excess inventory:</p>
+    <ol>
+        <li> If the other retailer has excess demand, you will transfer your inventory to them.</li>
+        <li> If your excess inventory is lower than or equal to the other retailer's excess demand, all your excess inventory is transferred to
+            them.
+        </li>
+        <li> If your excess inventory is greater than the other retailer's excess demand, only the units required to satisfy the other retailer's
+            excess demand are transferred to them.
+        </li>
+    </ol>
+    <p>For every unit transferred to the other retailer, you receive a transfer price of <b>12 ECU</b> and a transfer fee of <b>2 ECU</b> per unit is
+        deducted
+        from your account.</p>
+    <p> For every unit in your excess inventory that is not transferred to the other retailer, you receive a salvage price of <b>10 ECU</b>.</p>
+
+    {# TODO [END] ADD IF FOR TREATMENT HERE #}
+
+    <p>If only you or the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will
+        happen:</p>
+    <ol>
+        <li> No transfer of units takes place.</li>
+        <li> If you face excess demand, none of your excess demand is met.</li>
+        <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>
+    </ol>
+
+    {% formfields %}
+    <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
+
+{% endblock %}
