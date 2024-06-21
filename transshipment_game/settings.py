@@ -28,7 +28,50 @@ ROOMS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00,
+    participation_fee=0.00,
+    treatments={
+        "C1": {
+            "decision_frequency": "PER_ROUND",
+            "values": (12, 12)
+        },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+
+        # "C2": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "values": (21, 21)
+        # },  # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
+        # "C3": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "values": (8, 8)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
+
+        # "C4": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "values": (18, 24)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        # "C5": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "values": (12, 40)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        # "C6": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "values": (8, 32)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+
+        # "C7": {
+        #     "decision_frequency": "ENFORCED",
+        #     "values": (18, 24)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        # "C8": {
+        #     "decision_frequency": "ENFORCED",
+        #     "values": (12, 40)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        # "C9": {
+        #     "decision_frequency": "ENFORCED",
+        #     "values": (8, 32)
+        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+    },
+    doc="",
 )
 
 PARTICIPANT_FIELDS = ["treatment"]

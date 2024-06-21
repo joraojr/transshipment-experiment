@@ -1,11 +1,13 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}<br>
     Result: Engage in a Transfer
 {% endblock %}
 
 {% block content %}
+    <p><b> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</b></p>
+
+
     <p>{{ engagement_message }} </p>
 
     {% formfields %}

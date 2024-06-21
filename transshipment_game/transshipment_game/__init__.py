@@ -9,47 +9,6 @@ class C(BaseConstants):
     NAME_IN_URL = 'transshipment_game'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 10
-    TREATMENTS = {
-        "C1": {
-            "decision_frequency": "PER_ROUND",
-            "values": (12, 12)
-        },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-
-        # "C2": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (21, 21)
-        # },  # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
-        # "C3": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (8, 8)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
-
-        # "C4": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (18, 24)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C5": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (12, 40)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C6": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (8, 32)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-
-        # "C7": {
-        #     "decision_frequency": "ENFORCED",
-        #     "values": (18, 24)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C8": {
-        #     "decision_frequency": "ENFORCED",
-        #     "values": (12, 40)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C9": {
-        #     "decision_frequency": "ENFORCED",
-        #     "values": (8, 32)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-    }
 
 
 class Subsession(BaseSubsession):
@@ -58,12 +17,11 @@ class Subsession(BaseSubsession):
 
 def creating_session(subsession):
     # Assign Treatments from the Previous app to the players
-    if subsession.round_number > 1:
-        subsession.group_like_round(1)
+    for player in subsession.get_players():
+        player.treatment = player.participant.treatment
 
-    for group in subsession.get_groups():
-        for player in group.get_players():
-            player.treatment = player.participant.treatment
+    # Randomly assign players to groups but keep the same id_in_group for all rounds
+    subsession.group_randomly(fixed_id_in_group=True)
 
 
 class Group(BaseGroup):
@@ -104,13 +62,19 @@ class TransferEngagement(Page):
 
     @staticmethod
     def is_displayed(player):
-        return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
+        return player.session.config['treatments'][player.treatment]["decision_frequency"] == "PER_ROUND"
+
+    @staticmethod
+    def vars_for_template(self):
+        return {
+            'CURRENT_ROUND': self.round_number,
+        }
 
 
 class TransferEngagementResultsWaitPage(WaitPage):
     @staticmethod
     def is_displayed(player):
-        return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
+        return player.session.config['treatments']["decision_frequency"] == "PER_ROUND"
 
     @staticmethod
     def after_all_players_arrive(group: Group):
@@ -120,7 +84,7 @@ class TransferEngagementResultsWaitPage(WaitPage):
 class TransferEngagementResult(Page):
     @staticmethod
     def is_displayed(player):
-        return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
+        return player.session.config['treatments']["decision_frequency"] == "PER_ROUND"
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -143,7 +107,30 @@ class Results(Page):
     pass
 
 
+# class RandomDraw(Page):
+#     @staticmethod
+#     def is_displayed(player):
+#         return player.round_number == C.num_rounds
+#
+#     @staticmethod
+#     def before_next_page(player, timeout_happened):
+#         drawn_indices = [x - 1 for x in player.participant.drawn_rounds]
+#         earnings_list = player.participant.earnings_list
+#         player.drawn_earnings = str([earnings_list[i] for i in drawn_indices])
+#         player.participant.drawn_earnings = [earnings_list[i] for i in drawn_indices]
+#         player.participant.account_balance = round(sum(player.participant.drawn_earnings),2)
+#
+# class RandomDrawResult(Page):
+#     @staticmethod
+#     def is_displayed(player):
+#         return player.round_number == C.num_rounds
+#
+#     @staticmethod
+#     def vars_for_template(player: Player):
+#         return dict(total_payoff=round(player.participant.account_balance+2.50,2))
+
 # TODO ADD group matching waiting page as 1st
 
 page_sequence = [TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult]
 # ProcurementPhase, ResultsWaitPage, Results]
+# RandomDraw,RandomDrawResult]
