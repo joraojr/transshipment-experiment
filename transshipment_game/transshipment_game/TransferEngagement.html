@@ -1,0 +1,11 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}<br>
+    Engage in a transfer
+{% endblock %}
+{% block content %}
+    {% formfields %}
+    <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
+
+{% endblock %}

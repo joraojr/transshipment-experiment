@@ -8,9 +8,18 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='Testing',
-        app_sequence=['introduction'],
-        num_demo_participants=5,
+        app_sequence=['introduction', 'transshipment_game'],
+        num_demo_participants=4,
     ),
+]
+
+ROOMS = [
+    {
+        'name': 'waiting_room',
+        'display_name': 'Waiting Room',
+        'participant_label_file': '_rooms/exp_labels.txt',  # You can specify a file with participant labels if needed
+        'use_secure_urls': True,  # Use secure URLs for participant login
+    },
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
