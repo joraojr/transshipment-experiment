@@ -21,9 +21,8 @@ def creating_session(subsession):
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
         player.participant.inventory_order_history = [-1]
-        # player.demand = int(np.clip(np.random.normal(100, 30), 0, 200))
-        # player.demand = random.randint(0, 200)
-        player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
+        player.demand = random.randint(0, 200)
+        # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
 
     # Randomly assign players to groups but keep the same id_in_group for all rounds
     subsession.group_randomly(fixed_id_in_group=True)
