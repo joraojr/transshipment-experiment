@@ -74,7 +74,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     doc="",
 )
 
-PARTICIPANT_FIELDS = ["treatment"]
+PARTICIPANT_FIELDS = ["treatment", "inventory_order_history"]
 SESSION_FIELDS = []
 
 # ISO-639 code

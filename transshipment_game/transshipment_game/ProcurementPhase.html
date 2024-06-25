@@ -1,11 +1,208 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Page title
+    Inventory Order
 {% endblock %}
 {% block content %}
 
-    {% formfields %}
-    {% next_button %}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    {#    <script src="https://code.highcharts.com/modules/exporting.js"></script>#}
+    {#    <script src="https://code.highcharts.com/modules/export-data.js"></script>#}
+    {#    <script src="https://code.highcharts.com/modules/accessibility.js"></script>#}
+
+
+    <div class="container">
+        <b> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</b>
+
+        <div class="border rounded border-3">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                    Your task is to make an inventory order decision this round.
+                </div>
+            </div>
+            <div class="row justify-content-center">
+
+                <div class="col-md-3"></div>
+                <div class="col-md-2 text-end">
+                    <b>Your Order: </b>
+                </div>
+                <div class="col-md-1">
+                    {% form.inventory_order %}
+                </div>
+                <div class="col-md-1">
+                    <button class="otree-btn-next btn btn-primary">Send</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+
+                <table>
+                    <tr>
+                        <th>Revenue/Costs</th>
+                        <th>Description</th>
+                        <th>ECU</th>
+                    </tr>
+                    <tr>
+                        <td>Retail Price</td>
+                        <td>The amount you will receive for each unit sold to consumers</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>Transfer Price</td>
+                        <td>The amount you receive from the other retailer for each unit transferred</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Salvage Price</td>
+                        <td>The amount you will receive for each unit that you do not sell or transfer</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>Procurement Cost</td>
+                        <td>The amount you have to pay per unit originally ordered</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Transfer Cost</td>
+                        <td>The amount you pay to the other retailer for each unit transferred to you</td>
+                        <td>12</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        .otree-body {
+            max-width: 1600px;
+        }
+
+        .otree-title {
+            text-align: center;
+        }
+
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 310px;
+            max-width: 800px;
+            margin: 1em auto;
+        }
+
+        #container {
+            height: 400px;
+            width: fit-content;
+        }
+
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #ebebeb;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+        Highcharts.chart('container', {
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Your order history',
+                align: 'left'
+            },
+
+            xAxis: {
+                title: {
+                    text: 'Rounds'
+                },
+                min: 1,
+                max: {{C.NUM_ROUNDS}},
+                tickInterval: 1
+            },
+            yAxis: {
+                min: 0,
+                max: 230,
+                title: {
+                    text: 'Demand (ECU)'
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            tooltip: {
+                valueSuffix: 'ECU'
+            },
+            series: [
+                {
+                    showInLegend: false,
+                    data: {{player_inventory_order_history}}
+                }
+            ]
+
+        });
+
+
+    </script>
 
 {% endblock %}

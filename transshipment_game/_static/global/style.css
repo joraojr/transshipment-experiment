@@ -5,3 +5,8 @@ div {
     color: #343a40;
     text-align: justify;
 }
+
+
+.otree-btn-next {
+    float: right;
+}

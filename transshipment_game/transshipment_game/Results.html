@@ -1,10 +1,132 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Page title
+    Result
 {% endblock %}
 
 {% block content %}
+    <div class="container">
+        <b> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</b>
+
+        <div class="border rounded border-3">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                    {{ player.result_message_text }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Revenue</th>
+                    <th>Description</th>
+                    <th>ECU</th>
+                    <th>Units</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr>
+                    <td>Retail Price</td>
+                    <td>The amount you will receive for each unit sold to consumers</td>
+                    <td>40</td>
+                    <td>40</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>Transfer Price</td>
+                    <td>The amount you receive from the other retailer for each unit transferred</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td>Salvage Price</td>
+                    <td>The amount you will receive for each unit that you do not sell or transfer</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td><b>TOTAL</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>HERE</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Costs</th>
+                    <th>Description</th>
+                    <th>ECU</th>
+                    <th>Units</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr>
+                    <td>Procurement Cost</td>
+                    <td>The amount you have to pay per unit originally ordered</td>
+                    <td>20</td>
+                    <td>20</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>Transfer Cost</td>
+                    <td>The amount you pay to the other retailer for each unit transferred to you</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td><b>TOTAL</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>HERE</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Profits (earnings)</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr>
+                    <td>Revenue</td>
+                    <td>XXX</td>
+                </tr>
+                <tr>
+                    <td>Costs</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td><b>TOTAL</b></td>
+                    <td>XXX</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <style>
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 
     {% next_button %}
 {% endblock %}
