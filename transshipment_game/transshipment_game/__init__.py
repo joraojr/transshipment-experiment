@@ -155,7 +155,7 @@ class ResultsWaitPage(WaitPage):
             p.extra = p.inventory_order - p.demand
 
         for p1 in group.get_players():
-            p2 = p1.get_other_players()[0] # get the other player in the group (only 2 players in a group)
+            p2 = p1.get_other_players()[0]  # get the other player in the group (only 2 players in a group)
 
             ##### STANDARD ################################################################################################
             p1.result_message_text = """
@@ -197,27 +197,62 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
+
     @staticmethod
     def vars_for_template(player: Player):
+        # Revenue for this round
+
+        retail_units = player.demand if player.inventory_order - player.demand >= 0 else player.inventory_order
+        total_retail_units = retail_units + player.received_units
+        total_retail_unit_price = total_retail_units * 40
+
+        total_transfer_units = player.send_units * 12
+
+        total_savage_units = max(0, player.inventory_order - player.demand - player.send_units)
+        total_savage_unit_price = total_savage_units * 10
+
+        total_price = total_retail_unit_price + total_transfer_units + total_savage_unit_price
+
+        # Costs for this round
+
+        procurement_cost = player.inventory_order * 20
+        transfer_cost = player.received_units * 12
+
+        total_cost = procurement_cost + transfer_cost
+
+        # Payoff for this round
+
+        total_payoff = total_price - total_cost
+
         return {
             'result_message_text': player.result_message_text,
             'CURRENT_ROUND': player.round_number,
+            'retail_price': [total_retail_units, total_retail_unit_price],
+            'transfer_price': [player.send_units, total_transfer_units],
+            'salvage_price': [total_savage_units, total_savage_unit_price],
+            'total_price': total_price,
+            'procurement_cost': [player.inventory_order, procurement_cost],
+            'transfer_cost': [player.received_units, transfer_cost],
+            'total_cost': total_cost,
+            'total_payoff': total_payoff
+
         }
 
 
-# class RandomDraw(Page):
-#     @staticmethod
-#     def is_displayed(player):
-#         return player.round_number == C.num_rounds
-#
-#     @staticmethod
-#     def before_next_page(player, timeout_happened):
-#         drawn_indices = [x - 1 for x in player.participant.drawn_rounds]
-#         earnings_list = player.participant.earnings_list
-#         player.drawn_earnings = str([earnings_list[i] for i in drawn_indices])
-#         player.participant.drawn_earnings = [earnings_list[i] for i in drawn_indices]
-#         player.participant.account_balance = round(sum(player.participant.drawn_earnings),2)
-#
+class RandomDraw(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == C.NUM_ROUNDS
+
+    # @staticmethod
+    # def before_next_page(player, timeout_happened):
+    #     drawn_indices = [x - 1 for x in player.participant.drawn_rounds]
+    #     earnings_list = player.participant.earnings_list
+    #     player.drawn_earnings = str([earnings_list[i] for i in drawn_indices])
+    #     player.participant.drawn_earnings = [earnings_list[i] for i in drawn_indices]
+    #     player.participant.account_balance = round(sum(player.participant.drawn_earnings),2)
+
+
 # class RandomDrawResult(Page):
 #     @staticmethod
 #     def is_displayed(player):
@@ -230,5 +265,6 @@ class Results(Page):
 # TODO ADD group matching waiting page as 1st
 
 page_sequence = [TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
-                 ProcurementPhase, ResultsWaitPage, Results]
+                 ProcurementPhase, ResultsWaitPage, Results,
+                 RandomDraw]
 # RandomDraw,RandomDrawResult]

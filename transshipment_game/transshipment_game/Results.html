@@ -15,79 +15,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <table>
-                <tr>
-                    <th>Revenue</th>
-                    <th>Description</th>
-                    <th>ECU</th>
-                    <th>Units</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr>
-                    <td>Retail Price</td>
-                    <td>The amount you will receive for each unit sold to consumers</td>
-                    <td>40</td>
-                    <td>40</td>
-                    <td>40</td>
-                </tr>
-                <tr>
-                    <td>Transfer Price</td>
-                    <td>The amount you receive from the other retailer for each unit transferred</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <td>Salvage Price</td>
-                    <td>The amount you will receive for each unit that you do not sell or transfer</td>
-                    <td>10</td>
-                    <td>10</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td><b>TOTAL</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>HERE</td>
-                </tr>
-            </table>
-        </div>
-        <div class="row">
-            <table>
-                <tr>
-                    <th>Costs</th>
-                    <th>Description</th>
-                    <th>ECU</th>
-                    <th>Units</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr>
-                    <td>Procurement Cost</td>
-                    <td>The amount you have to pay per unit originally ordered</td>
-                    <td>20</td>
-                    <td>20</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>Transfer Cost</td>
-                    <td>The amount you pay to the other retailer for each unit transferred to you</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <td><b>TOTAL</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>HERE</td>
-                </tr>
-            </table>
-        </div>
-
+        <br>
+        <b> Profits</b>
         <div class="row">
             <table>
                 <tr>
@@ -95,20 +24,97 @@
                     <th>Subtotal</th>
                 </tr>
                 <tr>
-                    <td>Revenue</td>
-                    <td>XXX</td>
+                    <td>Revenue (price)</td>
+                    <td>{{ total_price }}</td>
                 </tr>
                 <tr>
                     <td>Costs</td>
-                    <td>12</td>
+                    <td>{{ total_cost }}</td>
                 </tr>
                 <tr>
                     <td><b>TOTAL</b></td>
-                    <td>XXX</td>
+                    <td><b>{{ total_payoff }} </b></td>
                 </tr>
             </table>
         </div>
+        <br>
+        <br>
+        <b> Description of Revenue and Costs</b>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Revenue (price)</th>
+                    <th>Description (The amount ...)</th>
+                    <th>ECU</th>
+                    <th>Units</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr>
+                    <td>Retail</td>
+                    <td>... you will receive for each unit sold to consumers</td>
+                    <td>40</td>
+                    <td>{{ retail_price.0 }}</td>
+                    <td>{{ retail_price.1 }}</td>
+                </tr>
+                <tr>
+                    <td>Transfer</td>
+                    <td>... you receive from the other retailer for each unit transferred</td>
+                    <td>12</td>
+                    <td>{{ transfer_price.0 }}</td>
+                    <td>{{ transfer_price.1 }}</td>
+                </tr>
+                <tr>
+                    <td>Salvage</td>
+                    <td>... you will receive for each unit that you do not sell or transfer</td>
+                    <td>10</td>
+                    <td>{{ salvage_price.0 }}</td>
+                    <td>{{ salvage_price.1 }}</td>
+                </tr>
+                <tr>
+                    <td><b>TOTAL</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ total_price }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Costs</th>
+                    <th>Description (The amount ...)</th>
+                    <th>ECU</th>
+                    <th>Units</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr>
+                    <td>Procurement</td>
+                    <td>... you have to pay per unit originally ordered</td>
+                    <td>20</td>
+                    <td>{{ procurement_cost.0 }}</td>
+                    <td>{{ procurement_cost.1 }}</td>
+                </tr>
+                <tr>
+                    <td>Transfer</td>
+                    <td>... you pay to the other retailer for each unit transferred to you</td>
+                    <td>12</td>
+                    <td>{{ transfer_cost.0 }}</td>
+                    <td>{{ transfer_cost.1 }}</td>
+                </tr>
+                <tr>
+                    <td><b>TOTAL</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ total_cost }}</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
+
+    <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
 
     <style>
 
@@ -128,7 +134,6 @@
         }
     </style>
 
-    {% next_button %}
 {% endblock %}
 
 
