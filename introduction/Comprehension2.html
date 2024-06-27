@@ -1,16 +1,10 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Comprehension Questions
+    Part 1: Comprehension Questions
 {% endblock %}
 
 {% block content %}
-    <p>
-        After this section, you will start the experiment. Before, we would like to ask you a few questions to make sure you understand the
-        rules of the game. Please answer the following questions to the best of your ability. If you answer incorrectly, you will be asked to try
-        again.
-    </p>
-
     <p id="question_box"></p>
 
     <p id="answer_box"></p>
@@ -73,8 +67,8 @@
                 "How is customer demand for your product determined each round?",
                 "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",
                 "You can carry over excess inventory from one round to the next.",
-                "What is the procurement cost per unit from the supplier?",
-                "If you and the other retailer decide to engage in a transfer, you will always be able to meet your excess demand."
+                "What is the procurement cost per unit that you pay to the supplier when ordering inventory?",
+                "If you and the other retailer decide to engage in a transfer, and you have an excess demand, you will always be able to meet it fully."
             ];
 
             var answers_data = {

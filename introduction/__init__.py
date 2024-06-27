@@ -1,7 +1,7 @@
 from otree.api import *
 
 doc = """
-Your app description
+Introduction to the Transshipment Game
 """
 
 
@@ -43,7 +43,9 @@ class Welcome(Page):
 
 
 class Introduction(Page):
-    pass
+    def vars_for_template(self):
+        MAIN_GAME_NUM_ROUNDS = self.session.config['num_rounds']
+        return {'MAIN_GAME_NUM_ROUNDS': MAIN_GAME_NUM_ROUNDS}
 
 
 class Instructions1(Page):
@@ -58,8 +60,12 @@ class Instructions3(Page):
     pass
 
 
-class Comprehension(Page):
+class Comprehension1(Page):
     pass
 
 
-page_sequence = [Welcome, Introduction, Instructions1, Instructions2, Instructions3, Comprehension]
+class Comprehension2(Page):
+    pass
+
+
+page_sequence = [Welcome, Introduction, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]

@@ -7,30 +7,32 @@
 
     {# TODO [START] ADD IF FOR TREATMENT HERE #}
 
-    <p>To deal with excess inventory and excess demand, you can decide to engage in a transfer with the other retailer.</p>
+    <p>To deal with excess inventory and excess demand, you can decide to <b> engage in a transfer </b> with the other retailer. Transfer will be
+        carried out automatically. </p>
+
     <p>If both you and the other retailer decide to engage in a transfer, this will happen:</p>
 
-    <p>If you face excess demand:</p>
+    <p><b>If you face excess demand (Order > Demand): </b></p>
     <ol>
-        <li> If the other retailer has excess inventory, they will transfer it to you.</li>
+        <li> If the other retailer has excess inventory, it is transferred to you.</li>
         <li> If your excess demand is higher than or equal to the other retailer's excess inventory, all the other retailer's excess inventory is
             transferred to you.
         </li>
         <li> If your excess demand is lower than the other retailer's excess inventory, only the units required to satisfy your demand are
-            transferred. You
-            can satisfy customer demand fully.
+            transferred. You can satisfy customer demand fully.
         </li>
     </ol>
+
     <p> For every unit transferred to you, you pay a transfer cost of <b>12 ECU</b> to the other retailer. </p>
 
-    <p>If you face excess inventory:</p>
+    <p><b>If you face excess inventory (Demand > Order): </b></p>
     <ol>
-        <li> If the other retailer has excess demand, you will transfer your inventory to them.</li>
+        <li> If the other retailer has excess demand, it is transferred to them.</li>
         <li> If your excess inventory is lower than or equal to the other retailer's excess demand, all your excess inventory is transferred to
             them.
         </li>
         <li> If your excess inventory is greater than the other retailer's excess demand, only the units required to satisfy the other retailer's
-            excess demand are transferred to them.
+            excess demand are transferred to them. They can satisfy customer demand fully.
         </li>
     </ol>
     <p> For every unit transferred to the other retailer, you receive a transfer price of <b>12 ECU</b>. </p>
@@ -38,7 +40,7 @@
 
     {# TODO [END] ADD IF FOR TREATMENT HERE #}
 
-    <p>If only you or the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will
+    <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will
         happen:</p>
     <ol>
         <li> No transfer of units takes place.</li>
