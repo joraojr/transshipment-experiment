@@ -30,6 +30,7 @@ ROOMS = [
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00,
     participation_fee=0.00,
+    num_rounds=20,
     treatments={
         "C1": {
             "decision_frequency": "PER_ROUND",

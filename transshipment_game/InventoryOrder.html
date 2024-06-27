@@ -1,7 +1,9 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Inventory Order
+    Task 2: Inventory Order
+    <p class="mt-3" style="font-size: large"> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</p>
+
 {% endblock %}
 {% block content %}
 
@@ -11,13 +13,11 @@
     {#    <script src="https://code.highcharts.com/modules/accessibility.js"></script>#}
 
 
-    <div class="container">
-        <b> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</b>
-
+    <div class="container-fluid">
         <div class="border rounded border-3">
             <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                    Your task is to make an inventory order decision to this round.
+                    Place an inventory order to meet customer demand.
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -44,44 +44,58 @@
             <div class="col-md-1"></div>
             <div class="col-md-6">
 
-                <table>
-                    <tr>
-                        <th>Revenue/Costs</th>
-                        <th>Description (The amount... )</th>
-                        <th>ECU</th>
-                    </tr>
-                    <tr>
-                        <td>Retail Price</td>
-                        <td>... you receive for each unit sold to consumers</td>
-                        <td>40</td>
-                    </tr>
-                    <tr>
-                        <td>Transfer Price</td>
-                        <td>... you receive from the other retailer for each unit transferred</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>Salvage Price</td>
-                        <td>... you receive for each unit that you do not sell or transfer</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>Procurement Cost</td>
-                        <td>... you have to pay per unit originally ordered</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Transfer Cost</td>
-                        <td>... you pay to the other retailer for each unit transferred to you</td>
-                        <td>12</td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <table>
+                        <tr>
+                            <th class="col-2">Revenue</th>
+                            <th>Description: The amount you receive ...</th>
+                            <th>ECU</th>
+                        </tr>
+                        <tr>
+                            <td>Retail</td>
+                            <td>... for each unit sold to consumers</td>
+                            <td>40</td>
+                        </tr>
+                        <tr>
+                            <td>Transfer</td>
+                            <td>... from the other retailer for each unit transferred</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>Salvage</td>
+                            <td>... for each unit that you do not sell or transfer</td>
+                            <td>10</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <table>
+                        <tr>
+                            <th class="col-2">Costs</th>
+                            <th>Description: The amount you pay ...</th>
+                            <th>ECU</th>
+                        </tr>
+                        <tr>
+                            <td>Procurement</td>
+                            <td>... per unit originally ordered</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>Transfer</td>
+                            <td>... to the other retailer for each unit transferred to you</td>
+                            <td>12</td>
+                        </tr>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
 
 
     <style>
+
+
         .otree-body {
             max-width: 1600px;
         }

@@ -1,11 +1,21 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Engage in a transfer
+    Task 1: Decide whether you want to engage in a transfer with the other retailer.
+    <p class="mt-3" style="font-size: large"> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</p>
 {% endblock %}
 {% block content %}
-    <p><b> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</b></p>
     {% formfields %}
     <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
+
+
+    <style>
+
+
+        .otree-title {
+            text-align: center;
+        }
+
+    </style>
 
 {% endblock %}

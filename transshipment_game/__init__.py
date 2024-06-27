@@ -1,14 +1,14 @@
 from otree.api import *
 
 doc = """
-Your app description
+Core Transshipment Game
 """
 
 
 class C(BaseConstants):
     NAME_IN_URL = 'transshipment_game'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 10
+    NUM_ROUNDS = 10  # TODO to make it dynamic
 
 
 class Subsession(BaseSubsession):
@@ -40,14 +40,14 @@ class Group(BaseGroup):
         if self.all_transfer_engagement_yes():
             self.transfer_engagement = True
             self.transfer_engagement_message_text = (
-                "You and the other retailer decided to engage in a transfer this round. <b>There will be a transfer in this round</b> if there is "
-                "excess demand or excess inventory."
+                "You and the other retailer decided to engage in a transfer."
+                "If there is excess demand or excess inventory, <b>a transfer will take place automatically. </b>"
             )
         else:
             self.transfer_engagement = False
             self.transfer_engagement_message_text = (
-                "You or the other retailer decided not to engage in a transfer this round. <b>There will be no transfer in this round</b> if "
-                "there is excess demand or excess inventory."
+                "You or the other retailer decided not to engage in a transfer."
+                "If there is excess demand or excess inventory, <b>there will be no transfer. </b>"
             )
 
 
@@ -61,7 +61,7 @@ class Player(BasePlayer):
         label="Your task is to make an inventory order decision this round.",
         blank=False,
         min=0,
-        max=230,
+        max=200,
     )
     demand = models.IntegerField()
     excess_demand = models.BooleanField()
@@ -120,7 +120,7 @@ class TransferEngagementResult(Page):
         }
 
 
-class ProcurementPhase(Page):
+class InventoryOrder(Page):
     form_model = 'player'
     form_fields = ['inventory_order']
 
@@ -158,41 +158,58 @@ class ResultsWaitPage(WaitPage):
 
             ##### STANDARD ################################################################################################
             p1.result_message_text = """
+                        <b> Your order and demand </b> <br>
                         You ordered {} units. <br>
-                        The current demand is {} units. <br>
-            """.format(p1.inventory_order, p1.demand)
+                        Current demand is {} units. <br>
+                        """.format(p1.inventory_order, p1.demand)
 
             if p1.extra == 0:
-                p1.result_message_text += "You have met your demand."
+                p1.result_message_text += "You have met your demand. <br>"
             ################################################################################################################
 
             else:
                 if p1.excess_demand:
-                    p1.result_message_text += "You have an excess demand of {} units. <br>".format(p1.demand - p1.inventory_order)
+                    p1.result_message_text += "Your excess demand is {} units ({} - {}). <br>".format(p1.demand - p1.inventory_order, p1.demand,
+                                                                                                      p1.inventory_order)
                 elif p1.excess_inventory:
-                    p1.result_message_text += "You have an excess inventory of {} units. <br>".format(p1.inventory_order - p1.demand)
+                    p1.result_message_text += "Your excess excess inventory is {} units ({} - {}). <br>".format(p1.inventory_order - p1.demand,
+                                                                                                                p1.inventory_order, p1.demand)
+
+                p1.result_message_text += """   
+                    <br> <b> Transfer Decision </b> <br>
+                """
 
                 if p1.group.transfer_engagement:
                     p1.result_message_text += "You and the other retailer decided to engage in a transfer this round. <br>"
+                    p1.result_message_text += """   
+                        <br> <b> Transfer Result </b> <br>
+                    """
                     if p1.excess_demand and p2.excess_inventory:
                         p1.received_units = p2.send_units = transfer_units = min(abs(p1.extra), p2.extra)
                         p1.result_message_text += (
-                            "The other retailer has an excess inventory.<br>"
-                            "The other retailer transfer to you {} units from their excess inventory to meet your current demand.").format(
-                            transfer_units)
+                            "The other retailer has excess inventory of {} units.<br>"
+                            "The other retailer transfer to you {} units from their excess inventory to meet your current demand.  <br>").format(
+                            p2.extra, transfer_units)
                     elif p1.excess_inventory and p2.excess_demand:
                         p2.received_units = p1.send_units = transfer_units = min(p1.extra, abs(p2.extra))
                         p1.result_message_text += (
-                            "The other retailer has an excess demand. <br> "
-                            "You transfer to the other retailer {} units from your excess inventory to meet their current demand.").format(
-                            transfer_units)
+                            "The other retailer has excess demand of {} units. <br> "
+                            "You transfer to the other retailer {} units from your excess inventory to meet their current demand.  <br>").format(
+                            abs(p2.extra), transfer_units)
+
                     elif p1.excess_inventory and p2.excess_inventory:
-                        p1.result_message_text += "The other retailer has an excess inventory therefore no units are transferred. <br>"
+                        p1.result_message_text += ("The other retailer has excess inventory.<br>"
+                                                   "You both have excess inventory. No units are transferred. <br>")
                     elif p1.excess_demand and p2.excess_demand:
-                        p1.result_message_text += "The other retailer has an excess demand therefore no units are transferred. <br>"
+                        p1.result_message_text += ("The other retailer has excess demand.<br>"
+                                                   "You both have excess demand. No units are transferred. <br>")
+                    elif (p1.excess_inventory or p1.excess_demand) and p2.extra == 0:
+                        p1.result_message_text += ("The other retailer met their demand.<br>"
+                                                   "No units are transferred. <br>")
 
                 else:
-                    p1.result_message_text += "You or the other retailer decided not to engage in a transfer this round. No units are transferred this round."
+                    p1.result_message_text += ("You or the other retailer decided not to engage in a transfer this round. <br>"
+                                               "No units are transferred this round. <br>")
 
 
 class Results(Page):
@@ -223,8 +240,11 @@ class Results(Page):
 
         total_payoff = total_price - total_cost
 
+        result_message_text = player.result_message_text + "<br> <b> Earnings </b> <br> You earned {} ECU this round".format(total_payoff)
+
+        print(result_message_text)
         return {
-            'result_message_text': player.result_message_text,
+            'result_message_text': result_message_text,
             'CURRENT_ROUND': player.round_number,
             'retail_price': [total_retail_units, total_retail_unit_price],
             'transfer_price': [player.send_units, total_transfer_units],
@@ -264,6 +284,6 @@ class RandomDraw(Page):
 # TODO ADD group matching waiting page as 1st
 
 page_sequence = [TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
-                 ProcurementPhase, ResultsWaitPage, Results,
+                 InventoryOrder, ResultsWaitPage, Results,
                  RandomDraw]
 # RandomDraw,RandomDrawResult]

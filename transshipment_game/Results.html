@@ -1,131 +1,145 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Result
+    Result of Task 2: Inventory Order
+    <p class="mt-3" style="font-size: large"> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</p>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <b> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</b>
+    <div class="container-fluid">
 
-        <div class="border rounded border-3">
-            <div class="row">
-                <div class="col-md-12" style="text-align: center">
-                    {{ player.result_message_text }}
+        <div class="row">
+
+            <div class="col-md-5">
+                <b> (1) Summary: </b>
+                <div class="border border-3 mb-4" style=" text-align: left">
+                    {{ result_message_text }}
+                </div>
+
+                <b> Formulas </b>
+
+                <div class="border border-3" style=" text-align: left">
+                    <b>Earnings</b> = Total Revenue - Total Cost <br>
+                    <b>Total Revenue </b> = Retail + Transfer + Salvage <br>
+                    <b>Total Cost </b> = Procurement + Transfer
                 </div>
             </div>
-        </div>
-        <br>
-        <b> Profits</b>
-        <div class="row">
-            <table>
-                <tr>
-                    <th>Profits (earnings)</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr>
-                    <td>Revenue (price)</td>
-                    <td>{{ total_price }}</td>
-                </tr>
-                <tr>
-                    <td>Costs</td>
-                    <td>{{ total_cost }}</td>
-                </tr>
-                <tr>
-                    <td><b>TOTAL</b></td>
-                    <td><b>{{ total_payoff }} </b></td>
-                </tr>
-            </table>
-        </div>
-        <br>
-        <br>
-        <b> Description of Revenue and Costs</b>
-        <div class="row">
-            <table>
-                <tr>
-                    <th>Revenue (price)</th>
-                    <th>Description (The amount ...)</th>
-                    <th>ECU</th>
-                    <th>Units</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr>
-                    <td>Retail</td>
-                    <td>... you receive for each unit sold to consumers</td>
-                    <td>40</td>
-                    <td>{{ retail_price.0 }}</td>
-                    <td>{{ retail_price.1 }}</td>
-                </tr>
-                <tr>
-                    <td>Transfer</td>
-                    <td>... you receive from the other retailer for each unit transferred</td>
-                    <td>12</td>
-                    <td>{{ transfer_price.0 }}</td>
-                    <td>{{ transfer_price.1 }}</td>
-                </tr>
-                <tr>
-                    <td>Salvage</td>
-                    <td>... you receive for each unit that you do not sell or transfer</td>
-                    <td>10</td>
-                    <td>{{ salvage_price.0 }}</td>
-                    <td>{{ salvage_price.1 }}</td>
-                </tr>
-                <tr>
-                    <td><b>TOTAL</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ total_price }}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="row">
-            <table>
-                <tr>
-                    <th>Costs</th>
-                    <th>Description (The amount ...)</th>
-                    <th>ECU</th>
-                    <th>Units</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr>
-                    <td>Procurement</td>
-                    <td>... you have to pay per unit originally ordered</td>
-                    <td>20</td>
-                    <td>{{ procurement_cost.0 }}</td>
-                    <td>{{ procurement_cost.1 }}</td>
-                </tr>
-                <tr>
-                    <td>Transfer</td>
-                    <td>... you pay to the other retailer for each unit transferred to you</td>
-                    <td>12</td>
-                    <td>{{ transfer_cost.0 }}</td>
-                    <td>{{ transfer_cost.1 }}</td>
-                </tr>
-                <tr>
-                    <td><b>TOTAL</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ total_cost }}</td>
-                </tr>
-            </table>
-        </div>
 
+            <div class="col-md-7">
+                <b> (2) Description of Earnings, Revenue, and Costs: </b>
+
+                <table>
+                    <tr>
+                        <th class="w-100">Earnings</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Revenue</td>
+                        <td>{{ total_price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Costs</td>
+                        <td>{{ total_cost }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>TOTAL</b></td>
+                        <td><b>{{ total_payoff }} </b></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <th class="col-2">Revenue</th>
+                        <th class="col-7">Description: The amount you receive ...</th>
+                        <th class="col">ECU</th>
+                        <th class="col">Units</th>
+                        <th class="col-2">Subtotal</th>
+                    </tr>
+                    <tr>
+                        <td>Retail</td>
+                        <td>... for each unit sold to consumers</td>
+                        <td>40</td>
+                        <td>{{ retail_price.0 }}</td>
+                        <td> 40*{{ retail_price.0 }}={{ retail_price.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Transfer</td>
+                        <td>... from the other retailer for each unit transferred</td>
+                        <td>12</td>
+                        <td>{{ transfer_price.0 }}</td>
+                        <td>12*{{ transfer_price.0 }}={{ transfer_price.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Salvage</td>
+                        <td>... for each unit that you do not sell or transfer</td>
+                        <td>10</td>
+                        <td>{{ salvage_price.0 }}</td>
+                        <td>10*{{ salvage_price.0 }}={{ salvage_price.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>TOTAL</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>{{ total_price }}</b></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <th class="col-2">Costs</th>
+                        <th class="col-7">Description: The amount you pay...</th>
+                        <th class="col">ECU</th>
+                        <th class="col">Units</th>
+                        <th class="col-2">Subtotal</th>
+                    </tr>
+                    <tr>
+                        <td>Procurement</td>
+                        <td>... per unit originally ordered</td>
+                        <td>20</td>
+                        <td>{{ procurement_cost.0 }}</td>
+                        <td>20*{{ procurement_cost.0 }}={{ procurement_cost.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Transfer</td>
+                        <td>... to the other retailer for each unit transferred to you</td>
+                        <td>12</td>
+                        <td>{{ transfer_cost.0 }}</td>
+                        <td> 12*{{ transfer_cost.0 }}={{ transfer_cost.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>TOTAL</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>{{ total_cost }}</b></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 
     <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
 
     <style>
 
+
+        .otree-body {
+            max-width: 1600px;
+        }
+
+        .otree-title {
+            text-align: center;
+        }
+
         table {
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         th, td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 6px;
             text-align: left;
         }
 
