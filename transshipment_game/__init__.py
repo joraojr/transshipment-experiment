@@ -20,7 +20,8 @@ def creating_session(subsession):
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
-        player.participant.inventory_order_history = [-1]
+        player.participant.inventory_order_history = []
+        player.participant.demand_history = []
         player.demand = random.randint(0, 200)
         # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
 
@@ -40,13 +41,13 @@ class Group(BaseGroup):
         if self.all_transfer_engagement_yes():
             self.transfer_engagement = True
             self.transfer_engagement_message_text = (
-                "You and the other retailer decided to engage in a transfer."
+                "You and the other retailer decided to engage in a transfer. "
                 "If there is excess demand or excess inventory, <b>a transfer will take place automatically. </b>"
             )
         else:
             self.transfer_engagement = False
             self.transfer_engagement_message_text = (
-                "You or the other retailer decided not to engage in a transfer."
+                "You or the other retailer decided not to engage in a transfer. "
                 "If there is excess demand or excess inventory, <b>there will be no transfer. </b>"
             )
 
@@ -58,7 +59,7 @@ class Player(BasePlayer):
         blank=False
     )
     inventory_order = models.IntegerField(
-        label="Your task is to make an inventory order decision this round.",
+        # label="Your task is to make an inventory order decision this round.",
         blank=False,
         min=0,
         max=200,
@@ -128,12 +129,14 @@ class InventoryOrder(Page):
     def vars_for_template(player: Player):
         return {
             'player_inventory_order_history': player.participant.inventory_order_history,
+            'player_demand_history': player.participant.demand_history,
             'CURRENT_ROUND': player.round_number,
         }
 
     @staticmethod
     def before_next_page(player, timeout_happened):
         player.participant.inventory_order_history.append(player.inventory_order)
+        player.participant.demand_history.append(player.demand)
 
 
 class ResultsWaitPage(WaitPage):
@@ -158,7 +161,7 @@ class ResultsWaitPage(WaitPage):
 
             ##### STANDARD ################################################################################################
             p1.result_message_text = """
-                        <b> Your order and demand </b> <br>
+                        <b> Your Order and Demand </b> <br>
                         You ordered {} units. <br>
                         Current demand is {} units. <br>
                         """.format(p1.inventory_order, p1.demand)

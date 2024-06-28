@@ -9,7 +9,7 @@ SESSION_CONFIGS = [
     dict(
         name='Testing',
         app_sequence=['introduction', 'transshipment_game'],
-        num_demo_participants=4,
+        num_demo_participants=2,
     ),
 ]
 
@@ -75,7 +75,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     doc="",
 )
 
-PARTICIPANT_FIELDS = ["treatment", "inventory_order_history"]
+PARTICIPANT_FIELDS = ["treatment", "inventory_order_history", "demand_history"]
 SESSION_FIELDS = []
 
 # ISO-639 code
