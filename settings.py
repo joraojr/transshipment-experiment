@@ -28,54 +28,92 @@ ROOMS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00,
-    participation_fee=0.00,
-    num_rounds=20,
+    real_world_currency_per_point=0.001,  # 0.05% => 2000 ECU = 1 EUR, 0.10% => 1000 ECU = 1 EUR
+    participation_fee=5.00,
+    draw_earnings_num_rounds=5,
+    num_rounds=20,  # TODO remove this
     treatments={
-        "C1": {
+        "C1_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
-            "values": (12, 12)
+            "roles": {
+                "identical": 12
+            },
         },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
 
-        # "C2": {
+        # "C1_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": {
+        #         "identical": 12
+        #     },
+        # },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+        #
+        # "C4_PER_ROUND": {
         #     "decision_frequency": "PER_ROUND",
-        #     "values": (21, 21)
-        # },  # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
-        # "C3": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (8, 8)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
-
-        # "C4": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (18, 24)
+        #     "roles": {
+        #         "non-identical": (18, 24)
+        #     }
         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C5": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (12, 40)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C6": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "values": (8, 32)
+        # "C4_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": {
+        #         "non-identical": (18, 24)
+        #     }
         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
 
-        # "C7": {
-        #     "decision_frequency": "ENFORCED",
-        #     "values": (18, 24)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C8": {
-        #     "decision_frequency": "ENFORCED",
-        #     "values": (12, 40)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C9": {
-        #     "decision_frequency": "ENFORCED",
-        #     "values": (8, 32)
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
     },
     doc="",
 )
 
-PARTICIPANT_FIELDS = ["treatment", "inventory_order_history", "demand_history"]
+# treatments={
+#         "C1": {
+#             "decision_frequency": "PER_ROUND",
+#             "roles": {
+#                 "identical": 12
+#             },
+#         },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+#
+#         # "C2": {
+#         #     "decision_frequency": "PER_ROUND",
+#         #     "values": (21, 21)
+#         # },  # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
+#
+#         # "C3": {
+#         #     "decision_frequency": "PER_ROUND",
+#         #     "values": (8, 8)
+#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
+#
+#         "C4": {
+#             "decision_frequency": "PER_ROUND",
+#             "roles": {
+#                 "non-identical": (18, 24)
+#             }
+#         },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+#
+#         # "C5": {
+#         #     "decision_frequency": "PER_ROUND",
+#         #     "values": (12, 40)
+#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+#         # "C6": {
+#         #     "decision_frequency": "PER_ROUND",
+#         #     "values": (8, 32)
+#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+#
+#         # "C7": {
+#         #     "decision_frequency": "ENFORCED",
+#         #     "values": (18, 24)
+#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+#         # "C8": {
+#         #     "decision_frequency": "ENFORCED",
+#         #     "values": (12, 40)
+#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+#         # "C9": {
+#         #     "decision_frequency": "ENFORCED",
+#         #     "values": (8, 32)
+#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+#     },
+
+PARTICIPANT_FIELDS = ["treatment", "inventory_order_history", "demand_history", "earnings_list", "draw_earnings_indexes", "drawn_earnings",
+                      "avg_earnings"]
 SESSION_FIELDS = []
 
 # ISO-639 code

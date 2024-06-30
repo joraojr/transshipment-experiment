@@ -6,9 +6,11 @@ Core Transshipment Game
 
 
 class C(BaseConstants):
+    import random
+
     NAME_IN_URL = 'transshipment_game'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 10  # TODO to make it dynamic
+    NUM_ROUNDS = 20  # TODO to make it dynamic
 
 
 class Subsession(BaseSubsession):
@@ -17,10 +19,12 @@ class Subsession(BaseSubsession):
 
 def creating_session(subsession):
     import random
+
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
         player.participant.inventory_order_history = []
+        player.participant.earnings_list = []
         player.participant.demand_history = []
         player.demand = random.randint(0, 200)
         # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
@@ -241,11 +245,12 @@ class Results(Page):
 
         # Payoff for this round
 
-        total_payoff = total_price - total_cost
+        earnings = total_price - total_cost
 
-        result_message_text = player.result_message_text + "<br> <b> Earnings </b> <br> You earned {} ECU this round".format(total_payoff)
+        result_message_text = player.result_message_text + "<br> <b> Earnings </b> <br> You earned {} ECU this round".format(earnings)
 
-        print(result_message_text)
+        player.participant.earnings_list.append(earnings)
+
         return {
             'result_message_text': result_message_text,
             'CURRENT_ROUND': player.round_number,
@@ -256,7 +261,7 @@ class Results(Page):
             'procurement_cost': [player.inventory_order, procurement_cost],
             'transfer_cost': [player.received_units, transfer_cost],
             'total_cost': total_cost,
-            'total_payoff': total_payoff
+            'earnings': earnings
 
         }
 
@@ -266,27 +271,49 @@ class RandomDraw(Page):
     def is_displayed(player):
         return player.round_number == C.NUM_ROUNDS
 
-    # @staticmethod
-    # def before_next_page(player, timeout_happened):
-    #     drawn_indices = [x - 1 for x in player.participant.drawn_rounds]
-    #     earnings_list = player.participant.earnings_list
-    #     player.drawn_earnings = str([earnings_list[i] for i in drawn_indices])
-    #     player.participant.drawn_earnings = [earnings_list[i] for i in drawn_indices]
-    #     player.participant.account_balance = round(sum(player.participant.drawn_earnings),2)
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        # Randomly draw rounds for the player payout
+        import random
+
+        drawn_indices = player.participant.draw_earnings_indexes = random.sample(
+            range(C.NUM_ROUNDS),
+            player.session.config['draw_earnings_num_rounds']
+        )
+
+        earnings_list = player.participant.earnings_list
+        drawn_earnings = [earnings_list[i] for i in drawn_indices]
+        player.participant.drawn_earnings = drawn_earnings
+        player.participant.avg_earnings = avg_earnings = sum(drawn_earnings) / len(drawn_earnings)
+
+        # Ensure the no negative payoff (At least the show-up fee must be paid)
+        player.participant.payoff = round(max(avg_earnings, 0))
+
+    def vars_for_template(player: Player):
+        return dict(
+            DRAW_EARNINGS_NUM_ROUNDS=player.session.config['draw_earnings_num_rounds'],
+            conversion_rate=1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+        )
 
 
-# class RandomDrawResult(Page):
-#     @staticmethod
-#     def is_displayed(player):
-#         return player.round_number == C.num_rounds
-#
-#     @staticmethod
-#     def vars_for_template(player: Player):
-#         return dict(total_payoff=round(player.participant.account_balance+2.50,2))
+class RandomDrawResult(Page):
+
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == C.NUM_ROUNDS
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(
+            avg_earnings=player.participant.avg_earnings,
+            payoff=player.participant.payoff_in_real_world_currency(),
+            total_payoff=player.participant.payoff_plus_participation_fee(),
+            conversion_rate=1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+        )
+
 
 # TODO ADD group matching waiting page as 1st
 
 page_sequence = [TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
                  InventoryOrder, ResultsWaitPage, Results,
-                 RandomDraw]
-# RandomDraw,RandomDrawResult]
+                 RandomDraw, RandomDrawResult]

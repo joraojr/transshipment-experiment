@@ -1,13 +1,18 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Final Result
+    Payout
 {% endblock %}
 {% block content %}
 
-    <p> Here goes the final results after the 20 rounds of exp.</p>
+    <p>Now,<b> {{ DRAW_EARNINGS_NUM_ROUNDS }} rounds</b> will be drawn randomly to define your payout. </p>
 
-    {% formfields %}
+    <p> Your payout will <b>equal to the sum of the earnings from those rounds</b> and an <b>additional €5.00</b> show-up fee.</p>
+
+    <p> Your average earning in ECU will be converted to Euros at a rate of <b>{{ conversion_rate }} ECU = €1</b>.
+
+    <p> Click Next for the random draw.</p>
+
     <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
 
 
