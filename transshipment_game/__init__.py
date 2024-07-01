@@ -24,11 +24,12 @@ def creating_session(subsession):
     import random
 
     # Randomly assign players to groups but keep the same id_in_group for all rounds
-    subsession.group_randomly(fixed_id_in_group=True)
+    # subsession.group_randomly(fixed_id_in_group=True)
 
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
+        player.transfer_price = player.participant.transfer_price
         player.participant.inventory_order_history = []
         player.participant.earnings_list = []
         player.participant.demand_history = []
@@ -65,6 +66,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     treatment = models.StringField()
+    transfer_price = models.IntegerField()
     transfer_engagement = models.BooleanField(
         label="Decide whether you want to engage in a transfer with the other retailer, in case you face excess demand or excess inventory.",
         blank=False
@@ -84,12 +86,13 @@ class Player(BasePlayer):
 
     result_message_text = models.StringField()
 
-    def get_other_players(self):
+    def get_matched_player(self):
         # Retrieve all players in the same group
         all_players = self.group.get_players()
         # Filter out the current player
         other_players = [p for p in all_players if p.id_in_group != self.id_in_group]
-        return other_players
+        # get the other player in the group (only 2 players in a group)
+        return other_players[0]
 
 
 # PAGES
@@ -142,7 +145,9 @@ class InventoryOrder(Page):
             'player_inventory_order_history': player.participant.inventory_order_history,
             'player_demand_history': player.participant.demand_history,
             'CURRENT_ROUND': player.round_number,
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
+            'p1_transfer_price': player.transfer_price,
+            'p2_transfer_price': player.get_matched_player().transfer_price
 
         }
 
@@ -170,7 +175,7 @@ class ResultsWaitPage(WaitPage):
             p.extra = p.inventory_order - p.demand
 
         for p1 in group.get_players():
-            p2 = p1.get_other_players()[0]  # get the other player in the group (only 2 players in a group)
+            p2 = p1.get_matched_player()
 
             ##### STANDARD ################################################################################################
             p1.result_message_text = """
@@ -241,7 +246,7 @@ class Results(Page):
         total_retail_units = retail_units + player.received_units
         total_retail_unit_price = total_retail_units * 40
 
-        total_transfer_units = player.send_units * 12
+        total_transfer_units = player.send_units * player.get_matched_player().transfer_price
 
         total_savage_units = max(0, player.inventory_order - player.demand - player.send_units)
         total_savage_unit_price = total_savage_units * 10
@@ -251,7 +256,7 @@ class Results(Page):
         # Costs for this round
 
         procurement_cost = player.inventory_order * 20
-        transfer_cost = player.received_units * 12
+        transfer_cost = player.received_units * player.transfer_price
 
         total_cost = procurement_cost + transfer_cost
 
@@ -274,7 +279,9 @@ class Results(Page):
             'transfer_cost': [player.received_units, transfer_cost],
             'total_cost': total_cost,
             'earnings': earnings,
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
+            'p1_transfer_price': player.transfer_price,
+            'p2_transfer_price': player.get_matched_player().transfer_price
 
         }
 

@@ -9,7 +9,7 @@ Introduction to the Transshipment Game
 
 class C(BaseConstants):
     NAME_IN_URL = 'introduction'
-    PLAYERS_PER_GROUP = None
+    PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     MAIN_GAME_NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
     TREATMENTS = settings.GAME_CONFIG_DEFAULTS["treatments"]
@@ -27,12 +27,18 @@ def creating_session(subsession):
     if subsession.round_number == 1:
         players = subsession.get_players()
         treatment = next(treatments)
+        transfer_price = itertools.cycle(C.TREATMENTS[treatment]["transfer_price"])
+
         for i, player in enumerate(players):
             player.treatment = player.participant.treatment = treatment
+            player.transfer_price = player.participant.transfer_price = next(transfer_price)
+            # player.role = "A"
 
             # Ensure that each 2 player get the same treatment
             if i % 2 == 1:
                 treatment = next(treatments)
+                transfer_price = itertools.cycle(C.TREATMENTS[treatment]["transfer_price"])
+
 
     else:
         subsession.group_like_round(1)
@@ -44,6 +50,16 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     treatment = models.StringField()
+    transfer_price = models.IntegerField()
+
+    def get_matched_player(self):
+        # Retrieve all players in the same group
+        all_players = self.group.get_players()
+        # Filter out the current player
+        other_players = [p for p in all_players if p.id_in_group != self.id_in_group]
+
+        # get the other player in the group (only 2 players in a group)
+        return other_players[0]
 
 
 # PAGES
@@ -68,7 +84,10 @@ class Instructions1(Page):
 class Instructions2(Page):
     def vars_for_template(player: Player):
         return {
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
+            'p1_transfer_price': player.transfer_price,
+            'p2_transfer_price': player.get_matched_player().transfer_price
+
         }
 
 

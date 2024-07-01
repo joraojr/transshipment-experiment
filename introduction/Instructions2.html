@@ -29,9 +29,7 @@
         </li>
     </ol>
 
-    {# TODO ADD IF FOR TREATMENT HERE #}
-
-    <p> For every unit transferred to you, you pay a transfer cost of <b>12 ECU</b> to the other retailer. </p>
+    <p> For every unit transferred to you, you pay a transfer cost of <b>{{ p1_transfer_price }} ECU</b> to the other retailer. </p>
 
     <p><b>If you face excess inventory (Demand > Order): </b></p>
     <ol>
@@ -43,10 +41,10 @@
             excess demand are transferred to them. They can satisfy customer demand fully.
         </li>
     </ol>
-    <p> For every unit transferred to the other retailer, you receive a transfer price of <b>12 ECU</b>. </p>
+    <p> For every unit transferred to the other retailer, you receive a transfer price of <b>{{ p2_transfer_price }} ECU</b>. </p>
+
     <p> For every unit in your excess inventory that is not transferred to the other retailer, you receive a salvage price of <b>10 ECU</b>.</p>
 
-    {# TODO ADD IF FOR TREATMENT HERE #}
 
     {% if decision_frequency == "PER_ROUND" %}
 

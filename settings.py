@@ -9,7 +9,7 @@ SESSION_CONFIGS = [
     dict(
         name='Testing',
         app_sequence=['introduction', 'transshipment_game'],
-        num_demo_participants=4,
+        num_demo_participants=2,
     ),
 ]
 
@@ -28,14 +28,14 @@ ROOMS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=0.001,  # 0.05% => 2000 ECU = 1 EUR, 0.10% => 1000 ECU = 1 EUR
+    real_world_currency_per_point=0.0005,  # 0.05% => 2000 ECU = 1 EUR, 0.10% => 1000 ECU = 1 EUR
     participation_fee=5.00,
     draw_earnings_num_rounds=5,
     doc="",
 )
 
-PARTICIPANT_FIELDS = ["treatment", "inventory_order_history", "demand_history", "earnings_list", "draw_earnings_indexes", "drawn_earnings",
-                      "avg_earnings"]
+PARTICIPANT_FIELDS = ["treatment", "transfer_price", "inventory_order_history", "demand_history", "earnings_list", "draw_earnings_indexes",
+                      "drawn_earnings", "avg_earnings"]
 SESSION_FIELDS = []
 
 # ISO-639 code
@@ -57,25 +57,23 @@ SECRET_KEY = '6733260475510'
 GAME_CONFIG_DEFAULTS = dict(
     num_rounds=5,
     treatments={
-        "C1_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": {
-                "identical": 12
-            },
-        },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-        "C1_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": {
-                "identical": 12
-            },
-        },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-        #
-        # "C4_PER_ROUND": {
+        # "C1_PER_ROUND": {
         #     "decision_frequency": "PER_ROUND",
+        #     "roles": "identical",
+        #     "transfer_price": [12]
+        # },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+        # "C1_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
         #     "roles": {
-        #         "non-identical": (18, 24)
-        #     }
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        #         "identical": 12
+        #     },
+        # },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+        #
+        "C4_PER_ROUND_NON_IDENTICAL": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [18, 24]
+        },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
         # "C4_ENFORCED": {
         #     "decision_frequency": "ENFORCED",
         #     "roles": {
