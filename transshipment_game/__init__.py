@@ -1,5 +1,7 @@
 from otree.api import *
 
+import settings
+
 doc = """
 Core Transshipment Game
 """
@@ -10,7 +12,8 @@ class C(BaseConstants):
 
     NAME_IN_URL = 'transshipment_game'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 20  # TODO to make it dynamic
+    NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
+    TREATMENTS = settings.GAME_CONFIG_DEFAULTS["treatments"]
 
 
 class Subsession(BaseSubsession):
@@ -19,6 +22,9 @@ class Subsession(BaseSubsession):
 
 def creating_session(subsession):
     import random
+
+    # Randomly assign players to groups but keep the same id_in_group for all rounds
+    subsession.group_randomly(fixed_id_in_group=True)
 
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
@@ -29,8 +35,9 @@ def creating_session(subsession):
         player.demand = random.randint(0, 200)
         # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
 
-    # Randomly assign players to groups but keep the same id_in_group for all rounds
-    subsession.group_randomly(fixed_id_in_group=True)
+        if C.TREATMENTS[player.treatment]["decision_frequency"] == "ENFORCED":
+            player.transfer_engagement = True
+            player.group.transfer_engagement = True
 
 
 class Group(BaseGroup):
@@ -92,7 +99,7 @@ class TransferEngagement(Page):
 
     @staticmethod
     def is_displayed(player):
-        return player.session.config['treatments'][player.treatment]["decision_frequency"] == "PER_ROUND"
+        return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
 
     @staticmethod
     def vars_for_template(self):
@@ -104,7 +111,7 @@ class TransferEngagement(Page):
 class TransferEngagementResultsWaitPage(WaitPage):
     @staticmethod
     def is_displayed(player):
-        return player.session.config['treatments'][player.treatment]["decision_frequency"] == "PER_ROUND"
+        return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
 
     @staticmethod
     def after_all_players_arrive(group: Group):
@@ -114,7 +121,7 @@ class TransferEngagementResultsWaitPage(WaitPage):
 class TransferEngagementResult(Page):
     @staticmethod
     def is_displayed(player):
-        return player.session.config['treatments'][player.treatment]["decision_frequency"] == "PER_ROUND"
+        return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -135,6 +142,8 @@ class InventoryOrder(Page):
             'player_inventory_order_history': player.participant.inventory_order_history,
             'player_demand_history': player.participant.demand_history,
             'CURRENT_ROUND': player.round_number,
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+
         }
 
     @staticmethod
@@ -182,12 +191,14 @@ class ResultsWaitPage(WaitPage):
                     p1.result_message_text += "Your excess excess inventory is {} units ({} - {}). <br>".format(p1.inventory_order - p1.demand,
                                                                                                                 p1.inventory_order, p1.demand)
 
-                p1.result_message_text += """   
-                    <br> <b> Transfer Decision </b> <br>
-                """
-
+                if C.TREATMENTS[p1.treatment]["decision_frequency"] == "PER_ROUND":
+                    p1.result_message_text += """   
+                        <br> <b> Transfer Decision </b> <br>
+                    """
                 if p1.group.transfer_engagement:
-                    p1.result_message_text += "You and the other retailer decided to engage in a transfer this round. <br>"
+                    if C.TREATMENTS[p1.treatment]["decision_frequency"] == "PER_ROUND":
+                        p1.result_message_text += "You and the other retailer decided to engage in a transfer this round. <br>"
+
                     p1.result_message_text += """   
                         <br> <b> Transfer Result </b> <br>
                     """
@@ -215,8 +226,9 @@ class ResultsWaitPage(WaitPage):
                                                    "No units are transferred. <br>")
 
                 else:
-                    p1.result_message_text += ("You or the other retailer decided not to engage in a transfer this round. <br>"
-                                               "No units are transferred this round. <br>")
+                    if C.TREATMENTS[p1.treatment]["decision_frequency"] == "PER_ROUND":
+                        p1.result_message_text += ("You or the other retailer decided not to engage in a transfer this round. <br>"
+                                                   "No units are transferred this round. <br>")
 
 
 class Results(Page):
@@ -261,7 +273,8 @@ class Results(Page):
             'procurement_cost': [player.inventory_order, procurement_cost],
             'transfer_cost': [player.received_units, transfer_cost],
             'total_cost': total_cost,
-            'earnings': earnings
+            'earnings': earnings,
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
 
         }
 
@@ -287,7 +300,7 @@ class RandomDraw(Page):
         player.participant.avg_earnings = avg_earnings = sum(drawn_earnings) / len(drawn_earnings)
 
         # Ensure the no negative payoff (At least the show-up fee must be paid)
-        player.participant.payoff = round(max(avg_earnings, 0))
+        player.participant.payoff = cu(round(max(avg_earnings, 0)))
 
     def vars_for_template(player: Player):
         return dict(

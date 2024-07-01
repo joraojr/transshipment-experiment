@@ -5,12 +5,18 @@
 {% endblock %}
 {% block content %}
 
-    {# TODO [START] ADD IF FOR TREATMENT HERE #}
+    {% if decision_frequency == "PER_ROUND" %}
 
-    <p>To deal with excess inventory and excess demand, you can decide to <b> engage in a transfer </b> with the other retailer. Transfer will be
-        carried out automatically. </p>
+        <p>To deal with excess inventory and excess demand, you can decide to <b> engage in a transfer </b> with the other retailer. Transfer will be
+            carried out automatically. </p>
 
-    <p>If both you and the other retailer decide to engage in a transfer, this will happen:</p>
+        <p>If both you and the other retailer decide to engage in a transfer, this will happen:</p>
+
+    {% elif decision_frequency == "ENFORCED" %}
+
+        <p>To deal with excess inventory and excess demand, you and the other retailer will <b> engage in a transfer</b>. Transfer will be carried
+            out automatically. This will happen: </p>
+    {% endif %}
 
     <p><b>If you face excess demand (Order > Demand): </b></p>
     <ol>
@@ -22,6 +28,8 @@
             transferred. You can satisfy customer demand fully.
         </li>
     </ol>
+
+    {# TODO ADD IF FOR TREATMENT HERE #}
 
     <p> For every unit transferred to you, you pay a transfer cost of <b>12 ECU</b> to the other retailer. </p>
 
@@ -38,17 +46,21 @@
     <p> For every unit transferred to the other retailer, you receive a transfer price of <b>12 ECU</b>. </p>
     <p> For every unit in your excess inventory that is not transferred to the other retailer, you receive a salvage price of <b>10 ECU</b>.</p>
 
-    {# TODO [END] ADD IF FOR TREATMENT HERE #}
+    {# TODO ADD IF FOR TREATMENT HERE #}
 
-    <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will
-        happen:</p>
-    <ol>
-        <li> No transfer of units takes place.</li>
-        <li> If you face excess demand, none of your excess demand is met.</li>
-        <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>
-    </ol>
+    {% if decision_frequency == "PER_ROUND" %}
 
-    {% formfields %}
+        <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will
+            happen:</p>
+        <ol>
+            <li> No transfer of units takes place.</li>
+            <li> If you face excess demand, none of your excess demand is met.</li>
+            <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>
+        </ol>
+    {% endif %}
+
+
+
     <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
 
 {% endblock %}

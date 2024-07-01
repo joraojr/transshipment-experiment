@@ -1,7 +1,11 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Result of Task 2: Inventory Order
+    {% if decision_frequency == "PER_ROUND" %}
+        Result of Task 2: Inventory Order
+    {% elif decision_frequency == "ENFORCED" %}
+        Result of Task 1: Inventory Order
+    {% endif %}
     <p class="mt-3" style="font-size: large"> ROUND {{ CURRENT_ROUND }}/{{ C.NUM_ROUNDS }}</p>
 {% endblock %}
 

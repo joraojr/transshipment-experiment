@@ -1,5 +1,7 @@
 from otree.api import *
 
+import settings
+
 doc = """
 Introduction to the Transshipment Game
 """
@@ -9,6 +11,8 @@ class C(BaseConstants):
     NAME_IN_URL = 'introduction'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
+    MAIN_GAME_NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
+    TREATMENTS = settings.GAME_CONFIG_DEFAULTS["treatments"]
 
 
 class Subsession(BaseSubsession):
@@ -18,12 +22,17 @@ class Subsession(BaseSubsession):
 def creating_session(subsession):
     # Assign Treatments to the players
     import itertools
-    treatments = itertools.cycle(subsession.session.config['treatments'].keys())
+    treatments = itertools.cycle(C.TREATMENTS.keys())
 
     if subsession.round_number == 1:
         players = subsession.get_players()
-        for player in players:
-            player.treatment = player.participant.treatment = next(treatments)
+        treatment = next(treatments)
+        for i, player in enumerate(players):
+            player.treatment = player.participant.treatment = treatment
+
+            # Ensure that each 2 player get the same treatment
+            if i % 2 == 1:
+                treatment = next(treatments)
 
     else:
         subsession.group_like_round(1)
@@ -44,9 +53,8 @@ class Welcome(Page):
 
 class Introduction(Page):
     def vars_for_template(self):
-        MAIN_GAME_NUM_ROUNDS = self.session.config['num_rounds']
         return {
-            'MAIN_GAME_NUM_ROUNDS': MAIN_GAME_NUM_ROUNDS,
+            'MAIN_GAME_NUM_ROUNDS': C.MAIN_GAME_NUM_ROUNDS,
             'show_up_fee': self.session.config['participation_fee'],
             'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
             'draw_earnings_num_rounds': self.session.config['draw_earnings_num_rounds']
@@ -58,11 +66,17 @@ class Instructions1(Page):
 
 
 class Instructions2(Page):
-    pass
+    def vars_for_template(player: Player):
+        return {
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+        }
 
 
 class Instructions3(Page):
-    pass
+    def vars_for_template(player: Player):
+        return {
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+        }
 
 
 class Comprehension1(Page):

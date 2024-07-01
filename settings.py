@@ -9,7 +9,7 @@ SESSION_CONFIGS = [
     dict(
         name='Testing',
         app_sequence=['introduction', 'transshipment_game'],
-        num_demo_participants=2,
+        num_demo_participants=4,
     ),
 ]
 
@@ -31,7 +31,31 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=0.001,  # 0.05% => 2000 ECU = 1 EUR, 0.10% => 1000 ECU = 1 EUR
     participation_fee=5.00,
     draw_earnings_num_rounds=5,
-    num_rounds=20,  # TODO remove this
+    doc="",
+)
+
+PARTICIPANT_FIELDS = ["treatment", "inventory_order_history", "demand_history", "earnings_list", "draw_earnings_indexes", "drawn_earnings",
+                      "avg_earnings"]
+SESSION_FIELDS = []
+
+# ISO-639 code
+# for example: de, fr, ja, ko, zh-hans
+LANGUAGE_CODE = 'en'
+
+# e.g. EUR, GBP, CNY, JPY
+REAL_WORLD_CURRENCY_CODE = 'EUR'
+USE_POINTS = True
+
+ADMIN_USERNAME = 'admin'
+# for security, best to set admin password in an environment variable
+ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+
+DEMO_PAGE_INTRO_HTML = """ """
+
+SECRET_KEY = '6733260475510'
+
+GAME_CONFIG_DEFAULTS = dict(
+    num_rounds=5,
     treatments={
         "C1_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
@@ -39,13 +63,12 @@ SESSION_CONFIG_DEFAULTS = dict(
                 "identical": 12
             },
         },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-
-        # "C1_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": {
-        #         "identical": 12
-        #     },
-        # },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+        "C1_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": {
+                "identical": 12
+            },
+        },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
         #
         # "C4_PER_ROUND": {
         #     "decision_frequency": "PER_ROUND",
@@ -61,7 +84,6 @@ SESSION_CONFIG_DEFAULTS = dict(
         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
 
     },
-    doc="",
 )
 
 # treatments={
@@ -111,23 +133,3 @@ SESSION_CONFIG_DEFAULTS = dict(
 #         #     "values": (8, 32)
 #         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
 #     },
-
-PARTICIPANT_FIELDS = ["treatment", "inventory_order_history", "demand_history", "earnings_list", "draw_earnings_indexes", "drawn_earnings",
-                      "avg_earnings"]
-SESSION_FIELDS = []
-
-# ISO-639 code
-# for example: de, fr, ja, ko, zh-hans
-LANGUAGE_CODE = 'en'
-
-# e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'EUR'
-USE_POINTS = True
-
-ADMIN_USERNAME = 'admin'
-# for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-
-DEMO_PAGE_INTRO_HTML = """ """
-
-SECRET_KEY = '6733260475510'

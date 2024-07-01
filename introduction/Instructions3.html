@@ -5,28 +5,51 @@
 {% endblock %}
 {% block content %}
 
-    <p> Each round starts with <b>two tasks</b> for you and the other retailer to perform:</p>
-    <ol>
-        <li> Decide whether you want to engage in a transfer with the other retailer.</li>
-        <li> Place an inventory order to satisfy customer demand.</li>
-    </ol>
+    {% if decision_frequency == "PER_ROUND" %}
+        <p> Each round starts with <b>two tasks</b> for you and the other retailer to perform:</p>
+        <ol>
+            <li> Decide whether you want to engage in a transfer with the other retailer.</li>
+            <li> Place an inventory order to satisfy customer demand.</li>
+        </ol>
 
-    <p>After you have performed the two tasks, the round proceeds in <b>three stages</b>: </p>
-    <ol>
-        <li>Customer demand for your product is drawn and displayed to you. Customer demand for the other retailer is drawn and displayed to
-            the other retailer.
-        </li>
-        <li> Customer demand for your product is met from the inventory you ordered in task (2). Customer demand for the other retailer's product is
-            met from the other retailer's inventory ordered in task (2).
-        </li>
-        <li> If you or the other retailer face excess demand or excess inventory and both of you decided to engage in a transfer in task (1), excess
-            demand and excess inventory will be matched and transferred as described before. The transfer will be carried out automatically.
-        </li>
-    </ol>
+        <p>After you have performed the two tasks, the round proceeds in <b>three stages</b>: </p>
+        <ol>
+            <li>Customer demand for your product is drawn and displayed to you. Customer demand for the other retailer is drawn and displayed to
+                the other retailer.
+            </li>
+            <li> Customer demand for your product is met from the inventory you ordered in task (2). Customer demand for the other retailer's product
+                is met from the other retailer's inventory ordered in task (2).
+            </li>
+            <li> If you or the other retailer face excess demand or excess inventory and both of you decided to engage in a transfer in task (1),
+                excess demand and excess inventory will be matched and transferred as described before. The transfer will be carried out
+                automatically.
+            </li>
+        </ol>
 
-    <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
+        <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
 
-    {#    You can earn from satisfying customer demand: Units sold to customers x retail price - procurement cost per unit x inventory ordered "#}
+    {% elif decision_frequency == "ENFORCED" %}
+
+        <p> Each round starts with <b>one task</b> for you and the other retailer to perform:</p>
+        <ol>
+            <li> Place an inventory order to satisfy customer demand.</li>
+        </ol>
+
+        <p>After you have performed the task, the round proceeds in <b>three stages</b>: </p>
+        <ol>
+            <li>Customer demand for your product is drawn and displayed to you. Customer demand for the other retailer is drawn and displayed to
+                the other retailer.
+            </li>
+            <li> Customer demand for your product is met from the inventory you ordered in task (1). Customer demand for the other retailer's product
+                is met from the other retailer's inventory ordered in task (1).
+            </li>
+            <li> If you or the other retailer face excess demand or excess inventory, excess demand and excess inventory will be matched and
+                transferred as described before. The transfer will be carried out automatically.
+            </li>
+        </ol>
+
+        <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
+    {% endif %}
 
     {% formfields %}
     <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
