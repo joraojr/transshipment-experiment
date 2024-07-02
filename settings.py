@@ -9,7 +9,7 @@ SESSION_CONFIGS = [
     dict(
         name='Testing',
         app_sequence=['introduction', 'transshipment_game'],
-        num_demo_participants=2,
+        num_demo_participants=1 * 2,
     ),
 ]
 
@@ -57,77 +57,92 @@ SECRET_KEY = '6733260475510'
 GAME_CONFIG_DEFAULTS = dict(
     num_rounds=5,
     treatments={
-        # "C1_PER_ROUND": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "roles": "identical",
-        #     "transfer_price": [12]
-        # },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-        # "C1_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": {
-        #         "identical": 12
-        #     },
-        # },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-        #
-        "C4_PER_ROUND_NON_IDENTICAL": {
+        # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+        "C1_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "identical",
+            "transfer_price": [12]
+        },
+
+        "C1_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "identical",
+            "transfer_price": [12]
+        },
+        ##################################################
+
+        # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
+        "C2_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "identical",
+            "transfer_price": [21]
+        },
+        "C2_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "identical",
+            "transfer_price": [21]
+        },
+        ##################################################
+
+        # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
+
+        "C3_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "identical",
+            "transfer_price": [8]
+        },
+
+        "C3_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "identical",
+            "transfer_price": [8]
+        },
+
+        ##################################################
+
+        # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        "C4_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
             "transfer_price": [18, 24]
-        },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-        # "C4_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": {
-        #         "non-identical": (18, 24)
-        #     }
-        # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        },
 
-    },
+        "C4_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [18, 24]
+        },
+        ##################################################
+
+        # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+        "C5_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [12, 40]
+        },
+
+        "C5_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [12, 40]
+        },
+
+        ##################################################
+
+        # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
+
+        "C6_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [8, 32]
+        },
+
+        "C6_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [8, 32]
+        },
+        ##################################################
+
+    }
 )
-
-# treatments={
-#         "C1": {
-#             "decision_frequency": "PER_ROUND",
-#             "roles": {
-#                 "identical": 12
-#             },
-#         },  # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
-#
-#         # "C2": {
-#         #     "decision_frequency": "PER_ROUND",
-#         #     "values": (21, 21)
-#         # },  # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
-#
-#         # "C3": {
-#         #     "decision_frequency": "PER_ROUND",
-#         #     "values": (8, 8)
-#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
-#
-#         "C4": {
-#             "decision_frequency": "PER_ROUND",
-#             "roles": {
-#                 "non-identical": (18, 24)
-#             }
-#         },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-#
-#         # "C5": {
-#         #     "decision_frequency": "PER_ROUND",
-#         #     "values": (12, 40)
-#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-#         # "C6": {
-#         #     "decision_frequency": "PER_ROUND",
-#         #     "values": (8, 32)
-#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-#
-#         # "C7": {
-#         #     "decision_frequency": "ENFORCED",
-#         #     "values": (18, 24)
-#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-#         # "C8": {
-#         #     "decision_frequency": "ENFORCED",
-#         #     "values": (12, 40)
-#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-#         # "C9": {
-#         #     "decision_frequency": "ENFORCED",
-#         #     "values": (8, 32)
-#         # },  # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
-#     },

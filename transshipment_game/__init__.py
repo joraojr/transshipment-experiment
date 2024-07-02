@@ -1,31 +1,26 @@
 from otree.api import *
 
 import settings
+import random
 
 doc = """
-Core Transshipment Game
+Core Transshipment Game for 2 players with different treatments and transfer prices
 """
 
 
 class C(BaseConstants):
-    import random
-
     NAME_IN_URL = 'transshipment_game'
-    PLAYERS_PER_GROUP = 2
+    PLAYERS_PER_GROUP = 2  # This game only work for 2 participants working playing together
     NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
     TREATMENTS = settings.GAME_CONFIG_DEFAULTS["treatments"]
 
 
+########### SUBSESSIONS HERE ############################################
 class Subsession(BaseSubsession):
     pass
 
 
 def creating_session(subsession):
-    import random
-
-    # Randomly assign players to groups but keep the same id_in_group for all rounds
-    # subsession.group_randomly(fixed_id_in_group=True)
-
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
@@ -40,6 +35,65 @@ def creating_session(subsession):
             player.transfer_engagement = True
             player.group.transfer_engagement = True
 
+    if subsession.round_number > 1:
+        group_by_treatment_and_price(subsession)
+
+
+def group_by_treatment_and_price(subsession: Subsession):
+    players = subsession.get_players()
+    treatments = C.TREATMENTS
+
+    # Create a dictionary to hold groups by treatment
+    treatment_groups = {key: [] for key in treatments.keys()}
+
+    # Sort players into treatment groups
+    for player in players:
+        treatment_groups[player.treatment].append(player)
+
+    new_group_matrix = []
+
+    # Create groups for each treatment based on transfer prices
+    for treatment, group in treatment_groups.items():
+
+        if treatments[treatment]["roles"] == "identical":
+            # Shuffle the players within each treatment group to randomize
+            random.shuffle(group)
+
+            # Group players according to the defined players_per_group
+            for i in range(0, len(group), C.PLAYERS_PER_GROUP):
+                players_to_group = group[i:i + C.PLAYERS_PER_GROUP]
+                new_group_matrix.append([p.id_in_subsession for p in players_to_group])
+
+        elif treatments[treatment]["roles"] == "non-identical":
+            transfer_prices = treatments[treatment]["transfer_price"]
+
+            # Create sub-groups for each transfer price
+            sub_groups = {price: [] for price in transfer_prices}
+            for player in group:
+                sub_groups[player.transfer_price].append(player)
+
+            # Shuffle the players within each transfer price group to randomize
+            for sub_group in sub_groups.values():
+                random.shuffle(sub_group)
+
+            # Create pairs with different transfer prices
+            grouped_players = []
+            while sub_groups[transfer_prices[0]] and sub_groups[transfer_prices[1]]:
+                grouped_players.append([
+                    sub_groups[transfer_prices[0]].pop(),
+                    sub_groups[transfer_prices[1]].pop()
+                ])
+
+            # Create the new group matrix
+            for group in grouped_players:
+                new_group_matrix.append([p.id_in_subsession for p in group])
+
+    subsession.set_group_matrix(new_group_matrix)
+
+
+#############################################################
+
+################# GROUP #######################################
 
 class Group(BaseGroup):
     transfer_engagement = models.BooleanField()
@@ -63,6 +117,10 @@ class Group(BaseGroup):
                 "If there is excess demand or excess inventory, <b>there will be no transfer. </b>"
             )
 
+
+##################################################################
+
+###################### PLAYER ####################################
 
 class Player(BasePlayer):
     treatment = models.StringField()
@@ -95,7 +153,9 @@ class Player(BasePlayer):
         return other_players[0]
 
 
-# PAGES
+#############################################################
+
+####### PAGES ###############################################
 class TransferEngagement(Page):
     form_model = 'player'
     form_fields = ['transfer_engagement']
@@ -294,8 +354,6 @@ class RandomDraw(Page):
     @staticmethod
     def before_next_page(player, timeout_happened):
         # Randomly draw rounds for the player payout
-        import random
-
         drawn_indices = player.participant.draw_earnings_indexes = random.sample(
             range(C.NUM_ROUNDS),
             player.session.config['draw_earnings_num_rounds']
@@ -332,7 +390,9 @@ class RandomDrawResult(Page):
         )
 
 
-# TODO ADD group matching waiting page as 1st
+#############################################################
+
+##ORDER#######################################################
 
 page_sequence = [TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
                  InventoryOrder, ResultsWaitPage, Results,
