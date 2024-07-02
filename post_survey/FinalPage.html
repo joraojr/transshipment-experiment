@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    Part 3: Exit Questionnaire - Final page
+{% endblock %}
+{% block content %}
+
+    <p>Thank you for participating in the experiment. You have completed experiment. </p>
+
+    <p> Your earned {{ payoff }} from the {{ DRAW_EARNINGS_NUM_ROUNDS }} randomly chosen rounds. </p>
+
+    <p> You received a {{ show_up_fee }} show-up fee for you participation. Your payout is {{ total_with_showup }} €.</p>
+
+    <p><b>Please wait, you will be automatically redirected to enter your payment information. </b></p>
+
+
+    {#    <script type="text/javascript">#}
+    {#        $(document).ready(function () {#}
+    {#            var additional_info = $('#additional_info').val();#}
+    {#            window.setTimeout(function () {#}
+    {#                window.location.href = 'https://soscisurvey.wu.ac.at/livestreaming/?ID=' + additional_info;#}
+    {#            }, 20000);#}
+    {#        });#}
+
+    {#    </script>#}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.setTimeout(function () {
+                window.location.href = 'https://dontpad.com/exp_trasnshipment_WU';
+            }, 20000);
+        });
+
+    </script>
+{% endblock %}

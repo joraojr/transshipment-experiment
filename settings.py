@@ -4,11 +4,16 @@ SESSION_CONFIGS = [
     dict(
         name='Transshipment_Game',
         app_sequence=['introduction', 'transshipment_game', 'post_survey'],
-        num_demo_participants=20,
+        num_demo_participants=24,
     ),
     dict(
         name='Testing',
-        app_sequence=['introduction', 'transshipment_game'],
+        app_sequence=['introduction', 'transshipment_game', 'post_survey'],
+        num_demo_participants=1 * 2,
+    ),
+    dict(
+        name='Testing_post_survey',
+        app_sequence=['post_survey'],
         num_demo_participants=1 * 2,
     ),
 ]

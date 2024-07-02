@@ -1,0 +1,24 @@
+{% extends "global/Forms.html" %}
+
+{% block title %}
+    Part 3: Exit Questionnaire
+{% endblock %}
+{% block content %}
+    <hr>
+    {{ form.gender.label }}
+    {{ form.gender }}
+    <br><br>
+    {{ form.age.label }}
+    {{ form.age }}
+    <br><br>
+    {{ form.subject.label }}
+    {{ form.subject }}
+    <br><br>
+    {{ form.religion.label }}
+    {{ form.religion }}
+    <br><br>
+    <hr>
+
+    {% next_button %}
+
+{% endblock %}
