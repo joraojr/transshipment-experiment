@@ -156,6 +156,17 @@ class Player(BasePlayer):
 #############################################################
 
 ####### PAGES ###############################################
+class Introduction(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1
+
+    def vars_for_template(self):
+        return {
+            'MAIN_GAME_NUM_ROUNDS': C.NUM_ROUNDS,
+        }
+
+
 class TransferEngagement(Page):
     form_model = 'player'
     form_fields = ['transfer_engagement']
@@ -371,6 +382,8 @@ class RandomDraw(Page):
         return dict(
             DRAW_EARNINGS_NUM_ROUNDS=player.session.config['draw_earnings_num_rounds'],
             conversion_rate=1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            show_up_fee=player.session.config['participation_fee'],
+
         )
 
 
@@ -387,6 +400,8 @@ class RandomDrawResult(Page):
             payoff=player.participant.payoff_in_real_world_currency(),
             total_payoff=player.participant.payoff_plus_participation_fee(),
             conversion_rate=1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            show_up_fee=player.session.config['participation_fee'],
+
         )
 
 
@@ -394,6 +409,6 @@ class RandomDrawResult(Page):
 
 ##ORDER#######################################################
 
-page_sequence = [TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
+page_sequence = [Introduction, TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
                  InventoryOrder, ResultsWaitPage, Results,
                  RandomDraw, RandomDrawResult]

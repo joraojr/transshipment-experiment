@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    Part 2: Experiment Task
+{% endblock %}
+{% block content %}
+
+    <p> You have completed Part 1. </p>
+    <p> In Part 2, you play {{ MAIN_GAME_NUM_ROUNDS }} rounds of the experiment task. </p>
+    <p> Please click "Next" to start with Part 2. </p>
+
+    {% next_button %}
+
+{% endblock %}

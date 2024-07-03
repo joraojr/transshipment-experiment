@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
     dict(
         name='Transshipment_Game',
         app_sequence=['introduction', 'transshipment_game', 'post_survey'],
-        num_demo_participants=24,
+        num_demo_participants=2,
     ),
     dict(
         name='Testing',
