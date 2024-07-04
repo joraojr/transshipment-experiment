@@ -11,8 +11,15 @@
 
     <p> You received a {{ show_up_fee }} show-up fee for you participation. Your payout is <b>{{ total_payoff }} </b>.</p>
 
-    <p><b>Please wait, you will be automatically redirected to enter your payment information. </b></p>
+    <p><b>Please wait, you will be automatically redirected to enter your payment information in <span id="countdown">20</span> seconds. </b></p>
 
+
+    <style>
+        #countdown {
+            color: red;
+            font-size: 1.3em;
+        }
+    </style>
 
     {#    <script type="text/javascript">#}
     {#        $(document).ready(function () {#}
@@ -26,10 +33,18 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            window.setTimeout(function () {
-                window.location.href = 'https://dontpad.com/exp_trasnshipment_WU';
-            }, 20000);
-        });
+            var countdown = 20; // countdown time in seconds
+            var countdownElement = document.getElementById('countdown');
 
+            var interval = setInterval(function () {
+                countdown--;
+                countdownElement.textContent = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    window.location.href = 'https://dontpad.com/exp_trasnshipment_WU';
+                }
+            }, 1000);
+        });
     </script>
 {% endblock %}
