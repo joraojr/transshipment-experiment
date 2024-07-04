@@ -28,7 +28,7 @@ ROOMS = [
 ]
 
 GAME_CONFIG_DEFAULTS = dict(
-    num_rounds=5,
+    num_rounds=10,
     treatments={
         # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
         "C1_PER_ROUND": {
@@ -37,11 +37,11 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [12]
         },
 
-        "C1_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "identical",
-            "transfer_price": [12]
-        },
+        # "C1_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "identical",
+        #     "transfer_price": [12]
+        # },
         ##################################################
 
         # (T>S) => PER_ROUNDS_WITHIN_STANDARD (IDENTICAL)
@@ -50,11 +50,11 @@ GAME_CONFIG_DEFAULTS = dict(
             "roles": "identical",
             "transfer_price": [21]
         },
-        "C2_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "identical",
-            "transfer_price": [21]
-        },
+        # "C2_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "identical",
+        #     "transfer_price": [21]
+        # },
         ##################################################
 
         # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (IDENTICAL)
@@ -65,11 +65,11 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [8]
         },
 
-        "C3_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "identical",
-            "transfer_price": [8]
-        },
+        # "C3_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "identical",
+        #     "transfer_price": [8]
+        # },
 
         ##################################################
 
@@ -80,11 +80,11 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [18, 24]
         },
 
-        "C4_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [18, 24]
-        },
+        # "C4_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_price": [18, 24]
+        # },
         ##################################################
 
         # (T<S) => PER_ROUNDS_STRICTLY_BELLOW (NON- IDENTICAL)
@@ -94,11 +94,11 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [12, 40]
         },
 
-        "C5_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [12, 40]
-        },
+        # "C5_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_price": [12, 40]
+        # },
 
         ##################################################
 
@@ -110,11 +110,11 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [8, 32]
         },
 
-        "C6_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [8, 32]
-        },
+        # "C6_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_price": [8, 32]
+        # },
         ##################################################
 
     }
@@ -132,8 +132,8 @@ SESSION_CONFIG_DEFAULTS = dict(
     doc="",
 )
 
-PARTICIPANT_FIELDS = ["treatment", "transfer_price", "inventory_order_history", "demand_history", "earnings_list", "draw_earnings_indexes",
-                      "drawn_earnings", "avg_earnings"]
+PARTICIPANT_FIELDS = ["treatment", "transfer_price", "comprehension_activity", "inventory_order_history", "demand_history", "earnings_list",
+                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings"]
 SESSION_FIELDS = []
 
 # ISO-639 code

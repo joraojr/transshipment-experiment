@@ -68,10 +68,10 @@
 
             var questions = [
                 "How is customer demand for your product determined each round?",
-                "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",
+                "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",// TODO ONLY PER_ROUND
                 "You can carry over excess inventory from one round to the next.",
                 "What is the procurement cost per unit that you pay to the supplier when ordering inventory?",
-                "If you and the other retailer decide to engage in a transfer, and you have an excess demand, you will always be able to meet it fully."
+                "If you and the other retailer decide to engage in a transfer, and you have an excess demand, you will always be able to meet it fully." // TODO ONLY PER_ROUND
             ];
 
             var answers_data = {
@@ -83,7 +83,12 @@
                         "It depends on the other retailer's demand."
                     ],
                     "correct": 2,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "This answer is incorrect. Please correct your answer.", "Your answer is correct.", "This answer is incorrect. Please correct your answer."],
+                    "prompts": [
+                        "This answer is incorrect. Please correct your answer.",
+                        "This answer is incorrect. Please correct your answer.",
+                        "Your answer is correct.",
+                        "This answer is incorrect. Please correct your answer."
+                    ],
                     "showtable": false
                 },
                 "second": {
@@ -95,7 +100,12 @@
                     ]
                     ,
                     "correct": 1,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct", "This answer is incorrect. Please correct your answer.", "Your answer is correct", "This answer is incorrect. Please correct your answer."],
+                    "prompts": [
+                        "This answer is incorrect. Please correct your answer.",
+                        "Your answer is correct",
+                        "This answer is incorrect. Please correct your answer.",
+                        "This answer is incorrect. Please correct your answer.",
+                    ],
                     "showtable": false
                 },
                 "third": {
@@ -104,7 +114,10 @@
                         "False"
                     ],
                     "correct": 1,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct."],
+                    "prompts": [
+                        "This answer is incorrect. Please correct your answer.",
+                        "Your answer is correct."
+                    ],
                     "showtable": false
                 },
                 "fourth": {
@@ -115,7 +128,12 @@
                         "25 ECU",
                     ],
                     "correct": 2,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "This answer is incorrect. Please correct your answer.", "Your answer is correct.", "This answer is incorrect. Please correct your answer."],
+                    "prompts": [
+                        "This answer is incorrect. Please correct your answer.",
+                        "This answer is incorrect. Please correct your answer.",
+                        "Your answer is correct.",
+                        "This answer is incorrect. Please correct your answer."
+                    ],
                     "showtable": false
                 },
                 "fifth": {
@@ -124,7 +142,10 @@
                         "False",
                     ],
                     "correct": 1,
-                    "prompts": ["This answer is incorrect. Please correct your answer.", "Your answer is correct."],
+                    "prompts": [
+                        "This answer is incorrect. Please correct your answer.",
+                        "Your answer is correct."
+                    ],
                     "showtable": false
                 }
             };
@@ -156,9 +177,6 @@
                 $("#prompt_box").removeClass("alert-danger");
                 $("#prompt_box").hide();
 
-                // TODO save the information form the CQ
-                // liveSend({'which_option': parseInt(1000), 'which_question': parseInt(i)});
-
                 for (var j = 0; j < answers_length; j++) {
                     $("#answer_box").append('<p data-answer-option="' + j + '" class="answer_option"><input type="radio" name="radio_group" value="' + j + '"><label for="option' + j + '">' + current_answers[j] + '</label></p>');
                 }
@@ -188,11 +206,15 @@
                     $(".otree-btn-next").prop('disabled', true);
                     $(".next_question").prop('disabled', true);
                 }
+
             });
 
 
             $(".next_question").on("click", function () {
                 $("#prompt_box").html(current_data["prompts"][selected_option]);
+
+                liveSend({'question_id': current_key, 'selected_option': parseInt(selected_option)});
+
                 if (selected_option != correct_option) {
                     event.preventDefault();
                     $("#prompt_box").removeClass("alert-success").addClass("alert-danger").slideDown(200);
@@ -205,6 +227,9 @@
 
             $(".otree-btn-next").on("click", function () {
                 $("#prompt_box").html(current_data["prompts"][selected_option]);
+
+                liveSend({'question_id': current_key, 'selected_option': parseInt(selected_option)});
+
                 if (selected_option != correct_option) {
                     event.preventDefault();
                     $("#prompt_box").removeClass("alert-success").addClass("alert-danger").slideDown(200);

@@ -1,6 +1,7 @@
 from otree.api import *
 
 import settings
+import time
 
 doc = """
 Introduction to the Transshipment Game
@@ -99,11 +100,23 @@ class Instructions3(Page):
 
 
 class Comprehension1(Page):
-    pass
+    def before_next_page(player, timeout_happened):
+        epoch_time = int(time.time())
+        to_export = ["initialize", epoch_time]
+        player.participant.comprehension_activity = [to_export]
 
 
 class Comprehension2(Page):
-    pass
+    @staticmethod
+    def live_method(player, data):
+        epoch_time = int(time.time())
+        to_export = [data["question_id"], data["selected_option"], epoch_time]
+        player.participant.comprehension_activity.append(to_export)
+
+    def before_next_page(player, timeout_happened):
+        epoch_time = int(time.time())
+        to_export = ["end", epoch_time]
+        player.participant.comprehension_activity.append(to_export)
 
 
 page_sequence = [Welcome, Introduction, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]

@@ -9,3 +9,7 @@ div {
 .otree-btn-next {
     float: right;
 }
+
+body {
+    background-color: #edf1f5; /*  f8f9fa*/
+}

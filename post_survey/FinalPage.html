@@ -21,16 +21,6 @@
         }
     </style>
 
-    {#    <script type="text/javascript">#}
-    {#        $(document).ready(function () {#}
-    {#            var additional_info = $('#additional_info').val();#}
-    {#            window.setTimeout(function () {#}
-    {#                window.location.href = 'https://soscisurvey.wu.ac.at/livestreaming/?ID=' + additional_info;#}
-    {#            }, 20000);#}
-    {#        });#}
-
-    {#    </script>#}
-
     <script type="text/javascript">
         $(document).ready(function () {
             var countdown = 20; // countdown time in seconds
@@ -42,6 +32,7 @@
 
                 if (countdown <= 0) {
                     clearInterval(interval);
+                    {#            var additional_info = $('#additional_info').val();#}
                     window.location.href = 'https://dontpad.com/exp_trasnshipment_WU';
                 }
             }, 1000);
