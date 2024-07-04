@@ -24,7 +24,7 @@
                     {% if player.group.transfer_engagement  and  decision_frequency == "PER_ROUND" %}
                         <b>OBS:</b> You and the other retailer <b>decided to engage</b> in a transfer.
                     {% elif not player.group.transfer_engagement  and  decision_frequency == "PER_ROUND" %}
-                        <b>OBS:</b> You or the other retailer <b>decided to not engage</b> in a transfer.
+                        <b>OBS:</b> You or the other retailer <b>decided not to engage</b> in a transfer.
                     {% endif %}
                 </div>
             </div>
@@ -216,7 +216,7 @@
                 min: 0,
                 max: 200,
                 title: {
-                    text: 'ECU'
+                    text: 'Units'
                 },
             },
             plotOptions: {
@@ -226,7 +226,7 @@
                 }
             },
             tooltip: {
-                valueSuffix: 'ECU'
+                valueSuffix: 'Units'
             },
             series: [
                 {

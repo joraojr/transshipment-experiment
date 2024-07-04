@@ -1,22 +1,22 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Payout
+    Part 2: Payout
 {% endblock %}
 {% block content %}
 
     <p>Now,<b> {{ DRAW_EARNINGS_NUM_ROUNDS }} rounds</b> will be drawn randomly to define your payout. </p>
 
-    <p> Your payout will <b>equal to the sum of the earnings from those rounds</b> and an <b>additional €5.00</b> show-up fee.</p>
+    <p> Your payout will be <b>equal to the average earnings in ECU from those rounds</b> and an <b>additional {{ show_up_fee }}</b> show-up fee.</p>
 
     <p> Your average earning in ECU will be converted to Euros at a rate of <b>{{ conversion_rate }} ECU = €1</b>.
 
-    <p> In case you have a negative average earning in ECU, only the show-up will you be paid to you. <b> That means that you minimum payout for the
+    <p> In case you have a negative average earning in ECU, only the show-up will you be paid to you. <b> That means that your minimum payout for the
         experiment is {{ show_up_fee }}</b></p>
 
-    <p> Click Next for the random draw.</p>
+    <p> Click "Next" to start the random draw.</p>
 
-    <button class="otree-btn-next btn btn-primary" style="float: right;">Next</button>
+    {% next_button %}
 
 
 {% endblock %}

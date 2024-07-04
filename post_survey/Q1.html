@@ -8,25 +8,25 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Question</th>
-            <th class="text-center"> 0 </th>
-            <th class="text-center"> 1 </th>
-            <th class="text-center"> 2 </th>
-            <th class="text-center"> 3 </th>
-            <th class="text-center"> 4 </th>
-            <th class="text-center"> 5 </th>
-            <th class="text-center"> 6 </th>
-            <th class="text-center"> 7 </th>
-            <th class="text-center"> 8 </th>
-            <th class="text-center"> 9 </th>
-            <th class="text-center"> 10 </th>
+            <th>Question: In a scale from 0 to 10, ...</th>
+            <th class="text-center"> 0</th>
+            <th class="text-center"> 1</th>
+            <th class="text-center"> 2</th>
+            <th class="text-center"> 3</th>
+            <th class="text-center"> 4</th>
+            <th class="text-center"> 5</th>
+            <th class="text-center"> 6</th>
+            <th class="text-center"> 7</th>
+            <th class="text-center"> 8</th>
+            <th class="text-center"> 9</th>
+            <th class="text-center"> 10</th>
         </tr>
         </thead>
 
         <tbody>
         {% for field in form %}
             <tr>
-                <th>{{ field.label }}</th>
+                <th> {{ field.label }}</th>
                 {% for choice in field %}
                     <td class="text-center">{{ choice }}</td>
                 {% endfor %}

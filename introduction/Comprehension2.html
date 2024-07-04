@@ -63,6 +63,9 @@
 
             {# Modify this array to include additional comprehension question#}
 
+            // TODO change the CQ for the ENFORCED TREATMENT
+
+
             var questions = [
                 "How is customer demand for your product determined each round?",
                 "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",
@@ -153,7 +156,8 @@
                 $("#prompt_box").removeClass("alert-danger");
                 $("#prompt_box").hide();
 
-                // liveSend({'which_option': parseInt(1000), 'which_question': parseInt(i)});#}
+                // TODO save the information form the CQ
+                // liveSend({'which_option': parseInt(1000), 'which_question': parseInt(i)});
 
                 for (var j = 0; j < answers_length; j++) {
                     $("#answer_box").append('<p data-answer-option="' + j + '" class="answer_option"><input type="radio" name="radio_group" value="' + j + '"><label for="option' + j + '">' + current_answers[j] + '</label></p>');
