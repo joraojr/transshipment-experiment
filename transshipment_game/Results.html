@@ -61,21 +61,21 @@
                     </tr>
                     <tr>
                         <td>Retail</td>
-                        <td>... for each unit sold to consumers</td>
+                        <td>... for each unit sold to consumers.</td>
                         <td>40</td>
                         <td>{{ retail_price.0 }}</td>
                         <td> 40*{{ retail_price.0 }}={{ retail_price.1 }}</td>
                     </tr>
                     <tr>
                         <td>Transfer</td>
-                        <td>... from the other retailer for each unit transferred</td>
+                        <td>... from the other retailer for each unit transferred.</td>
                         <td>{{ p2_transfer_price }}</td>
                         <td>{{ transfer_price.0 }}</td>
                         <td>{{ p2_transfer_price }}*{{ transfer_price.0 }}={{ transfer_price.1 }}</td>
                     </tr>
                     <tr>
                         <td>Salvage</td>
-                        <td>... for each unit that you do not sell or transfer</td>
+                        <td>... for each unit that you do not sell or transfer.</td>
                         <td>10</td>
                         <td>{{ salvage_price.0 }}</td>
                         <td>10*{{ salvage_price.0 }}={{ salvage_price.1 }}</td>
@@ -99,14 +99,14 @@
                     </tr>
                     <tr>
                         <td>Procurement</td>
-                        <td>... per unit originally ordered</td>
+                        <td>... per unit originally ordered from the supplier.</td>
                         <td>20</td>
                         <td>{{ procurement_cost.0 }}</td>
                         <td>20*{{ procurement_cost.0 }}={{ procurement_cost.1 }}</td>
                     </tr>
                     <tr>
                         <td>Transfer</td>
-                        <td>... to the other retailer for each unit transferred to you</td>
+                        <td>... to the other retailer for each unit transferred to you.</td>
                         <td>{{ p1_transfer_price }}</td>
                         <td>{{ transfer_cost.0 }}</td>
                         <td> {{ p1_transfer_price }}*{{ transfer_cost.0 }}={{ transfer_cost.1 }}</td>

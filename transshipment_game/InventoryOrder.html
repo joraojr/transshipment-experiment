@@ -22,25 +22,24 @@
                 <div class="col-md-12" style="text-align: center">
                     <h4>Place an inventory order to meet customer demand.</h4>
                     {% if player.group.transfer_engagement  and  decision_frequency == "PER_ROUND" %}
-                        <b>OBS:</b> You and the other retailer <b>decided to engage</b> in a transfer.
+                        <b>NOTE:</b> You and the other retailer <b>decided to engage</b> in a transfer.
                     {% elif not player.group.transfer_engagement  and  decision_frequency == "PER_ROUND" %}
-                        <b>OBS:</b> You or the other retailer <b>decided not to engage</b> in a transfer.
+                        <b>NOTE:</b> You or the other retailer <b>decided not to engage</b> in a transfer.
                     {% endif %}
                 </div>
             </div>
             <div class="col-md-2"></div>
 
-            <div class="row justify-content-center">
-                <div class="col-md-3 text-end">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+                <div class="text-center text-md-end me-md-3 mb-2 mb-md-0">
                     <b>Your Order: </b>
                 </div>
-                <div class="col-md-2">
+                <div class="me-md-3 mb-2 mb-md-0">
                     {% form.inventory_order %}
                 </div>
-                <div class="col-md-1">
+                <div>
                     <button class="otree-btn-next btn btn-primary">Send</button>
                 </div>
-                <div class="col-md-2"></div>
             </div>
         </div>
 
@@ -61,17 +60,17 @@
                         </tr>
                         <tr>
                             <td>Retail</td>
-                            <td>... for each unit sold to consumers</td>
+                            <td>... for each unit sold to consumers.</td>
                             <td>40</td>
                         </tr>
                         <tr>
                             <td>Transfer</td>
-                            <td>... from the other retailer for each unit transferred</td>
+                            <td>... from the other retailer for each unit transferred.</td>
                             <td>{{ p2_transfer_price }}</td>
                         </tr>
                         <tr>
                             <td>Salvage</td>
-                            <td>... for each unit that you do not sell or transfer</td>
+                            <td>... for each unit that you do not sell or transfer.</td>
                             <td>10</td>
                         </tr>
                     </table>
@@ -85,12 +84,12 @@
                         </tr>
                         <tr>
                             <td>Procurement</td>
-                            <td>... per unit originally ordered</td>
+                            <td>... per unit originally ordered from the supplier.</td>
                             <td>20</td>
                         </tr>
                         <tr>
                             <td>Transfer</td>
-                            <td>... to the other retailer for each unit transferred to you</td>
+                            <td>... to the other retailer for each unit transferred to you.</td>
                             <td>{{ p1_transfer_price }}</td>
                         </tr>
                     </table>

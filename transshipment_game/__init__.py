@@ -21,22 +21,24 @@ class Subsession(BaseSubsession):
 
 
 def creating_session(subsession):
+    if subsession.round_number == 1:
+        for player in subsession.get_players():
+            # Initialize participant fields
+            player.participant.inventory_order_history = []
+            player.participant.earnings_list = []
+            player.participant.demand_history = []
+    else:
+        group_by_treatment_and_price(subsession)
+
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
         player.transfer_price = player.participant.transfer_price
-        player.participant.inventory_order_history = []
-        player.participant.earnings_list = []
-        player.participant.demand_history = []
         player.demand = random.randint(0, 200)
         # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
-
         if C.TREATMENTS[player.treatment]["decision_frequency"] == "ENFORCED":
             player.transfer_engagement = True
             player.group.transfer_engagement = True
-
-    if subsession.round_number > 1:
-        group_by_treatment_and_price(subsession)
 
 
 def group_by_treatment_and_price(subsession: Subsession):
@@ -48,7 +50,7 @@ def group_by_treatment_and_price(subsession: Subsession):
 
     # Sort players into treatment groups
     for player in players:
-        treatment_groups[player.treatment].append(player)
+        treatment_groups[player.participant.treatment].append(player)
 
     new_group_matrix = []
 
@@ -67,10 +69,10 @@ def group_by_treatment_and_price(subsession: Subsession):
         elif treatments[treatment]["roles"] == "non-identical":
             transfer_prices = treatments[treatment]["transfer_price"]
 
-            # Create sub-groups for each transfer price
+            # Create subgroups for each transfer price
             sub_groups = {price: [] for price in transfer_prices}
             for player in group:
-                sub_groups[player.transfer_price].append(player)
+                sub_groups[player.participant.transfer_price].append(player)
 
             # Shuffle the players within each transfer price group to randomize
             for sub_group in sub_groups.values():
