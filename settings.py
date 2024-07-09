@@ -11,6 +11,11 @@ SESSION_CONFIGS = [
         app_sequence=['introduction', 'transshipment_game'],
         num_demo_participants=1 * 2,
     ),
+    dict(
+        name='post_survey',
+        app_sequence=['post_survey'],
+        num_demo_participants=1 * 2,
+    ),
 ]
 
 ROOMS = [
@@ -25,26 +30,25 @@ ROOMS = [
 GAME_CONFIG_DEFAULTS = dict(
     num_rounds=20,
     treatments={
-        # (T=S) => PER_ROUNDS_STANDARD_BOUND (IDENTICAL) [CONTROL]
+        # PRETESTING:
 
-        # "C1_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "identical",
-        #     "transfer_price": [12]
-        # },
-
-        # "C6_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "non-identical",
-        #     "transfer_price": [8, 32]
-        # },
+        "C4_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [18, 24]
+        },
 
         "C6_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
             "transfer_price": [8, 32]
         },
-#
+
+        "C1_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "identical",
+            "transfer_price": [12]
+        },
     }
 )
 
@@ -54,7 +58,7 @@ GAME_CONFIG_DEFAULTS = dict(
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=0.001,  # 0.05% => 2000 ECU = 1 EUR, 0.10% => 1000 ECU = 1 EUR
+    real_world_currency_per_point=0.001,  # 0.05% => 2000 ECU = 1 EUR, 0.10% => 1000 ECU = 1 EUR,
     participation_fee=5.00,
     draw_earnings_num_rounds=5,
     doc="",
