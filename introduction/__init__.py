@@ -107,6 +107,11 @@ class Comprehension1(Page):
 
 
 class Comprehension2(Page):
+    def vars_for_template(player: Player):
+        return {
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
+        }
+
     @staticmethod
     def live_method(player, data):
         epoch_time = int(time.time())
