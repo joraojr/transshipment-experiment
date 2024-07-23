@@ -266,8 +266,8 @@ class ResultsWaitPage(WaitPage):
                     p1.result_message_text += "Your excess demand is {} units ({} - {}). <br>".format(p1.demand - p1.inventory_order, p1.demand,
                                                                                                       p1.inventory_order)
                 elif p1.excess_inventory:
-                    p1.result_message_text += "Your excess excess inventory is {} units ({} - {}). <br>".format(p1.inventory_order - p1.demand,
-                                                                                                                p1.inventory_order, p1.demand)
+                    p1.result_message_text += "Your excess inventory is {} units ({} - {}). <br>".format(p1.inventory_order - p1.demand,
+                                                                                                         p1.inventory_order, p1.demand)
 
                 if C.TREATMENTS[p1.treatment]["decision_frequency"] == "PER_ROUND":
                     p1.result_message_text += """   
@@ -284,7 +284,7 @@ class ResultsWaitPage(WaitPage):
                         p1.received_units = p2.send_units = transfer_units = min(abs(p1.extra), p2.extra)
                         p1.result_message_text += (
                             "The other retailer has excess inventory of {} units.<br>"
-                            "The other retailer transfer to you {} units from their excess inventory to meet your current demand.  <br>").format(
+                            "The other retailer transfer {} units to you from their excess inventory to meet your current demand.  <br>").format(
                             p2.extra, transfer_units)
                     elif p1.excess_inventory and p2.excess_demand:
                         p2.received_units = p1.send_units = transfer_units = min(p1.extra, abs(p2.extra))
