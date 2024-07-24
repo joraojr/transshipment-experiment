@@ -215,8 +215,9 @@ class InventoryOrder(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'player_inventory_order_history': player.participant.inventory_order_history,
-            'player_demand_history': player.participant.demand_history,
+            # 'player_inventory_order_history': player.participant.inventory_order_history,
+            # 'player_demand_history': player.participant.demand_history,
+            'player_earnings_list': player.participant.earnings_list,
             'CURRENT_ROUND': player.round_number,
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
             'p1_transfer_price': player.transfer_price,

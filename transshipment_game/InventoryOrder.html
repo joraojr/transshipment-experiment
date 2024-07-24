@@ -196,7 +196,7 @@
                 type: 'column',
             },
             title: {
-                text: 'Your order/demand history',
+                text: 'Your earning history',
                 align: 'left'
             },
 
@@ -212,10 +212,10 @@
 
             },
             yAxis: {
-                min: 0,
-                max: 200,
+                {#min: 0,#}
+                {#max: 200,#}
                 title: {
-                    text: 'Units'
+                    text: 'ECU'
                 },
             },
             plotOptions: {
@@ -225,17 +225,22 @@
                 }
             },
             tooltip: {
-                valueSuffix: 'Units'
+                valueSuffix: 'ECU'
             },
             series: [
+                {#{#}
+                {#    name: 'Order',#}
+                {#    data: {{player_inventory_order_history}}#}
+                {# },#}
+                {#{#}
+                {#    name: 'Demand',#}
+                {#    data: {{player_demand_history}}#}
+                {# },#}
+                {##}
                 {
-                    name: 'Order',
-                    data: {{player_inventory_order_history}}
+                    name: 'Earnings',
+                    data: {{player_earnings_list}}
                 },
-                {
-                    name: 'Demand',
-                    data: {{player_demand_history}}
-                }
             ]
 
         });
