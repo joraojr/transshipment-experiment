@@ -124,4 +124,8 @@ class Comprehension2(Page):
         player.participant.comprehension_activity.append(to_export)
 
 
-page_sequence = [Welcome, Introduction, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]
+class Demo(Page):
+    pass
+
+
+page_sequence = [Welcome, Introduction, Instructions1, Instructions2, Instructions3, Demo, Comprehension1, Comprehension2]
