@@ -30,12 +30,63 @@
             </div>
 
             <div class="col-md-7">
-                <b> (2) Description of Earnings, Revenue, and Costs: </b>
+                <b> (2) Description of Revenue, Costs, and Earnings: </b>
+                <div class="border border-3 mb-4" style=" text-align: left; background-color: #FFFFFF">
+                    <p>
+                        <b>Retail Revenue</b> <br>
+                        You earn 40 ECU for each unit sold to consumers. <br>
+                        You sold {{ retail_price.0 }} units. <br>
+                        Your total revenue from retail is: <b>40 * {{ retail_price.0 }}
+                        = {{ retail_price.1 }} ECU</b>
+                    </p>
 
-                <table>
+                    <p>
+                        <b>Transfer Revenue</b> <br>
+                        You receive {{ p2_transfer_price }} ECU from the other retailer for each unit transferred to them. <br>
+                        You transferred {{ transfer_price.0 }} units <br>
+                        Your total revenue from transfers is: <b>{{ p2_transfer_price }}
+                        * {{ transfer_price.0 }} = {{ transfer_price.1 }} ECU</b>
+                    </p>
+
+                    <p>
+                        <b>Salvage Revenue</b><br>
+                        For each unit you do not sell or transfer, you earn 10 ECU. <br>
+                        You have {{ salvage_price.0 }} unsold units. <br>
+                        Your salvage revenue is: <b>10 * {{ salvage_price.0 }}
+                        = {{ salvage_price.1 }} ECU</b>
+                    </p>
+
+                    <p><b>Total Revenue</b> <br>
+                        Your overall revenue is the sum of retail, transfer, and salvage revenues: <b>  {{ retail_price.1 }} + {{ transfer_price.1 }}
+                            + {{ salvage_price.1 }} = {{ total_price }} ECU</b>
+                    </p>
+                </div>
+
+                <div class="border border-3 mb-4" style=" text-align: left; background-color: #FFFFFF">
+                    <p>
+                        <b>Procurement Costs</b> <br>
+                        You pay 20 ECU for each unit originally ordered from the supplier. <br>
+                        You ordered {{ procurement_cost.0 }} units. <br>
+                        Your procurement costs is: <b>20 * {{ procurement_cost.0 }} = {{ procurement_cost.1 }} ECU</b>
+                    </p>
+
+                    <p>
+                        <b>Transfer Costs</b> <br>
+                        You pay {{ p1_transfer_price }} ECU to the other retailer for each unit transferred to you. <br>
+                        You received {{ transfer_cost.0 }} units. <br>
+                        Your transfer costs is: <b>{{ p1_transfer_price }} * {{ transfer_cost.0 }} = {{ transfer_cost.1 }} ECU</b>
+                    </p>
+
+                    <p><b>Total Costs</b> <br>
+                        Your overall costs include procurement and transfer costs: <b> {{ procurement_cost.1 }} + {{ transfer_cost.1 }}
+                            = {{ total_cost }} ECU</b>
+                    </p>
+                </div>
+
+                <table class="mb-4">
                     <tr>
                         <th class="w-100">Earnings</th>
-                        <th></th>
+                        <th> ECU</th>
                     </tr>
                     <tr>
                         <td>Revenue</td>
@@ -50,76 +101,8 @@
                         <td><b>{{ earnings }} </b></td>
                     </tr>
                 </table>
-
-                <table>
-                    <tr>
-                        <th class="col-2">Revenue</th>
-                        <th class="col-7">Description: The amount you receive ...</th>
-                        <th class="col">ECU</th>
-                        <th class="col">Units</th>
-                        <th class="col-2">Subtotal</th>
-                    </tr>
-                    <tr>
-                        <td>Retail</td>
-                        <td>... for each unit sold to consumers.</td>
-                        <td>40</td>
-                        <td>{{ retail_price.0 }}</td>
-                        <td> 40*{{ retail_price.0 }}={{ retail_price.1 }}</td>
-                    </tr>
-                    <tr>
-                        <td>Transfer</td>
-                        <td>... from the other retailer for each unit transferred.</td>
-                        <td>{{ p2_transfer_price }}</td>
-                        <td>{{ transfer_price.0 }}</td>
-                        <td>{{ p2_transfer_price }}*{{ transfer_price.0 }}={{ transfer_price.1 }}</td>
-                    </tr>
-                    <tr>
-                        <td>Salvage</td>
-                        <td>... for each unit that you do not sell or transfer.</td>
-                        <td>10</td>
-                        <td>{{ salvage_price.0 }}</td>
-                        <td>10*{{ salvage_price.0 }}={{ salvage_price.1 }}</td>
-                    </tr>
-                    <tr>
-                        <td><b>TOTAL</b></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><b>{{ total_price }}</b></td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <th class="col-2">Costs</th>
-                        <th class="col-7">Description: The amount you pay...</th>
-                        <th class="col">ECU</th>
-                        <th class="col">Units</th>
-                        <th class="col-2">Subtotal</th>
-                    </tr>
-                    <tr>
-                        <td>Procurement</td>
-                        <td>... per unit originally ordered from the supplier.</td>
-                        <td>20</td>
-                        <td>{{ procurement_cost.0 }}</td>
-                        <td>20*{{ procurement_cost.0 }}={{ procurement_cost.1 }}</td>
-                    </tr>
-                    <tr>
-                        <td>Transfer</td>
-                        <td>... to the other retailer for each unit transferred to you.</td>
-                        <td>{{ p1_transfer_price }}</td>
-                        <td>{{ transfer_cost.0 }}</td>
-                        <td> {{ p1_transfer_price }}*{{ transfer_cost.0 }}={{ transfer_cost.1 }}</td>
-                    </tr>
-                    <tr>
-                        <td><b>TOTAL</b></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><b>{{ total_cost }}</b></td>
-                    </tr>
-                </table>
             </div>
+
         </div>
     </div>
 

@@ -28,20 +28,20 @@ ROOMS = [
 ]
 
 GAME_CONFIG_DEFAULTS = dict(
-    num_rounds=20,
+    num_rounds=10,
     treatments={
         # PRETESTING:
-
-        "C4_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [18, 24]
-        },
 
         "C6_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
             "transfer_price": [8, 32]
+        },
+
+        "C4_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [18, 24]
         },
 
         "C1_PER_ROUND": {

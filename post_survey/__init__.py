@@ -45,18 +45,25 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     age = models.IntegerField(
         label="How old are you?",
-        min=14,
-        max=100
+        choices=[
+            [1, '18-24'],
+            [2, '25-34'],
+            [3, '35-44'],
+            [4, '45-54'],
+            [5, '55-64'],
+            [6, '65-74'],
+            [7, '75 or over'],
+        ],
     )
 
     gender = models.StringField(
         label="With which gender do you identify yourself most?",
-        choices=["Male", "Female", "Other", "Prefer not to say"]
+        choices=["Male", "Female", "Prefer not to say"]
     )
 
     subject = models.StringField(
         label="Which subject are you primarily enrolled in?",
-        choices=["Economics/Business", "Law", "Humanities", "Science/Engineering", "None", "Other"]
+        choices=["Economics/Business", "Law", "Humanities", "Science/Engineering", "None"]
     )
 
     religion = models.StringField(

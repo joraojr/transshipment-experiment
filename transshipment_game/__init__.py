@@ -128,7 +128,7 @@ class Player(BasePlayer):
     treatment = models.StringField()
     transfer_price = models.IntegerField()
     transfer_engagement = models.BooleanField(
-        label="Decide whether you want to engage in a transfer with the other retailer, in case you face excess demand or excess inventory.",
+        label="Do you want to engage in a transfer with the other retailer, in case you face excess demand or excess inventory?",
         blank=False
     )
     inventory_order = models.IntegerField(
@@ -138,6 +138,7 @@ class Player(BasePlayer):
         max=200,
     )
     demand = models.IntegerField()
+    earnings = models.IntegerField()
     excess_demand = models.BooleanField()
     excess_inventory = models.BooleanField()
     extra = models.IntegerField()
@@ -336,11 +337,9 @@ class Results(Page):
 
         # Payoff for this round
 
-        earnings = total_price - total_cost
+        player.earnings = earnings = total_price - total_cost
 
         result_message_text = player.result_message_text + "<br> <b> Earnings </b> <br> You earned {} ECU this round".format(earnings)
-
-        player.participant.earnings_list.append(earnings)
 
         return {
             'result_message_text': result_message_text,
@@ -358,6 +357,9 @@ class Results(Page):
             'p2_transfer_price': player.get_matched_player().transfer_price
 
         }
+
+    def before_next_page(player, timeout_happened):
+        player.participant.earnings_list.append(player.earnings)
 
 
 class RandomDraw(Page):

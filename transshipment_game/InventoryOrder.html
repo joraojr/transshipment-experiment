@@ -50,52 +50,54 @@
                 </figure>
             </div>
             <div class="col-md-6">
+                <b>Costumer Demand Interval</b>
 
-                <div class="row">
-                    <table>
-                        <tr>
-                            <th class="col-2">Revenue</th>
-                            <th>Description: The amount you receive ...</th>
-                            <th>ECU</th>
-                        </tr>
-                        <tr>
-                            <td>Retail</td>
-                            <td>... for each unit sold to consumers.</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>Transfer</td>
-                            <td>... from the other retailer for each unit transferred.</td>
-                            <td>{{ p2_transfer_price }}</td>
-                        </tr>
-                        <tr>
-                            <td>Salvage</td>
-                            <td>... for each unit that you do not sell or transfer.</td>
-                            <td>10</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="row">
-                    <table>
-                        <tr>
-                            <th class="col-2">Costs</th>
-                            <th>Description: The amount you pay ...</th>
-                            <th>ECU</th>
-                        </tr>
-                        <tr>
-                            <td>Procurement</td>
-                            <td>... per unit originally ordered from the supplier.</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>Transfer</td>
-                            <td>... to the other retailer for each unit transferred to you.</td>
-                            <td>{{ p1_transfer_price }}</td>
-                        </tr>
-                    </table>
+                <div class="border border-3 mb-4" style=" text-align: left; background-color: #FFFFFF">
+
+                    <p>
+                        Customer demands vary between 0 and 200 and are equally likely.
+                    </p>
                 </div>
 
+                <b>Revenue Description</b>
+
+                <div class="border border-3 mb-4" style=" text-align: left; background-color: #FFFFFF">
+
+                    <p>
+                        <b>Retail</b> <br>
+                        You receive 40 ECU for each unit sold to consumers.
+                    </p>
+
+                    <p>
+                        <b>Transfer</b><br>
+                        You receive {{ p2_transfer_price }} ECU from the other retailer for each unit
+                        transferred to them.
+                    </p>
+
+                    <p>
+                        <b>Salvage</b> <br>
+                        You receive 10 ECU for each unit that you do not sell or transfer.
+                    </p>
+
+                </div>
+
+                <b>Costs Description</b>
+                <div class="border border-3" style=" text-align: left; background-color: #FFFFFF">
+
+                    <p>
+                        <b>Procurement</b> <br>
+                        You pay 20 ECU for each unit originally ordered from the supplier.
+                    </p>
+
+                    <p>
+                        <b>Transfer </b> <br>
+                        You pay {{ p1_transfer_price }} ECU to the other retailer for each unit transferred to
+                        you.
+                    </p>
+
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -117,7 +119,7 @@
         }
 
         #container {
-            height: 400px;
+            height: 500px;
             background-color: white;
 
         {#width: fit-content;#}
