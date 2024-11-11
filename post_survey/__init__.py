@@ -153,4 +153,5 @@ class FinalPage(Page):
         )
 
 
-page_sequence = [Introduction, Q1, Q2, Demographics, FinalPage]
+# TODO To add the new exit questionnaire
+page_sequence = [Introduction, Demographics, FinalPage]

@@ -26,7 +26,7 @@ def creating_session(subsession):
             # Initialize participant fields
             player.participant.inventory_order_history = []
             player.participant.earnings_list = []
-            player.participant.demand_history = []
+            # player.participant.demand_history = []
     else:
         group_by_treatment_and_price(subsession)
 
@@ -34,7 +34,7 @@ def creating_session(subsession):
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
         player.transfer_price = player.participant.transfer_price
-        player.demand = random.randint(0, 200)
+        player.demand = player.participant.demand_history[player.round_number - 1]
         # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
         if C.TREATMENTS[player.treatment]["decision_frequency"] == "ENFORCED":
             player.transfer_engagement = True
@@ -229,7 +229,7 @@ class InventoryOrder(Page):
     @staticmethod
     def before_next_page(player, timeout_happened):
         player.participant.inventory_order_history.append(player.inventory_order)
-        player.participant.demand_history.append(player.demand)
+        # player.participant.demand_history.append(player.demand)
 
 
 class ResultsWaitPage(WaitPage):

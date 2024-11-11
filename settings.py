@@ -28,26 +28,24 @@ ROOMS = [
 ]
 
 GAME_CONFIG_DEFAULTS = dict(
-    num_rounds=10,
+    num_rounds=20,
+    demands={
+        "A": [38, 87, 148, 196, 120, 197, 48, 127, 145, 93, 48, 4, 200, 130, 13, 147, 188, 105, 181, 104],
+        "B": [22, 50, 134, 72, 100, 87, 81, 137, 1, 174, 125, 89, 88, 111, 61, 174, 134, 29, 43, 21]
+    },
     treatments={
         # PRETESTING:
 
-        "C6_PER_ROUND": {
+        "C4_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
-            "transfer_price": [8, 32]
+            "transfer_price": [18, 24]  # demands [A,B]
         },
 
         "C4_ENFORCED": {
             "decision_frequency": "ENFORCED",
             "roles": "non-identical",
-            "transfer_price": [18, 24]
-        },
-
-        "C1_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": "identical",
-            "transfer_price": [12]
+            "transfer_price": [18, 24]  # demands [A,B]
         },
     }
 )

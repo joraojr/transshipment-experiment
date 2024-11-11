@@ -14,6 +14,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     MAIN_GAME_NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
     TREATMENTS = settings.GAME_CONFIG_DEFAULTS["treatments"]
+    DEMANDS = settings.GAME_CONFIG_DEFAULTS["demands"]
 
 
 class Subsession(BaseSubsession):
@@ -24,6 +25,7 @@ def creating_session(subsession):
     # Assign Treatments to the players
     import itertools
     treatments = itertools.cycle(C.TREATMENTS.keys())
+    demands = itertools.cycle(C.DEMANDS.values())
 
     if subsession.round_number == 1:
         players = subsession.get_players()
@@ -31,8 +33,10 @@ def creating_session(subsession):
         transfer_price = itertools.cycle(C.TREATMENTS[treatment]["transfer_price"])
 
         for i, player in enumerate(players):
+            demand = next(demands)
             player.treatment = player.participant.treatment = treatment
             player.transfer_price = player.participant.transfer_price = next(transfer_price)
+            player.participant.demand_history = demand
             # player.role = "A"
 
             # Ensure that each 2 player get the same treatment
