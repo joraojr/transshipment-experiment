@@ -1,0 +1,37 @@
+{% extends "global/Forms.html" %}
+
+{% block title %}
+    Part 3: Exit Questionnaire
+{% endblock %}
+{% block content %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Question: Imagine you are entering a lottery. Which option fits your expectations better, A or B?</th>
+            <th class="text-center"> A</th>
+            <th class="text-center"> B</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for field in form %}
+            <tr>
+                <th> {{ field.label }}</th>
+                {% for choice in field %}
+                    <td class="text-center">{{ choice }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% next_button %}
+
+    <style>
+        .otree-body {
+            max-width: 1300px;
+        }
+
+    </style>
+{% endblock %}

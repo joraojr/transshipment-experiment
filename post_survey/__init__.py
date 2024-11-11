@@ -81,40 +81,59 @@ class Player(BasePlayer):
         
     """
 
-    RT_QA1 = models.IntegerField(
-        label='How do you see yourself: Are you a person who is generally willing to take risks, or do you try to avoid taking risks?',
-        choices=C.LIKERT,
-        widget=widgets.RadioSelectHorizontal()
-    )
+    def make_risk_decision(label):
+        return models.StringField(
+            choices=['A', 'B'],
+            label=label,
+            widget=widgets.RadioSelectHorizontal(),
+            blank=False  # Make sure the choice is required
+        )
 
-    T_QA1 = models.IntegerField(
-        label='How well does the following statement describe you as a person? As long as I am not convinced otherwise, I assume that people have '
-              'only the best intentions.   ',
-        choices=C.LIKERT,
-        widget=widgets.RadioSelectHorizontal()
-    )
+    rq1 = make_risk_decision("Option A: 1/10 of $2.00, 9/10 of $1.60 | Option B: 1/10 of $3.85, 9/10 of $0.10")
+    rq2 = make_risk_decision("Option A: 2/10 of $2.00, 8/10 of $1.60 | Option B: 2/10 of $3.85, 8/10 of $0.10")
+    rq3 = make_risk_decision("Option A: 3/10 of $2.00, 7/10 of $1.60 | Option B: 3/10 of $3.85, 7/10 of $0.10")
+    rq4 = make_risk_decision("Option A: 4/10 of $2.00, 6/10 of $1.60 | Option B: 4/10 of $3.85, 6/10 of $0.10")
+    rq5 = make_risk_decision("Option A: 5/10 of $2.00, 5/10 of $1.60 | Option B: 5/10 of $3.85, 5/10 of $0.10")
+    rq6 = make_risk_decision("Option A: 6/10 of $2.00, 4/10 of $1.60 | Option B: 6/10 of $3.85, 4/10 of $0.10")
+    rq7 = make_risk_decision("Option A: 7/10 of $2.00, 3/10 of $1.60 | Option B: 7/10 of $3.85, 3/10 of $0.10")
+    rq8 = make_risk_decision("Option A: 8/10 of $2.00, 2/10 of $1.60 | Option B: 8/10 of $3.85, 2/10 of $0.10")
+    rq9 = make_risk_decision("Option A: 9/10 of $2.00, 1/10 of $1.60 | Option B: 9/10 of $3.85, 1/10 of $0.10")
+    rq10 = make_risk_decision("Option A: 10/10 of $2.00, 0/10 of $1.60 | Option B: 10/10 of $3.85, 0/10 of $0.10")
 
-    A_QA1 = models.IntegerField(
-        label='How do you assess your willingness to share with others without expecting anything in return when it comes to charity?',
-        choices=C.LIKERT,
-        widget=widgets.RadioSelectHorizontal()
-    )
-
-    NR_QA1 = models.IntegerField(
-        label='How do you see yourself: Are you a person who is generally willing to punish unfair behavior even if this is costly?',
-        choices=C.LIKERT,
-        widget=widgets.RadioSelectHorizontal()
-    )
-
-    PR_QA1 = models.IntegerField(
-        label='Imagine the following situation: you are shopping in an unfamiliar city and realize you lost your way. You ask a stranger for '
-              'directions. The stranger offers to take you with their car to your destination. The ride takes about 20 minutes and costs the '
-              'stranger about 20 Euro in total. The stranger does not want money for it. You carry six bottles of wine with you. The cheapest '
-              'bottle costs 5 Euro, the most expensive one 30 Euro. You decide to give one of the bottles to the stranger as a thank-you gift. '
-              'Which bottle do you give?',
-        choices=C.POSITIVE_RECIPROCITY,
-        widget=widgets.RadioSelectHorizontal()
-    )
+    # RT_QA1 = models.IntegerField(
+    #     label='How do you see yourself: Are you a person who is generally willing to take risks, or do you try to avoid taking risks?',
+    #     choices=C.LIKERT,
+    #     widget=widgets.RadioSelectHorizontal()
+    # )
+    #
+    # T_QA1 = models.IntegerField(
+    #     label='How well does the following statement describe you as a person? As long as I am not convinced otherwise, I assume that people have '
+    #           'only the best intentions.   ',
+    #     choices=C.LIKERT,
+    #     widget=widgets.RadioSelectHorizontal()
+    # )
+    #
+    # A_QA1 = models.IntegerField(
+    #     label='How do you assess your willingness to share with others without expecting anything in return when it comes to charity?',
+    #     choices=C.LIKERT,
+    #     widget=widgets.RadioSelectHorizontal()
+    # )
+    #
+    # NR_QA1 = models.IntegerField(
+    #     label='How do you see yourself: Are you a person who is generally willing to punish unfair behavior even if this is costly?',
+    #     choices=C.LIKERT,
+    #     widget=widgets.RadioSelectHorizontal()
+    # )
+    #
+    # PR_QA1 = models.IntegerField(
+    #     label='Imagine the following situation: you are shopping in an unfamiliar city and realize you lost your way. You ask a stranger for '
+    #           'directions. The stranger offers to take you with their car to your destination. The ride takes about 20 minutes and costs the '
+    #           'stranger about 20 Euro in total. The stranger does not want money for it. You carry six bottles of wine with you. The cheapest '
+    #           'bottle costs 5 Euro, the most expensive one 30 Euro. You decide to give one of the bottles to the stranger as a thank-you gift. '
+    #           'Which bottle do you give?',
+    #     choices=C.POSITIVE_RECIPROCITY,
+    #     widget=widgets.RadioSelectHorizontal()
+    # )
 
 
 class Demographics(Page):
@@ -137,6 +156,11 @@ class Q1(Page):
     form_fields = ['RT_QA1', 'T_QA1', 'A_QA1', 'NR_QA1']
 
 
+class Risk(Page):
+    form_model = 'player'
+    form_fields = ['rq1', 'rq2', 'rq3', 'rq4', 'rq5', 'rq6', 'rq7', 'rq8', 'rq9', 'rq10']
+
+    # Pass the correct options for each round
 class Q2(Page):
     form_model = 'player'
     form_fields = ['PR_QA1']
@@ -154,4 +178,4 @@ class FinalPage(Page):
 
 
 # TODO To add the new exit questionnaire
-page_sequence = [Introduction, Demographics, FinalPage]
+page_sequence = [Introduction, Risk, Demographics, FinalPage]
