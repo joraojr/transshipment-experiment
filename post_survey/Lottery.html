@@ -1,0 +1,116 @@
+{% extends "global/Forms.html" %}
+
+{% block title %}
+    Part 3: Exit Questionnaire
+{% endblock %}
+{% block content %}
+
+    In the following task, you have to make 10 decisions. Each decision is a choice between an "Option A" and an "Option B".
+
+    <br><br>
+
+    Please take a look at thedecision (1) now. Choosing Option A, you will receive 20.00 ECU with a chance of 10% and 16.00 ECU with a chance of 90%.
+    Choosing Option B, you will receive 38.50 ECU with a chance of 10% and 1.00 ECU with a chance of 90%.
+    The other decisions are comparable but the chances of earning the higher amount increases from decision to decision.
+    In decision 10, the chance of winning the higher amount is 100%, so you will decide between a sure outcome of 20.00 ECU or a sure outcome of 38.50
+    ECU.
+
+    <br><br>
+
+    To summarize, you make 10 decisions - each decision is a choice between Option A and Option B.
+    You can choose Option A for some decisions and Option B for other decisions.
+    You can make the decisions in any order and change your choices until you click to continue.
+
+    <br><br>
+
+    Please tick your 10 decisions below:
+
+    <br><br>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Option A</th>
+            <th class="text-center"> Option B</th>
+            <th class="text-center" colspan="2"> Your choice</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr>
+
+            <th> 20.00 ECU (10%), 16.00 ECU (90%)</th>
+            <th> 38.50 ECU (10%), 1.00 ECU (90%)</th>
+            <th class="text-center ">{% form.rq1 %}</th>
+
+        </tr>
+
+        <tr>
+
+            <th> 20.00 ECU (20%), 16.00 ECU (80%)</th>
+            <th> 38.50 ECU (20%), 1.00 ECU (80%)</th>
+            <th class="text-center ">{% form.rq2 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (30%), 16.00 ECU (70%)</th>
+            <th> 38.50 ECU (30%), 1.00 ECU (70%)</th>
+            <th class="text-center ">{% form.rq3 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (40%), 16.00 ECU (60%)</th>
+            <th> 38.50 ECU (40%), 1.00 ECU (60%)</th>
+            <th class="text-center ">{% form.rq4 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (50%), 16.00 ECU (50%)</th>
+            <th> 38.50 ECU (50%), 1.00 ECU (50%)</th>
+            <th class="text-center ">{% form.rq5 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (60%), 16.00 ECU (40%)</th>
+            <th> 38.50 ECU (60%), 1.00 ECU (40%)</th>
+            <th class="text-center ">{% form.rq6 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (70%), 16.00 ECU (30%)</th>
+            <th> 38.50 ECU (70%), 1.00 ECU (30%)</th>
+            <th class="text-center ">{% form.rq7 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (80%), 16.00 ECU (20%)</th>
+            <th> 38.50 ECU (80%), 1.00 ECU (20%)</th>
+            <th class="text-center ">{% form.rq8 %}</th>
+        </tr>
+
+        <tr>
+
+            <th> 20.00 ECU (90%), 16.00 ECU (10%)</th>
+            <th> 38.50 ECU (90%), 1.00 ECU (10%)</th>
+            <th class="text-center ">{% form.rq9 %}</th>
+        </tr>
+        <tr>
+
+            <th> 20.00 ECU (100%), 16.00 ECU (0%)</th>
+            <th> 38.50 ECU (100%), 1.00 ECU (0%)</th>
+            <th class="text-center ">{% form.rq10 %}</th>
+        </tr>
+
+        </tbody>
+    </table>
+
+    {% next_button %}
+
+    <style>
+        .otree-body {
+            max-width: 1300px;
+        }
+
+    </style>
+{% endblock %}

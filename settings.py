@@ -3,7 +3,7 @@ from os import environ
 SESSION_CONFIGS = [
     dict(
         name='Transshipment_Game',
-        app_sequence=['introduction', 'transshipment_game', 'post_survey'],
+        app_sequence=['introduction', 'pre_survey', 'transshipment_game', 'post_survey'],
         num_demo_participants=2,
     ),
     dict(
@@ -14,6 +14,12 @@ SESSION_CONFIGS = [
     dict(
         name='post_survey',
         app_sequence=['post_survey'],
+        num_demo_participants=1 * 2,
+    ),
+
+    dict(
+        name='pre_survey',
+        app_sequence=['pre_survey'],
         num_demo_participants=1 * 2,
     ),
 ]
@@ -34,18 +40,39 @@ GAME_CONFIG_DEFAULTS = dict(
         "B": [22, 50, 134, 72, 100, 87, 81, 137, 1, 174, 125, 89, 88, 111, 61, 174, 134, 29, 43, 21]
     },
     treatments={
-        # PRETESTING:
-
         "C4_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
             "transfer_price": [18, 24]  # demands [A,B]
         },
 
+        "C5_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [12, 40]
+        },
+
+        "C6_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [8, 32]
+        },
+
         "C4_ENFORCED": {
             "decision_frequency": "ENFORCED",
             "roles": "non-identical",
             "transfer_price": [18, 24]  # demands [A,B]
+        },
+
+        "C5_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [12, 40]
+        },
+        "C6_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [8, 32]
         },
     }
 )

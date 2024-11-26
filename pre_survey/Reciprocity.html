@@ -1,27 +1,29 @@
 {% extends "global/Forms.html" %}
 
 {% block title %}
-    Part 4: Exit Questionnaire
+    Part 2: Pre-experiment Questionnaire
 {% endblock %}
 {% block content %}
 
     <table class="table">
         <thead>
         <tr>
-            <th>Question</th>
-            <th class="text-center"> 5 </th>
-            <th class="text-center"> 10 </th>
-            <th class="text-center"> 15 </th>
-            <th class="text-center"> 20 </th>
-            <th class="text-center"> 25 </th>
-            <th class="text-center"> 30 </th>
+            <th>Question:</th>
+            <th class="text-center"> I strongly disagree</th>
+            <th class="text-center"> I disagree</th>
+            <th class="text-center"> I rather disagree</th>
+            <th class="text-center"> It is indifferent to me</th>
+            <th class="text-center"> I rather agree</th>
+            <th class="text-center"> I agree</th>
+            <th class="text-center"> I strongly agree</th>
+
         </tr>
         </thead>
 
         <tbody>
         {% for field in form %}
             <tr>
-                <th>{{ field.label }}</th>
+                <th> {{ field.label }}</th>
                 {% for choice in field %}
                     <td class="text-center">{{ choice }}</td>
                 {% endfor %}

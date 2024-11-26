@@ -6,7 +6,7 @@ Post Survey to the Transshipment Game
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Questionnaire'
+    NAME_IN_URL = 'Post_Questionnaire'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
@@ -83,7 +83,7 @@ class Player(BasePlayer):
 
     def make_risk_decision(label):
         return models.StringField(
-            choices=['A', 'B'],
+            choices=['Option A', ' Option B'],
             label=label,
             widget=widgets.RadioSelectHorizontal(),
             blank=False  # Make sure the choice is required
@@ -142,7 +142,6 @@ class Demographics(Page):
         'gender',
         'age',
         'subject',
-        'religion'
     ]
 
 
@@ -151,19 +150,21 @@ class Introduction(Page):
     pass
 
 
-class Q1(Page):
-    form_model = 'player'
-    form_fields = ['RT_QA1', 'T_QA1', 'A_QA1', 'NR_QA1']
+# class Q1(Page):
+#     form_model = 'player'
+#     form_fields = ['RT_QA1', 'T_QA1', 'A_QA1', 'NR_QA1']
+#
+#
+# class Q2(Page):
+#     form_model = 'player'
+#     form_fields = ['PR_QA1']
 
 
-class Risk(Page):
+class Lottery(Page):
     form_model = 'player'
     form_fields = ['rq1', 'rq2', 'rq3', 'rq4', 'rq5', 'rq6', 'rq7', 'rq8', 'rq9', 'rq10']
 
     # Pass the correct options for each round
-class Q2(Page):
-    form_model = 'player'
-    form_fields = ['PR_QA1']
 
 
 class FinalPage(Page):
@@ -176,6 +177,4 @@ class FinalPage(Page):
 
         )
 
-
-# TODO To add the new exit questionnaire
-page_sequence = [Introduction, Risk, Demographics, FinalPage]
+page_sequence = [Introduction, Lottery, Demographics, FinalPage]
