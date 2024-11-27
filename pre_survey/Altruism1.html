@@ -6,7 +6,10 @@
 {% block content %}
     <hr>
     {{ form.A_QA1.label }}
-    {{ form.A_QA1 }}
+
+    <div class="w-25">
+        {% form.A_QA1 %}
+    </div>
 
     {% next_button %}
 

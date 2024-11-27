@@ -28,8 +28,8 @@ ROOMS = [
     {
         'name': 'waiting_room',
         'display_name': 'Waiting Room',
-        'participant_label_file': '_rooms/exp_labels.txt',  # You can specify a file with participant labels if needed
-        'use_secure_urls': True,  # Use secure URLs for participant login
+        # 'participant_label_file': '_rooms/exp_labels.txt',  # You can specify a file with participant labels if needed
+        # 'use_secure_urls': True,  # Use secure URLs for participant login
     },
 ]
 
@@ -49,13 +49,13 @@ GAME_CONFIG_DEFAULTS = dict(
         "C5_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
-            "transfer_price": [12, 40]
+            "transfer_price": [10, 40]
         },
 
         "C6_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
             "roles": "non-identical",
-            "transfer_price": [8, 32]
+            "transfer_price": [8, 40]
         },
 
         "C4_ENFORCED": {
@@ -67,12 +67,12 @@ GAME_CONFIG_DEFAULTS = dict(
         "C5_ENFORCED": {
             "decision_frequency": "ENFORCED",
             "roles": "non-identical",
-            "transfer_price": [12, 40]
+            "transfer_price": [10, 40]
         },
         "C6_ENFORCED": {
             "decision_frequency": "ENFORCED",
             "roles": "non-identical",
-            "transfer_price": [8, 32]
+            "transfer_price": [8, 40]
         },
     }
 )
@@ -173,13 +173,13 @@ BROWSER_COMMAND = "brave-browser"
 #     "C5_PER_ROUND": {
 #         "decision_frequency": "PER_ROUND",
 #         "roles": "non-identical",
-#         "transfer_price": [12, 40]
+#         "transfer_price": [10, 40]
 #     },
 #
 #     # "C5_ENFORCED": {
 #     #     "decision_frequency": "ENFORCED",
 #     #     "roles": "non-identical",
-#     #     "transfer_price": [12, 40]
+#     #     "transfer_price": [10, 40]
 #     # },
 #
 #     ##################################################
@@ -189,13 +189,13 @@ BROWSER_COMMAND = "brave-browser"
 #     "C6_PER_ROUND": {
 #         "decision_frequency": "PER_ROUND",
 #         "roles": "non-identical",
-#         "transfer_price": [8, 32]
+#         "transfer_price": [8, 40]
 #     },
 #
 #     # "C6_ENFORCED": {
 #     #     "decision_frequency": "ENFORCED",
 #     #     "roles": "non-identical",
-#     #     "transfer_price": [8, 32]
+#     #     "transfer_price": [8, 40]
 #     # },
 #     ##################################################
 #
