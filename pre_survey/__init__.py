@@ -6,7 +6,7 @@ Post Survey to the Transshipment Game
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Pre_Questionnaire'
+    NAME_IN_URL = 'pre_questionnaire'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
@@ -194,5 +194,5 @@ class Altruism2(Page):
     form_model = 'player'
     form_fields = ['A_QA2']
 
-
-page_sequence = [Introduction, BeliefsReciprocity, PositiveReciprocity, NegativeReciprocity, PoDIRSReciprocity, Trust, Altruism1, Altruism2]
+# TODO one-shot dictator game 10 euros divided by 2 players
+page_sequence = [Introduction, Trust]

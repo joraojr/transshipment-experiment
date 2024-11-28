@@ -4,12 +4,12 @@ import settings
 import time
 
 doc = """
-Introduction to the Transshipment Game
+Instructions to the Transshipment Game
 """
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'introduction'
+    NAME_IN_URL = 'instructions'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     MAIN_GAME_NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
@@ -68,9 +68,6 @@ class Player(BasePlayer):
 
 
 # PAGES
-class Welcome(Page):
-    pass
-
 
 class Introduction(Page):
     def vars_for_template(self):
@@ -132,4 +129,4 @@ class Demo(Page):
     pass
 
 
-page_sequence = [Welcome, Introduction, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]
+page_sequence = [Introduction, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]

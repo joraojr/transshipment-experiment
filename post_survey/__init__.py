@@ -6,7 +6,7 @@ Post Survey to the Transshipment Game
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Post_Questionnaire'
+    NAME_IN_URL = 'post_questionnaire'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
@@ -33,6 +33,16 @@ class C(BaseConstants):
         [30, ''],
     ]
 
+    PoDIRS_6_SCALES = [
+        [1, "I strongly disagree"],
+        [2, "I disagree"],
+        [3, "I rather disagree"],
+        [4, "It is indifferent to me"],
+        [5, "I rather agree"],
+        [6, "I agree"],
+        [7, "I strongly agree"],
+    ]
+
 
 class Subsession(BaseSubsession):
     pass
@@ -54,21 +64,29 @@ class Player(BasePlayer):
             [6, '65-74'],
             [7, '75 or over'],
         ],
+        widget=widgets.RadioSelectHorizontal()
+
     )
 
     gender = models.StringField(
         label="With which gender do you identify yourself most?",
-        choices=["Male", "Female", "Prefer not to say"]
+        choices=["Male", "Female", "Prefer not to say"],
+        widget=widgets.RadioSelectHorizontal()
+
     )
 
-    subject = models.StringField(
-        label="Which subject are you primarily enrolled in?",
-        choices=["Economics/Business", "Law", "Humanities", "Science/Engineering", "None"]
+    economics = models.StringField(
+        label="How would you rate your expertise in Economics?",
+        choices=range(11),
+        widget=widgets.RadioSelectHorizontal()
+
     )
 
-    religion = models.StringField(
-        label="Do you consider yourself a religious person?",
-        choices=["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"]
+    logistics = models.StringField(
+        label="How would you rate your expertise in Logistics?",
+        choices=range(11),
+        widget=widgets.RadioSelectHorizontal()
+
     )
 
     """
@@ -81,9 +99,10 @@ class Player(BasePlayer):
         
     """
 
-    def make_risk_decision(label):
+    @staticmethod
+    def make_risk_decision(label, choices=['Option A', ' Option B']):
         return models.StringField(
-            choices=['Option A', ' Option B'],
+            choices=choices,
             label=label,
             widget=widgets.RadioSelectHorizontal(),
             blank=False  # Make sure the choice is required
@@ -135,13 +154,22 @@ class Player(BasePlayer):
     #     widget=widgets.RadioSelectHorizontal()
     # )
 
+    Pr1 = make_risk_decision("If someone does me a favor, I am prepared to return it.", C.PoDIRS_6_SCALES)
+    Pr2 = make_risk_decision("I go out of my way to help somebody who has been kind to me in the past.", C.PoDIRS_6_SCALES)
+    Pr3 = make_risk_decision("I am ready to assume personal costs to help somebody who helped me in the past.", C.PoDIRS_6_SCALES)
+
+    Nr1 = make_risk_decision("If I suffer a serious wrong, I will take revenge as soon as possible, no matter what the cost.", C.PoDIRS_6_SCALES)
+    Nr2 = make_risk_decision("If somebody puts me in a difficult position, I will do the same to him/her.", C.PoDIRS_6_SCALES)
+    Nr3 = make_risk_decision("If somebody offends me, I will offend him/her back.", C.PoDIRS_6_SCALES)
+
 
 class Demographics(Page):
     form_model = 'player'
     form_fields = [
         'gender',
         'age',
-        'subject',
+        'economics',
+        'logistics'
     ]
 
 
@@ -160,11 +188,14 @@ class Introduction(Page):
 #     form_fields = ['PR_QA1']
 
 
-class Lottery(Page):
+class Risk(Page):
     form_model = 'player'
     form_fields = ['rq1', 'rq2', 'rq3', 'rq4', 'rq5', 'rq6', 'rq7', 'rq8', 'rq9', 'rq10']
 
-    # Pass the correct options for each round
+
+class Reciprocity(Page):
+    form_model = 'player'
+    form_fields = ['Pr1', 'Pr2', 'Pr3', 'Nr1', 'Nr2', 'Nr3']
 
 
 class FinalPage(Page):
@@ -177,4 +208,5 @@ class FinalPage(Page):
 
         )
 
-page_sequence = [Introduction, Lottery, Demographics, FinalPage]
+
+page_sequence = [Introduction, Risk, Reciprocity, Demographics, FinalPage]

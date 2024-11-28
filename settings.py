@@ -1,14 +1,22 @@
 from os import environ
 
 SESSION_CONFIGS = [
+
+    dict(
+        name='dictator_one_shot',
+        display_name="Dictator game (one shot)",
+        app_sequence=['dictator_one_shot', 'payment_info'],
+        num_demo_participants=2,
+    ),
+
     dict(
         name='Transshipment_Game',
-        app_sequence=['introduction', 'pre_survey', 'transshipment_game', 'post_survey'],
+        app_sequence=['welcome', 'pre_survey', 'game_instructions', 'transshipment_game', 'post_survey'],
         num_demo_participants=2,
     ),
     dict(
         name='Payout_measuring',
-        app_sequence=['introduction', 'transshipment_game'],
+        app_sequence=['game_instructions', 'transshipment_game'],
         num_demo_participants=1 * 2,
     ),
     dict(
@@ -34,7 +42,7 @@ ROOMS = [
 ]
 
 GAME_CONFIG_DEFAULTS = dict(
-    num_rounds=20,
+    num_rounds=15,
     demands={
         "A": [38, 87, 148, 196, 120, 197, 48, 127, 145, 93, 48, 4, 200, 130, 13, 147, 188, 105, 181, 104],
         "B": [22, 50, 134, 72, 100, 87, 81, 137, 1, 174, 125, 89, 88, 111, 61, 174, 134, 29, 43, 21]
@@ -85,7 +93,7 @@ GAME_CONFIG_DEFAULTS = dict(
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=0.004,  # 0.05% => 200 ECU = 1 EUR, 0.10% => 100 ECU = 1 EUR, 0.003 => 333.33 ECU = 1 EUR
     participation_fee=3.00,
-    draw_earnings_num_rounds=5,
+    draw_earnings_num_rounds=4,
     doc="",
 )
 

@@ -1,0 +1,42 @@
+{% extends "global/Forms.html" %}
+
+{% block title %}
+    Part 2: Pre-experiment Questionnaire
+{% endblock %}
+{% block content %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="w-75"></th>
+            <th class="text-center align-text-top w-25"> Does not apply to me at all</th>
+            <th class="text-center align-text-top w-25"> Barely applies me</th>
+            <th class="text-center align-text-top w-25"> Somewhat applies me</th>
+            <th class="text-center align-text-top w-25"> It applies to me</th>
+            <th class="text-center align-text-top w-25"> Mostly applies me</th>
+            <th class="text-center align-text-top w-25"> Strongly applies me</th>
+            <th class="text-center align-text-top w-25"> Applies to me perfectly</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for field in form %}
+            <tr>
+                <th> {{ field.label }}</th>
+                {% for choice in field %}
+                    <td class="text-center">{{ choice }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% next_button %}
+
+    <style>
+        .otree-body {
+            max-width: 1300px;
+        }
+
+    </style>
+{% endblock %}
