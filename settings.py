@@ -5,13 +5,13 @@ SESSION_CONFIGS = [
     dict(
         name='dictator_one_shot',
         display_name="Dictator game (one shot)",
-        app_sequence=['dictator_one_shot', 'payment_info'],
+        app_sequence=['dictator_one_shot'],
         num_demo_participants=2,
     ),
 
     dict(
         name='Transshipment_Game',
-        app_sequence=['welcome', 'pre_survey', 'game_instructions', 'transshipment_game', 'post_survey'],
+        app_sequence=['welcome', 'pre_survey', 'dictator_one_shot', 'game_instructions', 'transshipment_game', 'post_survey'],
         num_demo_participants=2,
     ),
     dict(
@@ -34,8 +34,14 @@ SESSION_CONFIGS = [
 
 ROOMS = [
     {
-        'name': 'waiting_room',
-        'display_name': 'Waiting Room',
+        'name': 'waiting_room_1',
+        'display_name': 'Waiting Room 1',
+        # 'participant_label_file': '_rooms/exp_labels.txt',  # You can specify a file with participant labels if needed
+        # 'use_secure_urls': True,  # Use secure URLs for participant login
+    },
+    {
+        'name': 'waiting_room_2',
+        'display_name': 'Waiting Room 2',
         # 'participant_label_file': '_rooms/exp_labels.txt',  # You can specify a file with participant labels if needed
         # 'use_secure_urls': True,  # Use secure URLs for participant login
     },
@@ -44,8 +50,9 @@ ROOMS = [
 GAME_CONFIG_DEFAULTS = dict(
     num_rounds=15,
     demands={
-        "A": [38, 87, 148, 196, 120, 197, 48, 127, 145, 93, 48, 4, 200, 130, 13, 147, 188, 105, 181, 104],
-        "B": [22, 50, 134, 72, 100, 87, 81, 137, 1, 174, 125, 89, 88, 111, 61, 174, 134, 29, 43, 21]
+        "A": [170, 96, 189, 3, 180, 16, 113, 87, 54, 151, 5, 58, 155, 114, 146],
+        "B": [153, 135, 32, 147, 130, 169, 32, 64, 54, 98, 149, 11, 157, 173, 49]
+
     },
     treatments={
         "C4_PER_ROUND": {

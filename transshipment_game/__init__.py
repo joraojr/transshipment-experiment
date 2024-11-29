@@ -159,7 +159,7 @@ class Player(BasePlayer):
 #############################################################
 
 ####### PAGES ###############################################
-class Introduction(Page):
+class Welcome(Page):
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1
@@ -414,6 +414,6 @@ class RandomDrawResult(Page):
 
 ##ORDER#######################################################
 
-page_sequence = [Introduction, TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
+page_sequence = [Welcome, TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
                  InventoryOrder, ResultsWaitPage, Results,
                  RandomDraw, RandomDrawResult]

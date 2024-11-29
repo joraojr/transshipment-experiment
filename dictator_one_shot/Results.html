@@ -1,16 +1,16 @@
-{{ block title }}Results{{ endblock }}
-{{ block content }}
+{% extends "global/Forms.html" %}
+{% block title %} Part 1: One-shot Dictator Game - Results{% endblock %}
+{% block content %}
     <p>
 
-        {{ if player.id_in_group == 1 }}
+        {% if player.id_in_group == 1 %}
             You decided to keep <strong>{{ group.kept }}</strong> for yourself.
-        {{ else }}
-            Participant 1 decided to keep <strong>{{ group.kept }}</strong>, so
+        {% else %}
+            The Dictator decided to keep <strong>{{ group.kept }}</strong>, so
             you got <strong>{{ offer }}</strong>.
-        {{ endif }}
+        {% endif %}
 
-        {{ next_button }}
+        {% next_button %}
     </p>
-    {{ include C.INSTRUCTIONS_TEMPLATE }}
 
-{{ endblock }}
+{% endblock %}

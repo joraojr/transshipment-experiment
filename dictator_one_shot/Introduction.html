@@ -1,5 +1,24 @@
-{{ block title }}Introduction{{ endblock }}
-{{ block content }}
-    {{ include C.INSTRUCTIONS_TEMPLATE }}
-    {{ next_button }}
-{{ endblock }}
+{% extends "global/Forms.html" %}
+{% block title %}Part 1: One-shot Dictator Game{% endblock %}
+{% block content %}
+
+    <p>
+        Now you play a one-shot Dictator Game.
+    </p>
+    <p>
+        You will be paired randomly and anonymously with another participant.
+        <br>
+    </p>
+    <p>
+
+        In this game, one of you will play as the Dictator and the other as the Recipient.
+
+        Prior to making a decision, you will learn your role, which will be randomly assigned.
+    </p>
+    <p>
+        There is {{ C.ENDOWMENT }} to split. The Dictator will decide how much she or he will retain. Then the rest will go to Recipient.
+    </p>
+
+    {% next_button %}
+{% endblock %}
+
