@@ -1,16 +1,25 @@
 {% extends "global/Forms.html" %}
-{% block title %} Part 1: One-shot Dictator Game - Results{% endblock %}
+
+{% block title %}    Part 1: Pre-experiment Questionnaire {% endblock %}
 {% block content %}
     <p>
 
         {% if player.id_in_group == 1 %}
-            You decided to keep <strong>{{ group.kept }}</strong> for yourself.
+            You are <b> Participant A</b>.
+            You proposed to send <strong>{{ group.sent }}</strong> of the {{ C.ENDOWMENT }} to Participant B, so you kept <b>{{ offer }}</b>..
         {% else %}
-            The Dictator decided to keep <strong>{{ group.kept }}</strong>, so
-            you got <strong>{{ offer }}</strong>.
+            You are <b> Participant B</b>. Participant A proposed to send you <b>{{ group.sent }}</b> of the {{ C.ENDOWMENT }} .
         {% endif %}
-
-        {% next_button %}
     </p>
+
+    <p>
+    <p>
+        At the end of Part 3, X% of the pairs will be randomly selected to receive the amount proposed by Participant A. If your pair is randomly
+        selected, this value will be added to your payout at a rate of <b>{{ conversion_rate }} ECU = €1</b>.
+    </p>
+
+
+    {% next_button %}
+
 
 {% endblock %}

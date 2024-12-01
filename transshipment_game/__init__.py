@@ -380,7 +380,7 @@ class RandomDraw(Page):
         player.participant.drawn_earnings = drawn_earnings
         player.participant.avg_earnings = avg_earnings = sum(drawn_earnings) / len(drawn_earnings)
 
-        # Ensure the no negative payoff (At least the show-up fee must be paid)
+        # Ensure the no negative payoff (At least the participation fee must be paid)
         player.participant.payoff = cu(round(max(avg_earnings, 0)))
 
     def vars_for_template(player: Player):

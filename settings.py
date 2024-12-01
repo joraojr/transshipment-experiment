@@ -3,13 +3,6 @@ from os import environ
 SESSION_CONFIGS = [
 
     dict(
-        name='dictator_one_shot',
-        display_name="Dictator game (one shot)",
-        app_sequence=['dictator_one_shot'],
-        num_demo_participants=2,
-    ),
-
-    dict(
         name='Transshipment_Game',
         app_sequence=['welcome', 'pre_survey', 'dictator_one_shot', 'game_instructions', 'transshipment_game', 'post_survey'],
         num_demo_participants=2,
@@ -27,8 +20,8 @@ SESSION_CONFIGS = [
 
     dict(
         name='pre_survey',
-        app_sequence=['pre_survey'],
-        num_demo_participants=1 * 2,
+        app_sequence=['pre_survey', 'dictator_one_shot'],
+        num_demo_participants=2 * 2,
     ),
 ]
 
@@ -105,7 +98,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = ["treatment", "transfer_price", "comprehension_activity", "inventory_order_history", "demand_history", "earnings_list",
-                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings"]
+                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings","earning_dictator"]
 SESSION_FIELDS = []
 
 # ISO-639 code
@@ -115,6 +108,7 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = True
+POINTS_CUSTOM_NAME = 'ECU'  # TODO change to GBP
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

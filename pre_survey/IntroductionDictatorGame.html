@@ -1,0 +1,43 @@
+{% extends "global/Forms.html" %}
+{% block title %}    Part 1: Pre-experiment Questionnaire {% endblock %}
+{% block content %}
+
+    <p>
+        Now, you will be paired randomly and anonymously with another participant.
+    </p>
+
+    <p>
+        One of you will be <b>Participant A </b> and the other <b>Participant B</b>. Prior to making a decision, you will learn which Participant you
+        are, which will be <b>randomly assigned </b>.
+    </p>
+
+    <p>
+        A <b>sum of {{ C.ENDOWMENT }}</b> has been provisionally allocated to each pair. Participant A can propose how much of this each person is to
+        receive.
+    </p>
+
+    <p>
+        <b>Participant A makes the proposal</b>. The proposal consists of an amount that Participant B is to receive. The amount that Participant A
+        is to receive is simply the total amount to be divided, {{ C.ENDOWMENT }}, minus the amount that Participant B is to receive.
+    </p>
+
+    <p>
+
+        If you are <b>Participant A</b>, you will be asked to <b>fill out the proposal form</b>.
+    </p>
+
+    <p>
+        If you are <b>Participant B</b>, you will be asked to <b>wait for Participant A to make a proposal</b>.
+    </p>
+
+    <p>
+        At the end of Part 3, X% of the pairs will be randomly selected to receive the amount proposed by Participant A.
+        This means that the proposal of Participant A <b>will be added to the payout of the X% of the pairs randomly selected</b> at a rate of
+        <b>{{ conversion_rate }} ECU = €1</b>.
+    </p>
+
+
+
+    {% next_button %}
+{% endblock %}
+

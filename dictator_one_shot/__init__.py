@@ -16,7 +16,9 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     # Initial amount allocated to the dictator
-    ENDOWMENT = cu(100)
+    ENDOWMENT = cu(250)
+    PARTICIPANT_A_ROLE = 'Participant A'
+    PARTICIPANT_B_ROLE = 'Participant B'
 
 
 class Subsession(BaseSubsession):
@@ -24,11 +26,10 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    kept = models.CurrencyField(
-        doc="""Amount dictator decided to keep for himself""",
+    sent = models.CurrencyField(
+        doc="""Amount Participant A decided to send to Participant B""",
         min=0,
         max=C.ENDOWMENT,
-        label="I will keep",
     )
 
 
@@ -39,48 +40,34 @@ class Player(BasePlayer):
 # FUNCTIONS
 
 def set_payoffs(group: Group):
-    p1 = group.get_player_by_id(1)
-    p2 = group.get_player_by_id(2)
-    p1.payoff = group.kept
-    p2.payoff = C.ENDOWMENT - group.kept
-    p1.participant.vars['earning_1'] = p1.payoff
-    p2.participant.vars['earning_1'] = p2.payoff
+    p1 = group.get_player_by_role(C.PARTICIPANT_A_ROLE)
+    p2 = group.get_player_by_role(C.PARTICIPANT_B_ROLE)
 
-
-def get_players(player: Player):
-    participant_name = player.participant
-    return dict(participant_name=participant_name)
-
-
-def js_vars(player: Player):
-    group = player.group
-    return dict(
-        taken=group.kept,
-    )
+    p1.participant.earning_dictator = C.ENDOWMENT - group.sent
+    p2.participant.earning_dictator = group.sent
 
 
 # PAGES
-class Introduction(Page):
-    pass
-
 
 class Offer(Page):
     form_model = 'group'
-    form_fields = ['kept']
+    form_fields = ['sent']
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.id_in_group == 1
+        return player.role == C.PARTICIPANT_A_ROLE
 
 
-class RecipientWait(Page):
+class ParticipantB(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.id_in_group == 2
+        return player.role == C.PARTICIPANT_B_ROLE
 
 
-class ResultsWaitPage(WaitPage):
-    after_all_players_arrive = set_payoffs
+class ParticipantA(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.role == C.PARTICIPANT_A_ROLE
 
 
 class Results(Page):
@@ -88,7 +75,30 @@ class Results(Page):
     def vars_for_template(player: Player):
         group = player.group
 
-        return dict(offer=C.ENDOWMENT - group.kept)
+        return dict(offer=C.ENDOWMENT - group.sent,
+                    conversion_rate=1 / player.session.config['real_world_currency_per_point']  # 1EUR * conversion_rate)
+                    )
 
 
-page_sequence = [Introduction, Offer, RecipientWait, ResultsWaitPage, Results]
+class MatchingWaitPage(WaitPage):
+    group_by_arrival_time = True
+
+
+class ResultsWaitPageParticipantA(WaitPage):
+    after_all_players_arrive = set_payoffs
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.role == C.PARTICIPANT_A_ROLE
+
+
+class ResultsWaitPageParticipantB(WaitPage):
+    after_all_players_arrive = set_payoffs
+    body_text = "Please wait for Participant A to make a proposal."
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.role == C.PARTICIPANT_B_ROLE
+
+
+page_sequence = [MatchingWaitPage, ParticipantA, ParticipantB, Offer, ResultsWaitPageParticipantA, ResultsWaitPageParticipantB, Results]

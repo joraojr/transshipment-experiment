@@ -1,5 +1,7 @@
 from otree.api import *
 
+from welcome import Welcome
+
 doc = """
 Post Survey to the Transshipment Game
 """
@@ -9,6 +11,9 @@ class C(BaseConstants):
     NAME_IN_URL = 'pre_questionnaire'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
+
+    # Initial amount allocated to the dictator
+    ENDOWMENT = cu(250)
 
     LIKERT = [
         [0, ''],
@@ -156,8 +161,15 @@ class Player(BasePlayer):
 
 
 # PAGES
-class Introduction(Page):
+class Welcome(Page):
     pass
+
+
+class IntroductionDictatorGame(Page):
+    def vars_for_template(self):
+        return {
+            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+        }
 
 
 class BeliefsReciprocity(Page):
@@ -194,5 +206,5 @@ class Altruism2(Page):
     form_model = 'player'
     form_fields = ['A_QA2']
 
-# TODO one-shot dictator game 10 euros divided by 2 players
-page_sequence = [Introduction, Trust]
+
+page_sequence = [Welcome, Trust, IntroductionDictatorGame]
