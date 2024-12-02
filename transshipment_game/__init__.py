@@ -175,6 +175,10 @@ class TransferEngagement(Page):
     form_fields = ['transfer_engagement']
 
     @staticmethod
+    def get_timeout_seconds(player):
+        return 30 if player.round_number == 1 else 15
+
+    @staticmethod
     def is_displayed(player):
         return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
 
@@ -197,6 +201,10 @@ class TransferEngagementResultsWaitPage(WaitPage):
 
 class TransferEngagementResult(Page):
     @staticmethod
+    def get_timeout_seconds(player):
+        return 30 if player.round_number == 1 else 15
+
+    @staticmethod
     def is_displayed(player):
         return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
 
@@ -212,6 +220,15 @@ class TransferEngagementResult(Page):
 class InventoryOrder(Page):
     form_model = 'player'
     form_fields = ['inventory_order']
+
+    @staticmethod
+    def get_timeout_seconds(player):
+        if player.round_number == 1:
+            return 120
+        elif 2 <= player.round_number <= 5:
+            return 60
+        elif 6 <= player.round_number <= 15:
+            return 30
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -314,6 +331,15 @@ class ResultsWaitPage(WaitPage):
 class Results(Page):
 
     @staticmethod
+    def get_timeout_seconds(player):
+        if player.round_number == 1:
+            return 120
+        elif 2 <= player.round_number <= 5:
+            return 60
+        elif 6 <= player.round_number <= 15:
+            return 30
+
+    @staticmethod
     def vars_for_template(player: Player):
         # Revenue for this round
 
@@ -380,7 +406,7 @@ class RandomDraw(Page):
         player.participant.drawn_earnings = drawn_earnings
         player.participant.avg_earnings = avg_earnings = sum(drawn_earnings) / len(drawn_earnings)
 
-        # Ensure the no negative payoff (At least the participation fee must be paid)
+        # Ensure the no negative payoff (At least the fixed participation fee must be paid)
         player.participant.payoff = cu(round(max(avg_earnings, 0)))
 
     def vars_for_template(player: Player):

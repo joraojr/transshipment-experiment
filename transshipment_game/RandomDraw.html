@@ -7,12 +7,13 @@
 
     <p>Now,<b> {{ DRAW_EARNINGS_NUM_ROUNDS }} rounds</b> will be drawn randomly to define your payout. </p>
 
-    <p> Your payout will be <b>equal to the average earnings in ECU from those rounds</b> and an <b>additional {{ show_up_fee }}</b> participation fee.</p>
+    <p> Your payout will be equal to the <b> {{ show_up_fee }} fixed participation fee </b> and an additional <b>average earnings in ECU from those
+        {{ DRAW_EARNINGS_NUM_ROUNDS }} rounds</b> .</p>
 
-    <p> Your average earning in ECU will be converted to Euros at a rate of <b>{{ conversion_rate }} ECU = €1</b>.
+    <p> Your average earning in ECU will be converted to Pounds at a rate of <b>{{ conversion_rate }} ECU = £1</b>.
 
-    <p> In case you have a negative average earning in ECU, only the show-up will you be paid to you. <b> That means that your minimum payout for the
-        experiment is {{ show_up_fee }}</b></p>
+    <p> In case you have a negative average earning in ECU, only the fixed participation fee will you be paid to you. <b> That means that your minimum
+        payout for the experiment is {{ show_up_fee }}</b></p>
 
     <p> Click "Next" to start the random draw.</p>
 

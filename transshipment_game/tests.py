@@ -12,7 +12,7 @@ class PlayerBot(Bot):
 
         if self.round_number == 1:
             # Navigate through the Introduction page
-            yield Introduction
+            yield Welcome
 
         if C.TREATMENTS[self.participant.treatment]["decision_frequency"] == "PER_ROUND":
             # Simulate data submission on TransferEngagement page
@@ -29,4 +29,4 @@ class PlayerBot(Bot):
         if self.round_number == C.NUM_ROUNDS:
             yield RandomDraw
 
-            yield RandomDrawResult
+            # yield RandomDrawResult

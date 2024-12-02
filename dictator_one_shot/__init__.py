@@ -16,7 +16,7 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     # Initial amount allocated to the dictator
-    ENDOWMENT = cu(250)
+    ENDOWMENT = cu(1000)
     PARTICIPANT_A_ROLE = 'Participant A'
     PARTICIPANT_B_ROLE = 'Participant B'
 

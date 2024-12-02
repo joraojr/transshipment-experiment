@@ -15,7 +15,7 @@
         <div class="row">
 
             <div class="col-md-5">
-                <b> (1) Summary: </b>
+                {#                <b> (1) Summary: </b>#}
                 <div class="border border-3 mb-4" style=" text-align: left; background-color: #FFFFFF">
                     {{ result_message_text }}
                 </div>
@@ -30,7 +30,26 @@
             </div>
 
             <div class="col-md-7">
-                <b> (2) Description of Revenue, Costs, and Earnings: </b>
+                {#                <b> (2) Description of Revenue, Costs, and Earnings: </b>#}
+
+                <table class="mb-4">
+                    <tr>
+                        <th class="w-100">Earnings</th>
+                        <th> ECU</th>
+                    </tr>
+                    <tr>
+                        <td>Revenue</td>
+                        <td>{{ total_price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Costs</td>
+                        <td>{{ total_cost }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>TOTAL</b></td>
+                        <td><b>{{ earnings }} </b></td>
+                    </tr>
+                </table>
                 <div class="border border-3 mb-4" style=" text-align: left; background-color: #FFFFFF">
                     <p>
                         <b>Retail Revenue</b> <br>
@@ -83,24 +102,7 @@
                     </p>
                 </div>
 
-                <table class="mb-4">
-                    <tr>
-                        <th class="w-100">Earnings</th>
-                        <th> ECU</th>
-                    </tr>
-                    <tr>
-                        <td>Revenue</td>
-                        <td>{{ total_price }}</td>
-                    </tr>
-                    <tr>
-                        <td>Costs</td>
-                        <td>{{ total_cost }}</td>
-                    </tr>
-                    <tr>
-                        <td><b>TOTAL</b></td>
-                        <td><b>{{ earnings }} </b></td>
-                    </tr>
-                </table>
+
             </div>
 
         </div>

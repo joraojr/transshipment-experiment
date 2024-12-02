@@ -52,6 +52,46 @@
     {% endif %}
 
 
+    <p><b>Your rounds will be timed</b>. You will have a limited amount of time to make your decisions.</p>
+
+    <ol>
+        <li> For <b>round 1</b>, you will have:</li>
+        <ol>
+
+            {% if decision_frequency == "PER_ROUND" %}
+                <li><b>30s</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+            {% endif %}
+
+            <li><b>120s</b> to place an inventory order.</li>
+            <li><b>120s</b> to see your earnings from your decisions in that round.</li>
+        </ol>
+
+        <li> From <b>round 2 to round 5</b>, you will have:</li>
+        <ol>
+
+            {% if decision_frequency == "PER_ROUND" %}
+                <li><b>15s</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+            {% endif %}
+
+            <li><b>60s</b> to place an inventory order.</li>
+            <li><b>60s</b> to see your earnings from your decisions in that round.</li>
+        </ol>
+
+        <li> From <b>round 6 to round 15</b>, you will have:</li>
+        <ol>
+
+            {% if decision_frequency == "PER_ROUND" %}
+                <li><b>15s</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+            {% endif %}
+
+            <li><b>30s</b> to place an inventory order.</li>
+            <li><b>30s</b> to see your earnings from your decisions in that round.</li>
+        </ol>
+
+    </ol>
+
+
+
     {% next_button %}
 
 {% endblock %}

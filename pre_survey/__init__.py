@@ -13,7 +13,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
 
     # Initial amount allocated to the dictator
-    ENDOWMENT = cu(250)
+    ENDOWMENT = cu(1000)
 
     LIKERT = [
         [0, ''],

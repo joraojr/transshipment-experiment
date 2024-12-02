@@ -6,16 +6,16 @@
 
         {% if player.id_in_group == 1 %}
             You are <b> Participant A</b>.
-            You proposed to send <strong>{{ group.sent }}</strong> of the {{ C.ENDOWMENT }} to Participant B, so you kept <b>{{ offer }}</b>..
+            You proposed to send <strong>{{ group.sent }}</strong> of the {{ C.ENDOWMENT }} to Participant B, so you keep <b>{{ offer }}</b>.
         {% else %}
-            You are <b> Participant B</b>. Participant A proposed to send you <b>{{ group.sent }}</b> of the {{ C.ENDOWMENT }} .
+            You are <b> Participant B</b>. Participant A proposed to send you <b>{{ group.sent }}</b> of the {{ C.ENDOWMENT }}.
         {% endif %}
     </p>
 
     <p>
     <p>
         At the end of Part 3, X% of the pairs will be randomly selected to receive the amount proposed by Participant A. If your pair is randomly
-        selected, this value will be added to your payout at a rate of <b>{{ conversion_rate }} ECU = €1</b>.
+        selected, this value will be added to your payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.
     </p>
 
 

@@ -54,34 +54,34 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [18, 24]  # demands [A,B]
         },
 
-        "C5_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": "non-identical",
-            "transfer_price": [10, 40]
-        },
-
-        "C6_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": "non-identical",
-            "transfer_price": [8, 40]
-        },
-
-        "C4_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [18, 24]  # demands [A,B]
-        },
-
-        "C5_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [10, 40]
-        },
-        "C6_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_price": [8, 40]
-        },
+        # "C5_PER_ROUND": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "roles": "non-identical",
+        #     "transfer_price": [10, 40]
+        # },
+        #
+        # "C6_PER_ROUND": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "roles": "non-identical",
+        #     "transfer_price": [8, 40]
+        # },
+        #
+        # "C4_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_price": [18, 24]  # demands [A,B]
+        # },
+        #
+        # "C5_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_price": [10, 40]
+        # },
+        # "C6_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_price": [8, 40]
+        # },
     }
 )
 
@@ -91,14 +91,14 @@ GAME_CONFIG_DEFAULTS = dict(
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=0.004,  # 0.05% => 200 ECU = 1 EUR, 0.10% => 100 ECU = 1 EUR, 0.003 => 333.33 ECU = 1 EUR
-    participation_fee=3.00,
+    real_world_currency_per_point=1 / 1000,  # 0.05% => 200 ECU = 1 EUR, 0.10% => 100 ECU = 1 EUR, 0.003 => 333.33 ECU = 1 EUR
+    participation_fee=7,  # ==> 8.5 EUR (range 6-9 GBP)
     draw_earnings_num_rounds=4,
     doc="",
 )
 
 PARTICIPANT_FIELDS = ["treatment", "transfer_price", "comprehension_activity", "inventory_order_history", "demand_history", "earnings_list",
-                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings","earning_dictator"]
+                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings", "earning_dictator"]
 SESSION_FIELDS = []
 
 # ISO-639 code
@@ -106,9 +106,9 @@ SESSION_FIELDS = []
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'EUR'
+REAL_WORLD_CURRENCY_CODE = 'GBP'
 USE_POINTS = True
-POINTS_CUSTOM_NAME = 'ECU'  # TODO change to GBP
+POINTS_CUSTOM_NAME = 'ECU'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
