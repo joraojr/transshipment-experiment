@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
 
     dict(
         name='Transshipment_Game',
-        app_sequence=['welcome', 'pre_survey', 'dictator_one_shot', 'game_instructions', 'transshipment_game', 'post_survey'],
+        app_sequence=['welcome', 'pre_survey', 'game_instructions', 'transshipment_game', 'post_survey'],
         num_demo_participants=2,
     ),
     dict(
@@ -20,7 +20,7 @@ SESSION_CONFIGS = [
 
     dict(
         name='pre_survey',
-        app_sequence=['pre_survey', 'dictator_one_shot'],
+        app_sequence=['pre_survey'],
         num_demo_participants=2 * 2,
     ),
 ]
@@ -54,34 +54,34 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_price": [18, 24]  # demands [A,B]
         },
 
-        # "C5_PER_ROUND": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "roles": "non-identical",
-        #     "transfer_price": [10, 40]
-        # },
-        #
-        # "C6_PER_ROUND": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "roles": "non-identical",
-        #     "transfer_price": [8, 40]
-        # },
-        #
-        # "C4_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "non-identical",
-        #     "transfer_price": [18, 24]  # demands [A,B]
-        # },
-        #
-        # "C5_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "non-identical",
-        #     "transfer_price": [10, 40]
-        # },
-        # "C6_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "non-identical",
-        #     "transfer_price": [8, 40]
-        # },
+        "C5_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [10, 40]
+        },
+
+        "C6_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_price": [8, 40]
+        },
+
+        "C4_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [18, 24]  # demands [A,B]
+        },
+
+        "C5_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [10, 40]
+        },
+        "C6_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_price": [8, 40]
+        },
     }
 )
 
@@ -94,6 +94,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1 / 1000,  # 0.05% => 200 ECU = 1 EUR, 0.10% => 100 ECU = 1 EUR, 0.003 => 333.33 ECU = 1 EUR
     participation_fee=7,  # ==> 8.5 EUR (range 6-9 GBP)
     draw_earnings_num_rounds=4,
+    draw_earnings_dictator=5,
     doc="",
 )
 

@@ -1,15 +1,19 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Part 4: Exit Questionnaire
+    Thank you!
 {% endblock %}
 {% block content %}
 
     <p>Thank you for participating in the experiment. You have completed the experiment. </p>
 
-    <p> Your earned {{ payoff }} from the {{ DRAW_EARNINGS_NUM_ROUNDS }} randomly chosen rounds. </p>
+    <p> You <b>received a {{ show_up_fee }}</b> fixed participation fee for your participation. </p>
 
-    <p> You received a {{ show_up_fee }} fixed participation fee for you participation. Your payout is <b>{{ total_payoff }} </b>.</p>
+    <p> You <b>were not </b>one of the {% draw_earnings_dictator %} randomly selected participant of Part 1.</p>
+
+    <p> Your <b>earned a bonus of {{ payoff }}</b> from the {{ DRAW_EARNINGS_NUM_ROUNDS }} randomly chosen rounds of Part 3. </p>
+
+    <p> Your payout is <b>{{ total_payoff }} </b>.</p>
 
     {#     TODO See how to do the same on Prolific #}
     {#    <p><b>Please click <a href="https://dontpad.com/exp_trasnshipment_WU">here</a> or wait <span id="countdown">20</span> seconds to be automatically redirected to enter your payment information. </b></p>#}

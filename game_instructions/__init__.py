@@ -96,7 +96,9 @@ class Instructions2(Page):
 class Instructions3(Page):
     def vars_for_template(player: Player):
         return {
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"]
+            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
+            'draw_earnings_num_rounds': player.session.config['draw_earnings_num_rounds']
+
         }
 
 

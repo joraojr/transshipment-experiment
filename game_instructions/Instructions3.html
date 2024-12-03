@@ -59,37 +59,39 @@
         <ol>
 
             {% if decision_frequency == "PER_ROUND" %}
-                <li><b>30s</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+                <li><b>30 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
             {% endif %}
 
-            <li><b>120s</b> to place an inventory order.</li>
-            <li><b>120s</b> to see your earnings from your decisions in that round.</li>
+            <li><b>60 seconds</b> to place an inventory order.</li>
+            <li><b>60 seconds</b> to see your earnings from your decisions in that round.</li>
         </ol>
 
         <li> From <b>round 2 to round 5</b>, you will have:</li>
         <ol>
 
             {% if decision_frequency == "PER_ROUND" %}
-                <li><b>15s</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+                <li><b>15 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
             {% endif %}
 
-            <li><b>60s</b> to place an inventory order.</li>
-            <li><b>60s</b> to see your earnings from your decisions in that round.</li>
+            <li><b>30 seconds</b> to place an inventory order.</li>
+            <li><b>45 seconds</b> to see your earnings from your decisions in that round.</li>
         </ol>
 
         <li> From <b>round 6 to round 15</b>, you will have:</li>
         <ol>
 
             {% if decision_frequency == "PER_ROUND" %}
-                <li><b>15s</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+                <li><b>10 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
             {% endif %}
 
-            <li><b>30s</b> to place an inventory order.</li>
-            <li><b>30s</b> to see your earnings from your decisions in that round.</li>
+            <li><b>15 seconds</b> to place an inventory order.</li>
+            <li><b>20 seconds</b> to see your earnings from your decisions in that round.</li>
         </ol>
 
     </ol>
 
+    <p> At the end of Part 3, <b>{{ draw_earnings_num_rounds }} rounds </b> will be drawn randomly and your payout will be equal to the <b> average
+        earnings in ECU </b> from those rounds. </p>
 
 
     {% next_button %}

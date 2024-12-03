@@ -175,8 +175,14 @@ class TransferEngagement(Page):
     form_fields = ['transfer_engagement']
 
     @staticmethod
+    @staticmethod
     def get_timeout_seconds(player):
-        return 30 if player.round_number == 1 else 15
+        if player.round_number == 1:
+            return 30
+        elif 2 <= player.round_number <= 5:
+            return 15
+        elif 6 <= player.round_number <= 15:
+            return 10
 
     @staticmethod
     def is_displayed(player):
@@ -201,8 +207,14 @@ class TransferEngagementResultsWaitPage(WaitPage):
 
 class TransferEngagementResult(Page):
     @staticmethod
+    @staticmethod
     def get_timeout_seconds(player):
-        return 30 if player.round_number == 1 else 15
+        if player.round_number == 1:
+            return 30
+        elif 2 <= player.round_number <= 5:
+            return 15
+        elif 6 <= player.round_number <= 15:
+            return 10
 
     @staticmethod
     def is_displayed(player):
@@ -224,11 +236,11 @@ class InventoryOrder(Page):
     @staticmethod
     def get_timeout_seconds(player):
         if player.round_number == 1:
-            return 120
-        elif 2 <= player.round_number <= 5:
             return 60
-        elif 6 <= player.round_number <= 15:
+        elif 2 <= player.round_number <= 5:
             return 30
+        elif 6 <= player.round_number <= 15:
+            return 15
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -333,11 +345,11 @@ class Results(Page):
     @staticmethod
     def get_timeout_seconds(player):
         if player.round_number == 1:
-            return 120
-        elif 2 <= player.round_number <= 5:
             return 60
+        elif 2 <= player.round_number <= 5:
+            return 45
         elif 6 <= player.round_number <= 15:
-            return 30
+            return 20
 
     @staticmethod
     def vars_for_template(player: Player):

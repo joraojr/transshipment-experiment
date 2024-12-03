@@ -5,8 +5,6 @@
 {% endblock %}
 {% block content %}
 
-    <p> Please proceed through the experiment <b>without taking breaks.</b></p>
-
     <p> This experiment consists of <b>4 parts </b>:</p>
     <ul>
         <li> In Part 1, you answer a pre-experiment questionnaire.</li>
@@ -15,26 +13,33 @@
         <li> In Part 4, you answer an exit questionnaire.</li>
     </ul>
 
-    <p> At the end of the experiment, you provide your bank account details, so we can transfer your experiment payout.</p>
-
     <p> Your payout from the experiment consists of:</p>
     <ul>
         <li> A fixed participation fee of <b>{{ show_up_fee }}</b>.</li>
-        <li> Earnings from your decisions in the experiment.</li>
+        <li> A bonus payment that depends on your decisions in Parts 1 and Part 3 of the experiment. Your decisions in the experiment can earn you
+            Experimental Currency Units (ECU). Your average earnings in ECU will be converted to Pounds at a rate of <b>{{ conversion_rate }} ECU =
+                £1 </b> at the end of the experiment and paid out as your bonus.
+        </li>
     </ul>
 
-    <p> Your decisions in the experiment can earn you Experimental Currency Units (ECU). </p>
+    <p> In each Part (1 and 3), you will be informed about how the bonus payment is determined in that part. </p>
 
-    <p> At the end of Part 3, <b>{{ draw_earnings_num_rounds }} rounds </b> will be drawn randomly and your payout will be equal to the <b> average
-        earnings in ECU </b> from those rounds. </p>
+    <p> At the end of the experiment, you will be informed how high your bonus payment is.</p>
 
-    <p> Your average earnings in ECU will be converted to Pounds at a rate of <b>{{ conversion_rate }} ECU = £1</b>. They will be added to the fixed
-        participation fee and paid into your bank account.</p>
-
-    <p> In case you have a negative average earnings in ECU, only the fixed participation fee will be paid to you. <b> That means that your minimum
+    <p> In case you have negative average earnings in ECU, only the fixed participation fee will be paid to you. <b> That means that your minimum
         payout for the experiment is {{ show_up_fee }}</b></p>
 
+    <br>
 
+    <p>
+        <b>IMPORTANT:</b> Please start the study <b>immediately</b> and proceed <b>without taking breaks</b> because this might lead to long waiting
+        times for the other participants. This study requires that you engage with the tasks continuously (except if you are waiting for other
+        participants, of course) and that if you are on a waiting page you check at least every few minutes whether you can proceed to the next task.
+        We reserve the right to return or reject submissions that clearly do not meet this level of engagement. Please only proceed to the study if
+        you can start immediately and are serious about completing it. Please answer all questions truthfully and to the best of your ability. Please
+        make sure <b>Javascript is enabled in your browser</b>. This study is <b>only compatible with desktop or laptop </b>. Please do not take the
+        study if you are using a mobile or tablet as this may result in your submission being rejected or returned.
+    </p>
 
     {% next_button %}
 

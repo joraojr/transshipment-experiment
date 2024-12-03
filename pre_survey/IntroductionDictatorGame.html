@@ -1,43 +1,58 @@
 {% extends "global/Forms.html" %}
-{% block title %}    Part 1: Pre-experiment Questionnaire {% endblock %}
+{% block title %}    Part 1: Pre-experiment Questionnaire (2/2) {% endblock %}
 {% block content %}
 
     <p>
-        Now, you will be paired randomly and anonymously with another participant.
+        Imagine this scenario.
+
     </p>
 
     <p>
-        One of you will be <b>Participant A </b> and the other <b>Participant B</b>. Prior to making a decision, you will learn which Participant you
-        are, which will be <b>randomly assigned </b>.
+        Imagine a task about dividing money between yourself and another person to whom you are randomly matched. You do not know this other person,
+        and you will not knowingly meet them.
     </p>
 
     <p>
-        A <b>sum of {{ C.ENDOWMENT }}</b> has been provisionally allocated to each pair. Participant A can propose how much of this each person is to
-        receive.
+        Imagine you have been randomly assigned the role of the "allocator". The other person is in the role of the "recipient".
     </p>
 
     <p>
-        <b>Participant A makes the proposal</b>. The proposal consists of an amount that Participant B is to receive. The amount that Participant A
-        is to receive is simply the total amount to be divided, {{ C.ENDOWMENT }}, minus the amount that Participant B is to receive.
+        You are endowed with {% C.ENDOWMENT %}, the recipient is endowed with 0 ECU.
     </p>
 
     <p>
 
-        If you are <b>Participant A</b>, you will be asked to <b>fill out the proposal form</b>.
+        You can decide how much of your {% C.ENDOWMENT %} endowment to transfer to the recipient.
     </p>
 
     <p>
-        If you are <b>Participant B</b>, you will be asked to <b>wait for Participant A to make a proposal</b>.
+        You can choose any amount between 0 ECU and {% C.ENDOWMENT %}. The recipient receives the amount that you decide to transfer to them; you
+        receive the amount that you decide not to transfer and thus to keep
     </p>
+
+
 
     <p>
-        At the end of Part 3, X% of the pairs will be randomly selected to receive the amount proposed by Participant A.
-        This means that the proposal of Participant A <b>will be added to the payout of the X% of the pairs randomly selected</b> at a rate of
-        <b>{{ conversion_rate }} ECU = £1</b>.
+        How much of your {% C.ENDOWMENT %} endowment do you want to transfer to the recipient?
     </p>
 
+    {% form.sent %}
 
+    <br>
+
+    <p>
+
+        At the end of the experiment, {% draw_earnings_dictator %} participants will be selected randomly to receive the amount they decided to keep.
+        The amount will be converted to pounds added to the experiment payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.
+    </p>
 
     {% next_button %}
+
+
+
+
+
+
+
 {% endblock %}
 

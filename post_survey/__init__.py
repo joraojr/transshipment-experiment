@@ -204,7 +204,8 @@ class FinalPage(Page):
             DRAW_EARNINGS_NUM_ROUNDS=player.session.config['draw_earnings_num_rounds'],
             payoff=player.participant.payoff_in_real_world_currency(),
             total_payoff=player.participant.payoff_plus_participation_fee(),
-            show_up_fee=player.session.config['participation_fee']
+            show_up_fee=player.session.config['participation_fee'],
+            draw_earnings_dictator=player.session.config['draw_earnings_dictator']
 
         )
 

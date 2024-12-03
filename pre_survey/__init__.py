@@ -59,6 +59,11 @@ class Player(BasePlayer):
         PDIRS = Positive Downstream Indirect Reciprocity Scale
         
     """
+    sent = models.CurrencyField(
+        doc="""Amount Participant A decided to send to Participant B""",
+        min=0,
+        max=C.ENDOWMENT,
+    )
 
     @staticmethod
     def make_risk_decision(label, choices):
@@ -141,7 +146,7 @@ class Player(BasePlayer):
                              C.PoDIRS_6_SCALES)
 
     T_QA1 = models.IntegerField(
-        label='How well does the following statement describe you as a person? As long as I am not convinced otherwise, I assume that people have only the best intentions.',
+        label='As long as I am not convinced otherwise, I assume that people have only the best intentions.',
         choices=C.LIKERT,
         widget=widgets.RadioSelectHorizontal()
     )
@@ -166,10 +171,19 @@ class Welcome(Page):
 
 
 class IntroductionDictatorGame(Page):
+    form_model = 'player'
+    form_fields = ['sent']
+
     def vars_for_template(self):
         return {
-            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate,
+            'draw_earnings_dictator': self.session.config['draw_earnings_dictator']
+
         }
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        player.participant.earning_dictator = C.ENDOWMENT - player.sent
 
 
 class BeliefsReciprocity(Page):
