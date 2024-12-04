@@ -28,9 +28,8 @@ def creating_session(subsession):
             player.participant.earnings_list = []
             # player.participant.demand_history = []
 
-    #         TODO move it back
-    # else:
-    #     group_by_treatment_and_price(subsession)
+    else:
+        group_by_treatment_and_price(subsession)
 
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():

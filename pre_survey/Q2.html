@@ -26,14 +26,15 @@
     </p>
 
     <p>
-        You can choose any amount between 0 ECU and {% C.ENDOWMENT %}. The recipient receives the amount that you decide to transfer to them; you
-        receive the amount that you decide not to transfer and thus to keep
+        The recipient receives the amount that you decide to transfer to them. You keep the amount that you decide not to transfer.
     </p>
 
-
+    <p>
+        You can choose any amount between 0 ECU and {% C.ENDOWMENT %}.
+    </p>
 
     <p>
-        How much of your {% C.ENDOWMENT %} endowment do you want to transfer to the recipient?
+        <b> How much of your {% C.ENDOWMENT %} endowment do you want to transfer to the recipient? </b>
     </p>
 
     {% form.sent %}
@@ -42,8 +43,8 @@
 
     <p>
 
-        At the end of the experiment, {% draw_earnings_dictator %} participants will be selected randomly to receive the amount they decided to keep.
-        The amount will be converted to pounds added to the experiment payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.
+        At the end of the experiment, <b> {% draw_earnings_dictator %} participants</b> will be selected randomly to receive the amount they <b>decided
+        to keep</b>. The amount will be converted to Pounds added to the experiment payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.
     </p>
 
     {% next_button %}

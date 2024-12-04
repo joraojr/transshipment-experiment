@@ -21,6 +21,7 @@ class Subsession(BaseSubsession):
     pass
 
 
+# TODO MOVE THAT TO transshipment_game
 def creating_session(subsession):
     # Assign Treatments to the players
     import itertools
@@ -69,7 +70,7 @@ class Player(BasePlayer):
 
 # PAGES
 
-class Introduction(Page):
+class Welcome(Page):
     def vars_for_template(self):
         return {
             'MAIN_GAME_NUM_ROUNDS': C.MAIN_GAME_NUM_ROUNDS,
@@ -127,4 +128,4 @@ class Comprehension2(Page):
         player.participant.comprehension_activity.append(to_export)
 
 
-page_sequence = [Introduction, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]
+page_sequence = [Welcome, Instructions1, Instructions2, Instructions3, Comprehension1, Comprehension2]

@@ -63,23 +63,31 @@
 
             {# Modify this array to include additional comprehension question#}
 
+            {#var questions = [#}
+            {#    "How is customer demand for your product determined each round?",#}
+            {#    "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",#}
+            {#    "You can carry over excess inventory from one round to the next.",#}
+            {#    "What is the procurement cost per unit that you pay to the supplier when ordering inventory?",#}
+            {#    "If you and the other retailer decide to engage in a transfer, and you face excess demand, you will always be able to meet it fully." // TODO ONLY PER_ROUND#}
+            {#];#}
+            {##}
+            {#if ("{{ decision_frequency }}" === "ENFORCED") {#}
+            {#    questions = [#}
+            {#        "How is customer demand for your product determined each round?",#}
+            {#        "What happens to your excess inventory if the other retailer also faces excess inventory?",#}
+            {#        "You can carry over excess inventory from one round to the next.",#}
+            {#        "What is the procurement cost per unit that you pay to the supplier when ordering inventory?",#}
+            {#        "If you face excess demand, you will always be able to meet it fully."#}
+            {#    ];#}
+            {# #}
+
             var questions = [
                 "How is customer demand for your product determined each round?",
-                "What happens to your excess inventory if neither you nor the other retailer decides to engage in a transfer?",
+                "What happens to your excess inventory if the other retailer also faces excess inventory?",
                 "You can carry over excess inventory from one round to the next.",
                 "What is the procurement cost per unit that you pay to the supplier when ordering inventory?",
-                "If you and the other retailer decide to engage in a transfer, and you face excess demand, you will always be able to meet it fully." // TODO ONLY PER_ROUND
+                "If you face excess demand, you will always be able to meet it fully."
             ];
-
-            if ("{{ decision_frequency }}" === "ENFORCED") {
-                questions = [
-                    "How is customer demand for your product determined each round?",
-                    "What happens to your excess inventory if the other retailer also faces excess inventory?",
-                    "You can carry over excess inventory from one round to the next.",
-                    "What is the procurement cost per unit that you pay to the supplier when ordering inventory?",
-                    "If you face excess demand, you will always be able to meet it fully."
-                ];
-            }
             var answers_data = {
                 "first": {
                     "answers": [

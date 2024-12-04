@@ -5,90 +5,25 @@
 {% endblock %}
 {% block content %}
 
-    {% if decision_frequency == "PER_ROUND" %}
-        <p> Each round starts with <b>two tasks</b> for you and the other retailer to perform:</p>
-        <ol>
-            <li> Decide whether you want to engage in a transfer with the other retailer.</li>
-            <li> Place an inventory order to satisfy customer demand.</li>
-        </ol>
+    <p> In each round <b>you</b> and the other retailer have to <b>place an inventory order</b> to satisfy customer demand. </p>
 
-        <p>After you have performed the two tasks, the round proceeds in <b>three stages</b>: </p>
-        <ol>
-            <li>Customer demand for your product is drawn and displayed to you. Customer demand for the other retailer is drawn and displayed to
-                the other retailer.
-            </li>
-            <li> Customer demand for your product is met from the inventory you ordered in task (2). Customer demand for the other retailer's product
-                is met from the other retailer's inventory ordered in task (2).
-            </li>
-            <li> If you or the other retailer face excess demand or excess inventory and both of you decided to engage in a transfer in task (1),
-                excess demand and excess inventory will be matched and transferred as described before. The transfer will be carried out
-                automatically.
-            </li>
-        </ol>
+    <p>After you have placed the inventory order, the round proceeds in <b>three stages</b>: </p>
+    <ol>
+        <li>Customer demand for your product is drawn and displayed to you. Customer demand for the other retailer is drawn and displayed to
+            the other retailer.
+        </li>
+        <li> Customer demand for your product is met from your inventory order. Customer demand for the other retailer's product is met from the other
+            retailer's inventory order.
+        </li>
 
-        <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
+        <li> If you or the other retailer face excess demand or excess inventory and both of you decide to engage in a transfer, excess demand and
+            excess inventory will be matched and transferred as described before. The transfer will be carried out automatically.
+        </li>
+    </ol>
 
-    {% elif decision_frequency == "ENFORCED" %}
-
-        <p> Each round starts with <b>one task</b> for you and the other retailer to perform:</p>
-        <ol>
-            <li> Place an inventory order to satisfy customer demand.</li>
-        </ol>
-
-        <p>After you have performed the task, the round proceeds in <b>three stages</b>: </p>
-        <ol>
-            <li>Customer demand for your product is drawn and displayed to you. Customer demand for the other retailer is drawn and displayed to
-                the other retailer.
-            </li>
-            <li> Customer demand for your product is met from the inventory you ordered in task (1). Customer demand for the other retailer's product
-                is met from the other retailer's inventory ordered in task (1).
-            </li>
-            <li> If you or the other retailer face excess demand or excess inventory, excess demand and excess inventory will be matched and
-                transferred as described before. The transfer will be carried out automatically.
-            </li>
-        </ol>
-
-        <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
-    {% endif %}
-
+    <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
 
     <p><b>Your rounds will be timed</b>. You will have a limited amount of time to make your decisions.</p>
-
-    <ol>
-        <li> For <b>round 1</b>, you will have:</li>
-        <ol>
-
-            {% if decision_frequency == "PER_ROUND" %}
-                <li><b>30 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
-            {% endif %}
-
-            <li><b>60 seconds</b> to place an inventory order.</li>
-            <li><b>60 seconds</b> to see your earnings from your decisions in that round.</li>
-        </ol>
-
-        <li> From <b>round 2 to round 5</b>, you will have:</li>
-        <ol>
-
-            {% if decision_frequency == "PER_ROUND" %}
-                <li><b>15 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
-            {% endif %}
-
-            <li><b>30 seconds</b> to place an inventory order.</li>
-            <li><b>45 seconds</b> to see your earnings from your decisions in that round.</li>
-        </ol>
-
-        <li> From <b>round 6 to round 15</b>, you will have:</li>
-        <ol>
-
-            {% if decision_frequency == "PER_ROUND" %}
-                <li><b>10 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
-            {% endif %}
-
-            <li><b>15 seconds</b> to place an inventory order.</li>
-            <li><b>20 seconds</b> to see your earnings from your decisions in that round.</li>
-        </ol>
-
-    </ol>
 
     <p> At the end of Part 3, <b>{{ draw_earnings_num_rounds }} rounds </b> will be drawn randomly and your payout will be equal to the <b> average
         earnings in ECU </b> from those rounds. </p>

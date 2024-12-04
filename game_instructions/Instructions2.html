@@ -5,18 +5,67 @@
 {% endblock %}
 {% block content %}
 
-    {% if decision_frequency == "PER_ROUND" %}
+    {#        {% if decision_frequency == "PER_ROUND" %}#}
+    {##}
+    {#            <p>To deal with excess inventory and excess demand, you can decide to <b> engage in a transfer </b> with the other retailer. The transfer, if#}
+    {#                agreed upon, will be carried out automatically. </p>#}
+    {##}
+    {#            <p>If both you and the other retailer decide to engage in a transfer, this will happen:</p>#}
+    {##}
+    {#        {% elif decision_frequency == "ENFORCED" %}#}
+    {##}
+    {#            <p>To deal with excess inventory and excess demand, you and the other retailer will <b> engage in a transfer</b>. The transfer will be carried#}
+    {#                out automatically. This will happen: </p>#}
+    {#        {% endif %}#}
+    {##}
+    {#        <p><b>If you face excess demand (Demand > Order): </b></p>#}
+    {#        <ol>#}
+    {#            <li> If the other retailer has excess inventory, it is transferred to you.</li>#}
+    {#            <li> If your excess demand is higher than or equal to the other retailer's excess inventory, all the other retailer's excess inventory is#}
+    {#                transferred to you.#}
+    {#            </li>#}
+    {#            <li> If your excess demand is lower than the other retailer's excess inventory, only the units required to satisfy your demand are#}
+    {#                transferred. You can satisfy customer demand fully.#}
+    {#            </li>#}
+    {#        </ol>#}
+    {##}
+    {#        <p> For every unit transferred to you, you pay a transfer cost of <b>{{ p1_transfer_price }} ECU</b> to the other retailer. </p>#}
+    {#        <p> You <b>pay</b> a transfer cost to the other retailer for every unit the other retailer transferred to you. Your transfer cost will be#}
+    {#            presented before starting the experiment. </p>#}
+    {##}
+    {#        <p><b>If you face excess inventory (Order > Demand): </b></p>#}
+    {#        <ol>#}
+    {#            <li> If the other retailer has excess demand, it is transferred to them.</li>#}
+    {#            <li> If your excess inventory is lower than or equal to the other retailer's excess demand, all your excess inventory is transferred to#}
+    {#                them.#}
+    {#            </li>#}
+    {#            <li> If your excess inventory is greater than the other retailer's excess demand, only the units required to satisfy the other retailer's#}
+    {#                excess demand are transferred to them. They can satisfy customer demand fully.#}
+    {#            </li>#}
+    {#        </ol>#}
+    {#        <p> For every unit transferred to the other retailer, you receive a transfer price of <b>{{ p2_transfer_price }} ECU</b>. </p>#}
+    {#        <p> You <b>receive</b> a transfer price for every unit you transferred to the other retailer.Your transfer price will be presented before starting#}
+    {#            the experiment. </p>#}
+    {##}
+    {#        <p>#}
+    {#            For every unit in your excess inventory that is not transferred to the other retailer, you <b>receive</b> a salvage price of <b>10 ECU</b>.#}
+    {#        </p>#}
+    {##}
 
-        <p>To deal with excess inventory and excess demand, you can decide to <b> engage in a transfer </b> with the other retailer. The transfer, if
-            agreed upon, will be carried out automatically. </p>
+    {#        {% if decision_frequency == "PER_ROUND" %}#}
+    {##}
+    {#            <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will#}
+    {#                happen:</p>#}
+    {#            <ol>#}
+    {#                <li> No transfer of units takes place.</li>#}
+    {#                <li> If you face excess demand, none of your excess demand is met.</li>#}
+    {#                <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>#}
+    {#            </ol>#}
+    {#        {% endif %}#}
 
-        <p>If both you and the other retailer decide to engage in a transfer, this will happen:</p>
 
-    {% elif decision_frequency == "ENFORCED" %}
-
-        <p>To deal with excess inventory and excess demand, you and the other retailer will <b> engage in a transfer</b>. The transfer will be carried
-            out automatically. This will happen: </p>
-    {% endif %}
+    <p>To deal with excess inventory and excess demand, you and the other retailer may engage in transfers. Transfers, if applicable, will be carried
+        out automatically according to predefined rules.</p>
 
     <p><b>If you face excess demand (Demand > Order): </b></p>
     <ol>
@@ -29,9 +78,9 @@
         </li>
     </ol>
 
-    {#    <p> For every unit transferred to you, you pay a transfer cost of <b>{{ p1_transfer_price }} ECU</b> to the other retailer. </p>#}
-    <p> You <b>pay</b> a transfer cost of <b>{{ p1_transfer_price }} ECU</b> to the other retailer for every unit the other retailer transferred to
-        you. </p>
+    {#    <p> For every unit transferred to you, you pay a transfer cost to the other retailer. </p>#}
+
+    <p> You <b>pay</b> a transfer cost to the other retailer for every unit the other retailer transferred to you.</p>
 
     <p><b>If you face excess inventory (Order > Demand): </b></p>
     <ol>
@@ -43,26 +92,31 @@
             excess demand are transferred to them. They can satisfy customer demand fully.
         </li>
     </ol>
-    {#    <p> For every unit transferred to the other retailer, you receive a transfer price of <b>{{ p2_transfer_price }} ECU</b>. </p>#}
-    <p> You <b>receive</b> a transfer price of <b>{{ p2_transfer_price }} ECU</b> for every unit you transferred to the other retailer. </p>
 
-    <p> For every unit in your excess inventory that is not transferred to the other retailer, you <b>receive</b> a salvage price of <b>10 ECU</b>.
+
+    <p> You <b>receive</b> a transfer price for every unit you transferred to the other retailer. </p>
+
+    <p> Your <b>transfer cost and transfer price </b> will be presented <b>at the beginning of Part 3</b>.</p>
+
+    <p>
+        For every unit in your excess inventory that is not transferred to the other retailer, you <b>receive</b> a salvage price of <b>10 ECU</b>.
     </p>
 
 
-    {% if decision_frequency == "PER_ROUND" %}
-
-        <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will
-            happen:</p>
-        <ol>
-            <li> No transfer of units takes place.</li>
-            <li> If you face excess demand, none of your excess demand is met.</li>
-            <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>
-        </ol>
-    {% endif %}
-
+    {#    <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will#}
+    {#        happen:</p>#}
+    <p> A transfer only occurs if <b>both retailers</b> decide to engage in a transfer. If a transfer does not happen:</p>
+    <ol>
+        <li> No transfer of units takes place.</li>
+        <li> If you face excess demand, none of your excess demand is met.</li>
+        <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>
+    </ol>
 
 
     {% next_button %}
+
+
+
+
 
 {% endblock %}

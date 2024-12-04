@@ -11,7 +11,7 @@ class PlayerBot(Bot):
         # self.participant.vars['some_other_field'] = 'example_value'
 
         if self.round_number == 1:
-            # Navigate through the Introduction page
+            # Navigate through the Welcome page
             yield Welcome
 
         if C.TREATMENTS[self.participant.treatment]["decision_frequency"] == "PER_ROUND":
