@@ -6,37 +6,35 @@
 {% block content %}
 
     <p>
-        In the following task, you make 10 decisions. Each decision is a choice between "Option A" and "Option B".
-
+        In the following task, you make 10 decisions. Each decision is a choice between "Option A" and "Option B". After you complete the task, one
+        decision will be drawn randomly and the outcome will be added as bonus payment to your experiment payout.
     </p>
 
-    {#    After you complete the task, one        decision will be drawn randomly and the outcome will be added to your experiment earnings.#}
 
     <p>
-        If decision (1) is drawn, you will receive the following earnings:
+        If decision (1) is drawn, you will receive the following bonus payment:
     </p>
 
     <ol>
-        <li> If you choose Option A, you will receive 20.00 ECU with a chance of 1 out of 10 and 16.00 ECU with a chance of 9 out of 10.</li>
-        <li> If you choose Option B, you will receive 38.50 ECU with a chance of 1 out of 10 and 1.00 ECU with a chance of 9 out of 10.</li>
+        <li> If you choose Option A, you will receive 200.00 ECU with a chance of 1 out of 10 and 160.00 ECU with a chance of 9 out of 10.</li>
+        <li> If you choose Option B, you will receive 385.00 ECU with a chance of 1 out of 10 and 10.00 ECU with a chance of 9 out of 10.</li>
     </ol>
 
 
     <p>
-
-        In each of the following decisions (2) to (10), the amounts remain the same but it becomes more likely that you will receive the higher
-        amount. If decision (10) is drawn, you will receive the following earnings:
+        In each of the following decisions (2) to (10), the amounts remain the same, but it becomes more likely that you will receive the higher
+        amount. If decision (10) is drawn, you will receive the following bonus payment:
     </p>
 
     <ol>
-        <li> If you choose Option A, you will receive 20.00 ECU with a chance of 10 out of 10 and 16.00 ECU with a chance of 0 out of 10.</li>
-        <li> If you choose Option B, you will receive 38.50 ECU with a chance of 10 out of 10 and 1.00 ECU with a chance of 0 out of 10.</li>
+        <li> If you choose Option A, you will receive 200.00 ECU with a chance of 10 out of 10 and 160.00 ECU with a chance of 0 out of 10.</li>
+        <li> If you choose Option B, you will receive 385.00 ECU with a chance of 10 out of 10 and 10.00 ECU with a chance of 0 out of 10.</li>
     </ol>
 
     <br>
 
     <p>
-        Please make your 10 decisions below:
+        <b>Please make your 10 decisions below:</b>
     </p>
 
     <table class="table">
@@ -53,66 +51,66 @@
 
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 1 out of 10 &emsp;9 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 1 out of 10 &emsp;9 out of 10</th>
             <th class="text-center">{% form.rq1 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 1 out of 10 &emsp;9 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 1 out of 10 &emsp;9 out of 10</th>
 
         </tr>
 
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 2 out of 10 &emsp;8 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 2 out of 10 &emsp;8 out of 10</th>
             <th class="text-center ">{% form.rq2 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 2 out of 10 &emsp;8 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 2 out of 10 &emsp;8 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 3 out of 10 &emsp;7 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 3 out of 10 &emsp;7 out of 10</th>
             <th class="text-center ">{% form.rq3 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 3 out of 10 &emsp;7 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 3 out of 10 &emsp;7 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 4 out of 10 &emsp;6 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 4 out of 10 &emsp;6 out of 10</th>
             <th class="text-center ">{% form.rq4 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 4 out of 10 &emsp;6 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 4 out of 10 &emsp;6 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 5 out of 10 &emsp;5 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 5 out of 10 &emsp;5 out of 10</th>
             <th class="text-center ">{% form.rq5 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 5 out of 10 &emsp;5 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 5 out of 10 &emsp;5 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 6 out of 10 &emsp;4 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 6 out of 10 &emsp;4 out of 10</th>
             <th class="text-center ">{% form.rq6 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 6 out of 10 &emsp;4 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 6 out of 10 &emsp;4 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 7 out of 10 &emsp;3 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 7 out of 10 &emsp;3 out of 10</th>
             <th class="text-center ">{% form.rq7 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 7 out of 10 &emsp;3 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 7 out of 10 &emsp;3 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 8 out of 10 &emsp;2 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 8 out of 10 &emsp;2 out of 10</th>
             <th class="text-center ">{% form.rq8 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 8 out of 10 &emsp;2 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 8 out of 10 &emsp;2 out of 10</th>
         </tr>
 
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 9 out of 10 &emsp;1 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 9 out of 10 &emsp;1 out of 10</th>
             <th class="text-center ">{% form.rq9 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 9 out of 10 &emsp;1 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 9 out of 10 &emsp;1 out of 10</th>
         </tr>
         <tr>
 
-            <th class="text-center"> 20.00 ECU &emsp; 16.00 ECU <br> 10 out of 10 &emsp;0 out of 10</th>
+            <th class="text-center"> 200.00 ECU &emsp; 160.00 ECU <br> 10 out of 10 &emsp;0 out of 10</th>
             <th class="text-center ">{% form.rq10 %}</th>
-            <th class="text-center"> 38.50 ECU &emsp; 1.00 ECU <br> 10 out of 10 &emsp;0 out of 10</th>
+            <th class="text-center"> 385.00 ECU &emsp; 10.00 ECU <br> 10 out of 10 &emsp;0 out of 10</th>
         </tr>
 
         </tbody>

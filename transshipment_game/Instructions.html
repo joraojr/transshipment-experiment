@@ -1,0 +1,81 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    Part 3: Your transfer costs and prices
+{% endblock %}
+{% block content %}
+
+    <p> You <b>pay</b> a transfer cost of <b>{{ p1_transfer_price }} ECU</b> to the other retailer for every unit the other retailer transferred to
+        you.</p>
+
+    <p> You <b>receive</b> a transfer price of <b>{{ p2_transfer_price }} ECU </b>for every unit you transferred to the other retailer. </p>
+
+    {% if decision_frequency == "PER_ROUND" %}
+
+        <p>To deal with excess inventory and excess demand, you can decide to engage in a transfer with the other retailer. <b>Each round you
+            will have to decide whether you want to engage in a transfer with the other retailer</b>. The transfer, if agreed upon, will be carried
+            out automatically.
+        </p>
+
+    {% elif decision_frequency == "ENFORCED" %}
+
+        <p>To deal with excess inventory and excess demand, you and the other retailer <b>will always engage in a transfer</b>. The transfer will be
+            carried out automatically. </p>
+
+    {% endif %}
+
+    <p><b>Your {% MAIN_GAME_NUM_ROUNDS %} rounds will be timed</b>. You will have a limited amount of time to make your decisions as bellow:</p>
+
+    <ol>
+        <li> For <b>round 1</b>, you will have:</li>
+        <ol>
+
+            {% if decision_frequency == "PER_ROUND" %}
+                <li><b>30 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+            {% endif %}
+
+            <li><b>60 seconds</b> to place an inventory order.</li>
+            <li><b>60 seconds</b> to see your earnings from your decisions in that round.</li>
+        </ol>
+
+        <li> From <b>round 2 to round 5</b>, you will have:</li>
+        <ol>
+
+            {% if decision_frequency == "PER_ROUND" %}
+                <li><b>15 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+            {% endif %}
+
+            <li><b>30 seconds</b> to place an inventory order.</li>
+            <li><b>45 seconds</b> to see your earnings from your decisions in that round.</li>
+        </ol>
+
+        <li> From <b>round 6 to round 15</b>, you will have:</li>
+        <ol>
+
+            {% if decision_frequency == "PER_ROUND" %}
+                <li><b>10 seconds</b> to decide whether you want to engage in a transfer with the other retailer.</li>
+            {% endif %}
+
+            <li><b>15 seconds</b> to place an inventory order.</li>
+            <li><b>20 seconds</b> to see your earnings from your decisions in that round.</li>
+        </ol>
+
+    </ol>
+
+
+    <p> At the end of Part 3, <b>{{ draw_earnings_num_rounds }} rounds </b> will be drawn randomly and the <b>average earnings in ECU </b> from those
+        rounds will be converted to Pounds and added to the experiment payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.</p>
+
+
+    <p> Please click "Next" to start the {{ MAIN_GAME_NUM_ROUNDS }} rounds of the experiment. </p>
+
+
+    <style type="text/css">
+        .otree-timer {
+            display: none;
+        }
+    </style>
+
+    {% next_button %}
+
+{% endblock %}

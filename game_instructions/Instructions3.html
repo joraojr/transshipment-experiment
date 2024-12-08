@@ -23,10 +23,11 @@
 
     <p> At the end of each round, you will see your earnings from your decisions in that round. </p>
 
-    <p><b>Your rounds will be timed</b>. You will have a limited amount of time to make your decisions.</p>
+    <p><b>Your rounds will be timed</b>. You will have a limited amount of time to make your decisions and the times to perform each stage will be
+        presented <b>at the beginning of Part 3</b>.</p></p>
 
-    <p> At the end of Part 3, <b>{{ draw_earnings_num_rounds }} rounds </b> will be drawn randomly and your payout will be equal to the <b> average
-        earnings in ECU </b> from those rounds. </p>
+    <p> At the end of Part 3, <b>{{ draw_earnings_num_rounds }} rounds </b> will be drawn randomly and the <b>average earnings in ECU </b> from those
+        rounds will be converted to Pounds and added to the experiment payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.</p>
 
 
     {% next_button %}

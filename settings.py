@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
     dict(
         name='Transshipment_Game',
         app_sequence=['welcome', 'pre_survey', 'game_instructions', 'transshipment_game', 'post_survey'],
-        num_demo_participants=4,
+        num_demo_participants=2,
     ),
     dict(
         name='Payout_measuring',
@@ -99,7 +99,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = ["treatment", "transfer_price", "comprehension_activity", "inventory_order_history", "demand_history", "earnings_list",
-                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings", "earning_dictator"]
+                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings", "earning_dictator", "earning_risk", "selected_risk"]
 SESSION_FIELDS = []
 
 # ISO-639 code

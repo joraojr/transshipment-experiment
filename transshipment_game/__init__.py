@@ -161,6 +161,7 @@ class Player(BasePlayer):
 
 ####### PAGES ###############################################
 class Welcome(Page):
+    timeout_seconds = 30
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1
@@ -168,6 +169,25 @@ class Welcome(Page):
     def vars_for_template(self):
         return {
             'MAIN_GAME_NUM_ROUNDS': C.NUM_ROUNDS,
+        }
+
+
+class Instructions(Page):
+    timeout_seconds = 120
+
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1
+
+    def vars_for_template(self):
+        return {
+            'MAIN_GAME_NUM_ROUNDS': C.NUM_ROUNDS,
+            'decision_frequency': C.TREATMENTS[self.treatment]["decision_frequency"],
+            'draw_earnings_num_rounds': self.session.config['draw_earnings_num_rounds'],
+            'p1_transfer_price': self.transfer_price,
+            'p2_transfer_price': self.get_matched_player().transfer_price,
+            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+
         }
 
 
@@ -420,7 +440,7 @@ class RandomDraw(Page):
         player.participant.avg_earnings = avg_earnings = sum(drawn_earnings) / len(drawn_earnings)
 
         # Ensure the no negative payoff (At least the fixed participation fee must be paid)
-        player.participant.payoff = cu(round(max(avg_earnings, 0)))
+        player.participant.payoff = cu(max(avg_earnings, 0))
 
     def vars_for_template(player: Player):
         return dict(
@@ -453,6 +473,7 @@ class RandomDrawResult(Page):
 
 ##ORDER#######################################################
 
-page_sequence = [Welcome, TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
+page_sequence = [Welcome, Instructions,
+                 TransferEngagement, TransferEngagementResultsWaitPage, TransferEngagementResult,
                  InventoryOrder, ResultsWaitPage, Results,
                  RandomDraw, RandomDrawResult]

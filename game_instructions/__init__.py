@@ -98,7 +98,8 @@ class Instructions3(Page):
     def vars_for_template(player: Player):
         return {
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
-            'draw_earnings_num_rounds': player.session.config['draw_earnings_num_rounds']
+            'draw_earnings_num_rounds': player.session.config['draw_earnings_num_rounds'],
+            'conversion_rate': 1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
 
         }
 
