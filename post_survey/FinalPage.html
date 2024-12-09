@@ -1,25 +1,27 @@
 {% extends "global/Page.html" %}
 
 {% block title %}
-    Final Page: Thank you!
+    Final Page
 {% endblock %}
 {% block content %}
 
     <p>Thank you for participating in the experiment. You have completed the experiment. </p>
 
-    <p> You <b>received a {{ show_up_fee }}</b> fixed participation fee for your participation. </p>
+    <p> Your payment for the experiment consists of:</p>
 
-    {#    <p> You <b>were not </b>one of the {% draw_earnings_dictator %} randomly selected participant of Part 1.</p>#}
-    <p> You <b>earned a bonus of {{ result_part1_currency }}</b> from the {{ draw_earnings_dictator }} randomly selected participant of Part 1. </p>
+    <ol>
+        <li> Fixed participation fee for your participation of <b>{{ show_up_fee }}</b></li>
+        <li> Bonus payment for:</li>
+        <ul>
+            <li> Part 1: You were randomly selected. You earned a bonus of <b>{{ result_part1_currency }}</b></li>
+            <li> Part 3: Rounds X,Y,Z were randomly selected. You earned a bonus of <b>{{ result_part3_currency }}</b></li>
+            <li> Part 4: You earned a bonus of <b>{{ result_part4_currency }}</b>.</li>
+            <li> In total, you earned a bonus payment of <b> {% payoff %}</b></li>
+        </ul>
+    </ol>
 
-    <p> You <b>earned a bonus of {{ result_part3_currency }}</b> from the {{ DRAW_EARNINGS_NUM_ROUNDS }} randomly chosen rounds of Part 3. </p>
 
-    <p> Your <b>earned a bonus of {{ result_part4_currency }}</b> from Part 4. </p>
-
-    <p>Your earned a total bonus of <b> {% payoff %}</b>.</p>
-
-
-    <p>Your payout for the experiment with the additional <b>{{ show_up_fee }} fixed participation fee</b> is:</p>
+    <p>Your payout for the experiment is:</p>
 
     <p style="font-weight: bold; font-size: 30px; text-align: center;"><b>{% total_payoff %}</b></p>
 

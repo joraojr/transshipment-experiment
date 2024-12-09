@@ -5,7 +5,7 @@ from . import *
 
 class PlayerBot(Bot):
     def play_round(self):
-        yield Introduction
+        yield Welcome
         yield Q1, {
             'RT_QA1': random.randint(0, 10),
             'T_QA1': random.randint(0, 10),

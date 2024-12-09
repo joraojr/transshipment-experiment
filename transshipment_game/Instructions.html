@@ -5,10 +5,10 @@
 {% endblock %}
 {% block content %}
 
-    <p> You <b>pay</b> a transfer cost of <b>{{ p1_transfer_price }} ECU</b> to the other retailer for every unit the other retailer transferred to
+    <p> You <b>pay</b> a transfer cost of <b>{{ p1_transfer_cost }} ECU</b> to the other retailer for every unit the other retailer transferred to
         you.</p>
 
-    <p> You <b>receive</b> a transfer price of <b>{{ p2_transfer_price }} ECU </b>for every unit you transferred to the other retailer. </p>
+    <p> You <b>receive</b> a transfer price of <b>{{ p2_transfer_cost }} ECU </b>for every unit you transferred to the other retailer. </p>
 
     {% if decision_frequency == "PER_ROUND" %}
 
@@ -24,7 +24,7 @@
 
     {% endif %}
 
-    <p><b>Your {% MAIN_GAME_NUM_ROUNDS %} rounds will be timed</b>. You will have a limited amount of time to make your decisions as bellow:</p>
+    <p><b>Each of the {% MAIN_GAME_NUM_ROUNDS %} rounds will be timed</b>. You will have a limited amount of time to make your decisions as bellow:</p>
 
     <ol>
         <li> For <b>round 1</b>, you will have:</li>
@@ -67,7 +67,7 @@
         rounds will be converted to Pounds and added to the experiment payout at a rate of <b>{{ conversion_rate }} ECU = £1</b>.</p>
 
 
-    <p> Please click "Next" to start the {{ MAIN_GAME_NUM_ROUNDS }} rounds of the experiment. </p>
+    <p> Please click "Next" to start 1 round of Part 3. </p>
 
 
     <style type="text/css">

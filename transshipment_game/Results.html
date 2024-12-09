@@ -61,10 +61,10 @@
 
                     <p>
                         <b>Transfer Revenue</b> <br>
-                        You receive {{ p2_transfer_price }} ECU from the other retailer for each unit transferred to them. <br>
-                        You transferred {{ transfer_price.0 }} units <br>
-                        Your total revenue from transfers is: <b>{{ p2_transfer_price }}
-                        * {{ transfer_price.0 }} = {{ transfer_price.1 }} ECU</b>
+                        You receive {{ p2_transfer_cost }} ECU from the other retailer for each unit transferred to them. <br>
+                        You transferred {{ transfer_cost.0 }} units <br>
+                        Your total revenue from transfers is: <b>{{ p2_transfer_cost }}
+                        * {{ transfer_cost.0 }} = {{ transfer_cost.1 }} ECU</b>
                     </p>
 
                     <p>
@@ -76,7 +76,7 @@
                     </p>
 
                     <p><b>Total Revenue</b> <br>
-                        Your overall revenue is the sum of retail, transfer, and salvage revenues: <b>  {{ retail_price.1 }} + {{ transfer_price.1 }}
+                        Your overall revenue is the sum of retail, transfer, and salvage revenues: <b>  {{ retail_price.1 }} + {{ transfer_cost.1 }}
                             + {{ salvage_price.1 }} = {{ total_price }} ECU</b>
                     </p>
                 </div>
@@ -91,9 +91,9 @@
 
                     <p>
                         <b>Transfer Costs</b> <br>
-                        You pay {{ p1_transfer_price }} ECU to the other retailer for each unit transferred to you. <br>
+                        You pay {{ p1_transfer_cost }} ECU to the other retailer for each unit transferred to you. <br>
                         You received {{ transfer_cost.0 }} units. <br>
-                        Your transfer costs is: <b>{{ p1_transfer_price }} * {{ transfer_cost.0 }} = {{ transfer_cost.1 }} ECU</b>
+                        Your transfer costs is: <b>{{ p1_transfer_cost }} * {{ transfer_cost.0 }} = {{ transfer_cost.1 }} ECU</b>
                     </p>
 
                     <p><b>Total Costs</b> <br>

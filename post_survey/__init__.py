@@ -71,21 +71,21 @@ class Player(BasePlayer):
 
     gender = models.StringField(
         label="With which gender do you identify yourself most?",
-        choices=["Male", "Female", "Prefer not to say"],
+        choices=["Male", "Female", "Prefer not to say", "Other"],
         widget=widgets.RadioSelectHorizontal()
 
     )
 
     economics = models.StringField(
-        label="How would you rate your expertise in Economics?",
-        choices=range(11),
+        label="How would you rate your expertise in Economics on a scale of 1 (not knowledgeable at all) to 10 (expert)??",
+        choices=range(1, 11),
         widget=widgets.RadioSelectHorizontal()
 
     )
 
     logistics = models.StringField(
-        label="How would you rate your expertise in Logistics?",
-        choices=range(11),
+        label="How would you rate your expertise in Logistics on a scale of 1 (not knowledgeable at all) to 10 (expert)?",
+        choices=range(1, 11),
         widget=widgets.RadioSelectHorizontal()
 
     )
@@ -148,7 +148,7 @@ def calculate_risk_reward(player: Player):
 
 
 # PAGES
-class Introduction(Page):
+class Welcome(Page):
     pass
 
 
@@ -196,4 +196,4 @@ class FinalPage(Page):
         )
 
 
-page_sequence = [Introduction, Risk, Reciprocity, Demographics, FinalPage]
+page_sequence = [Welcome, Risk, Reciprocity, Demographics, FinalPage]

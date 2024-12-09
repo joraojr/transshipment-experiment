@@ -31,19 +31,19 @@ def creating_session(subsession):
     if subsession.round_number == 1:
         players = subsession.get_players()
         treatment = next(treatments)
-        transfer_price = itertools.cycle(C.TREATMENTS[treatment]["transfer_price"])
+        transfer_cost = itertools.cycle(C.TREATMENTS[treatment]["transfer_cost"])
 
         for i, player in enumerate(players):
             demand = next(demands)
             player.treatment = player.participant.treatment = treatment
-            player.transfer_price = player.participant.transfer_price = next(transfer_price)
+            player.transfer_cost = player.participant.transfer_cost = next(transfer_cost)
             player.participant.demand_history = demand
             # player.role = "A"
 
             # Ensure that each 2 player get the same treatment
             if i % 2 == 1:
                 treatment = next(treatments)
-                transfer_price = itertools.cycle(C.TREATMENTS[treatment]["transfer_price"])
+                transfer_cost = itertools.cycle(C.TREATMENTS[treatment]["transfer_cost"])
 
 
     else:
@@ -56,7 +56,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     treatment = models.StringField()
-    transfer_price = models.IntegerField()
+    transfer_cost = models.IntegerField()
 
     def get_matched_player(self):
         # Retrieve all players in the same group
@@ -88,8 +88,8 @@ class Instructions2(Page):
     def vars_for_template(player: Player):
         return {
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
-            'p1_transfer_price': player.transfer_price,
-            'p2_transfer_price': player.get_matched_player().transfer_price
+            'p1_transfer_cost': player.transfer_cost,
+            'p2_transfer_cost': player.get_matched_player().transfer_cost
 
         }
 

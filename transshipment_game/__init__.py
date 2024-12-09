@@ -34,7 +34,7 @@ def creating_session(subsession):
     # Assign Treatments from the Previous app to the players
     for player in subsession.get_players():
         player.treatment = player.participant.treatment
-        player.transfer_price = player.participant.transfer_price
+        player.transfer_cost = player.participant.transfer_cost
         player.demand = player.participant.demand_history[player.round_number - 1]
         # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
         if C.TREATMENTS[player.treatment]["decision_frequency"] == "ENFORCED":
@@ -68,12 +68,12 @@ def group_by_treatment_and_price(subsession: Subsession):
                 new_group_matrix.append([p.id_in_subsession for p in players_to_group])
 
         elif treatments[treatment]["roles"] == "non-identical":
-            transfer_prices = treatments[treatment]["transfer_price"]
+            transfer_costs = treatments[treatment]["transfer_cost"]
 
             # Create subgroups for each transfer price
-            sub_groups = {price: [] for price in transfer_prices}
+            sub_groups = {price: [] for price in transfer_costs}
             for player in group:
-                sub_groups[player.participant.transfer_price].append(player)
+                sub_groups[player.participant.transfer_cost].append(player)
 
             # Shuffle the players within each transfer price group to randomize
             for sub_group in sub_groups.values():
@@ -81,10 +81,10 @@ def group_by_treatment_and_price(subsession: Subsession):
 
             # Create pairs with different transfer prices
             grouped_players = []
-            while sub_groups[transfer_prices[0]] and sub_groups[transfer_prices[1]]:
+            while sub_groups[transfer_costs[0]] and sub_groups[transfer_costs[1]]:
                 grouped_players.append([
-                    sub_groups[transfer_prices[0]].pop(),
-                    sub_groups[transfer_prices[1]].pop()
+                    sub_groups[transfer_costs[0]].pop(),
+                    sub_groups[transfer_costs[1]].pop()
                 ])
 
             # Create the new group matrix
@@ -127,7 +127,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     treatment = models.StringField()
-    transfer_price = models.IntegerField()
+    transfer_cost = models.IntegerField()
     transfer_engagement = models.BooleanField(
         label="Do you want to engage in a transfer with the other retailer, in case you face excess demand or excess inventory?",
         blank=False
@@ -184,8 +184,8 @@ class Instructions(Page):
             'MAIN_GAME_NUM_ROUNDS': C.NUM_ROUNDS,
             'decision_frequency': C.TREATMENTS[self.treatment]["decision_frequency"],
             'draw_earnings_num_rounds': self.session.config['draw_earnings_num_rounds'],
-            'p1_transfer_price': self.transfer_price,
-            'p2_transfer_price': self.get_matched_player().transfer_price,
+            'p1_transfer_cost': self.transfer_cost,
+            'p2_transfer_cost': self.get_matched_player().transfer_cost,
             'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
 
         }
@@ -271,8 +271,8 @@ class InventoryOrder(Page):
             'player_earnings_list': player.participant.earnings_list,
             'CURRENT_ROUND': player.round_number,
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
-            'p1_transfer_price': player.transfer_price,
-            'p2_transfer_price': player.get_matched_player().transfer_price
+            'p1_transfer_cost': player.transfer_cost,
+            'p2_transfer_cost': player.get_matched_player().transfer_cost
 
         }
 
@@ -336,7 +336,7 @@ class ResultsWaitPage(WaitPage):
                         p1.received_units = p2.send_units = transfer_units = min(abs(p1.extra), p2.extra)
                         p1.result_message_text += (
                             "The other retailer has excess inventory of {} units.<br>"
-                            "The other retailer transfer {} units to you from their excess inventory to meet your current demand.  <br>").format(
+                            "The other retailer transfers {} units to you from their excess inventory to meet your current demand.  <br>").format(
                             p2.extra, transfer_units)
                     elif p1.excess_inventory and p2.excess_demand:
                         p2.received_units = p1.send_units = transfer_units = min(p1.extra, abs(p2.extra))
@@ -380,7 +380,7 @@ class Results(Page):
         total_retail_units = retail_units + player.received_units
         total_retail_unit_price = total_retail_units * 40
 
-        total_transfer_units = player.send_units * player.get_matched_player().transfer_price
+        total_transfer_units = player.send_units * player.get_matched_player().transfer_cost
 
         total_savage_units = max(0, player.inventory_order - player.demand - player.send_units)
         total_savage_unit_price = total_savage_units * 10
@@ -390,7 +390,7 @@ class Results(Page):
         # Costs for this round
 
         procurement_cost = player.inventory_order * 20
-        transfer_cost = player.received_units * player.transfer_price
+        transfer_cost = player.received_units * player.transfer_cost
 
         total_cost = procurement_cost + transfer_cost
 
@@ -404,7 +404,7 @@ class Results(Page):
             'result_message_text': result_message_text,
             'CURRENT_ROUND': player.round_number,
             'retail_price': [total_retail_units, total_retail_unit_price],
-            'transfer_price': [player.send_units, total_transfer_units],
+            'transfer_cost': [player.send_units, total_transfer_units],
             'salvage_price': [total_savage_units, total_savage_unit_price],
             'total_price': total_price,
             'procurement_cost': [player.inventory_order, procurement_cost],
@@ -412,8 +412,8 @@ class Results(Page):
             'total_cost': total_cost,
             'earnings': earnings,
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
-            'p1_transfer_price': player.transfer_price,
-            'p2_transfer_price': player.get_matched_player().transfer_price
+            'p1_transfer_cost': player.transfer_cost,
+            'p2_transfer_cost': player.get_matched_player().transfer_cost
 
         }
 
