@@ -4,25 +4,30 @@ SESSION_CONFIGS = [
 
     dict(
         name='Transshipment_Game',
-        app_sequence=['welcome', 'pre_survey', 'game_instructions', 'transshipment_game', 'post_survey'],
-        num_demo_participants=2,
+        app_sequence=['welcome', 'pre_survey', 'game_instructions', 'channel_matching', 'transshipment_game', 'post_survey'],
+        num_demo_participants=18,
     ),
-    dict(
-        name='Payout_measuring',
-        app_sequence=['game_instructions', 'transshipment_game'],
-        num_demo_participants=1 * 2,
-    ),
-    dict(
-        name='post_survey',
-        app_sequence=['post_survey'],
-        num_demo_participants=1 * 2,
-    ),
-
-    dict(
-        name='pre_survey',
-        app_sequence=['pre_survey'],
-        num_demo_participants=2 * 2,
-    ),
+    # dict(
+    #     name='Channel_testing',
+    #     app_sequence=['game_instructions', 'channel_matching', 'transshipment_game'],
+    #     num_demo_participants=6,
+    # ),
+    # dict(
+    #     name='Payout_measuring',
+    #     app_sequence=['game_instructions', 'transshipment_game'],
+    #     num_demo_participants=1 * 2,
+    # ),
+    # dict(
+    #     name='post_survey',
+    #     app_sequence=['post_survey'],
+    #     num_demo_participants=1 * 2,
+    # ),
+    #
+    # dict(
+    #     name='pre_survey',
+    #     app_sequence=['pre_survey'],
+    #     num_demo_participants=2 * 2,
+    # ),
 ]
 
 ROOMS = [
@@ -99,8 +104,14 @@ SESSION_CONFIG_DEFAULTS = dict(
     doc="",
 )
 
-PARTICIPANT_FIELDS = ["treatment", "transfer_cost", "comprehension_activity", "inventory_order_history", "demand_history", "earnings_list",
-                      "draw_earnings_indexes", "drawn_earnings", "avg_earnings", "earning_dictator", "earning_risk", "selected_risk"]
+PARTICIPANT_FIELDS = [
+    "treatment", "transfer_cost", "transfer_price", "inventory_order_history", "demand_history",
+    "comprehension_activity",
+    "channel_done", "channel_matching",
+    "selected_for_earning_dictator", "earning_dictator",
+    "earnings_list", "draw_earnings_indexes", "drawn_earnings", "avg_earnings",
+    "earning_risk", "selected_risk"
+]
 SESSION_FIELDS = []
 
 # ISO-639 code

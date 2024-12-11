@@ -4,13 +4,15 @@ import settings
 import random
 
 doc = """
-Core Transshipment Game for 2 players with different treatments and transfer prices
+Core Transshipment Game for 2 players with different treatments and transfer prices.
+
+This game needs the channel_matching as previous app to work
 """
 
 
 class C(BaseConstants):
     NAME_IN_URL = 'transshipment_game'
-    PLAYERS_PER_GROUP = 2  # This game only work for 2 participants working playing together
+    PLAYERS_PER_GROUP = None  # This game needs the channel_matching as previous app to work
     NUM_ROUNDS = settings.GAME_CONFIG_DEFAULTS["num_rounds"]
     TREATMENTS = settings.GAME_CONFIG_DEFAULTS["treatments"]
 
@@ -18,80 +20,6 @@ class C(BaseConstants):
 ########### SUBSESSIONS HERE ############################################
 class Subsession(BaseSubsession):
     pass
-
-
-def creating_session(subsession):
-    if subsession.round_number == 1:
-        for player in subsession.get_players():
-            # Initialize participant fields
-            player.participant.inventory_order_history = []
-            player.participant.earnings_list = []
-            # player.participant.demand_history = []
-
-    else:
-        group_by_treatment_and_price(subsession)
-
-    # Assign Treatments from the Previous app to the players
-    for player in subsession.get_players():
-        player.treatment = player.participant.treatment
-        player.transfer_cost = player.participant.transfer_cost
-        player.demand = player.participant.demand_history[player.round_number - 1]
-        # player.demand = max(0, min(round(random.normalvariate(100, 15)), 200))  # mean 100 and std 15
-        if C.TREATMENTS[player.treatment]["decision_frequency"] == "ENFORCED":
-            player.transfer_engagement = True
-            player.group.transfer_engagement = True
-
-
-def group_by_treatment_and_price(subsession: Subsession):
-    players = subsession.get_players()
-    treatments = C.TREATMENTS
-
-    # Create a dictionary to hold groups by treatment
-    treatment_groups = {key: [] for key in treatments.keys()}
-
-    # Sort players into treatment groups
-    for player in players:
-        treatment_groups[player.participant.treatment].append(player)
-
-    new_group_matrix = []
-
-    # Create groups for each treatment based on transfer prices
-    for treatment, group in treatment_groups.items():
-
-        if treatments[treatment]["roles"] == "identical":
-            # Shuffle the players within each treatment group to randomize
-            random.shuffle(group)
-
-            # Group players according to the defined players_per_group
-            for i in range(0, len(group), C.PLAYERS_PER_GROUP):
-                players_to_group = group[i:i + C.PLAYERS_PER_GROUP]
-                new_group_matrix.append([p.id_in_subsession for p in players_to_group])
-
-        elif treatments[treatment]["roles"] == "non-identical":
-            transfer_costs = treatments[treatment]["transfer_cost"]
-
-            # Create subgroups for each transfer price
-            sub_groups = {price: [] for price in transfer_costs}
-            for player in group:
-                sub_groups[player.participant.transfer_cost].append(player)
-
-            # Shuffle the players within each transfer price group to randomize
-            for sub_group in sub_groups.values():
-                random.shuffle(sub_group)
-
-            # Create pairs with different transfer prices
-            grouped_players = []
-            while sub_groups[transfer_costs[0]] and sub_groups[transfer_costs[1]]:
-                grouped_players.append([
-                    sub_groups[transfer_costs[0]].pop(),
-                    sub_groups[transfer_costs[1]].pop()
-                ])
-
-            # Create the new group matrix
-            for group in grouped_players:
-                new_group_matrix.append([p.id_in_subsession for p in group])
-
-    subsession.set_group_matrix(new_group_matrix)
 
 
 #############################################################
@@ -128,6 +56,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     treatment = models.StringField()
     transfer_cost = models.IntegerField()
+    transfer_price = models.IntegerField()
     transfer_engagement = models.BooleanField(
         label="Do you want to engage in a transfer with the other retailer, in case you face excess demand or excess inventory?",
         blank=False
@@ -148,6 +77,8 @@ class Player(BasePlayer):
 
     result_message_text = models.StringField()
 
+    # TODO Change it to be get other demand info
+    # Create transfer cost and price for each player
     def get_matched_player(self):
         # Retrieve all players in the same group
         all_players = self.group.get_players()
@@ -162,6 +93,7 @@ class Player(BasePlayer):
 ####### PAGES ###############################################
 class Welcome(Page):
     timeout_seconds = 30
+
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1
@@ -170,6 +102,21 @@ class Welcome(Page):
         return {
             'MAIN_GAME_NUM_ROUNDS': C.NUM_ROUNDS,
         }
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        player.participant.inventory_order_history = []
+        player.participant.earnings_list = []
+
+        for i in range(1, C.NUM_ROUNDS + 1):
+            p = player.in_round(i)
+            p.treatment = player.participant.treatment
+            p.transfer_cost = player.participant.transfer_cost
+            p.transfer_price = player.participant.transfer_price
+            p.demand = player.participant.demand_history[i - 1]
+            if C.TREATMENTS[player.treatment]["decision_frequency"] == "ENFORCED":
+                p.transfer_engagement = True
+                p.group.transfer_engagement = True
 
 
 class Instructions(Page):
@@ -185,7 +132,7 @@ class Instructions(Page):
             'decision_frequency': C.TREATMENTS[self.treatment]["decision_frequency"],
             'draw_earnings_num_rounds': self.session.config['draw_earnings_num_rounds'],
             'p1_transfer_cost': self.transfer_cost,
-            'p2_transfer_cost': self.get_matched_player().transfer_cost,
+            'p2_transfer_cost': self.transfer_price,
             'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
 
         }
@@ -272,7 +219,7 @@ class InventoryOrder(Page):
             'CURRENT_ROUND': player.round_number,
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
             'p1_transfer_cost': player.transfer_cost,
-            'p2_transfer_cost': player.get_matched_player().transfer_cost
+            'p2_transfer_cost': player.transfer_price
 
         }
 
@@ -413,7 +360,7 @@ class Results(Page):
             'earnings': earnings,
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
             'p1_transfer_cost': player.transfer_cost,
-            'p2_transfer_cost': player.get_matched_player().transfer_cost
+            'p2_transfer_cost': player.transfer_price
 
         }
 

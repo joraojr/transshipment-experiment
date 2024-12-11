@@ -13,7 +13,11 @@
         <li> Fixed participation fee for your participation of <b>{{ show_up_fee }}</b></li>
         <li> Bonus payment for:</li>
         <ul>
-            <li> Part 1: You were randomly selected. You earned a bonus of <b>{{ result_part1_currency }}</b></li>
+            {% if result_part1_selected %}
+                <li> Part 1: You were randomly selected. You earned a bonus of <b>{{ result_part1_currency }}</b></li>
+            {% else %}
+                <li> Part 1: You were not randomly selected.</li>
+            {% endif %}
             <li> Part 3: Rounds X,Y,Z were randomly selected. You earned a bonus of <b>{{ result_part3_currency }}</b></li>
             <li> Part 4: You earned a bonus of <b>{{ result_part4_currency }}</b>.</li>
             <li> In total, you earned a bonus payment of <b> {% payoff %}</b></li>

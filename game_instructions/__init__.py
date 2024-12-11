@@ -20,36 +20,6 @@ class C(BaseConstants):
 class Subsession(BaseSubsession):
     pass
 
-
-# TODO MOVE THAT TO transshipment_game
-def creating_session(subsession):
-    # Assign Treatments to the players
-    import itertools
-    treatments = itertools.cycle(C.TREATMENTS.keys())
-    demands = itertools.cycle(C.DEMANDS.values())
-
-    if subsession.round_number == 1:
-        players = subsession.get_players()
-        treatment = next(treatments)
-        transfer_cost = itertools.cycle(C.TREATMENTS[treatment]["transfer_cost"])
-
-        for i, player in enumerate(players):
-            demand = next(demands)
-            player.treatment = player.participant.treatment = treatment
-            player.transfer_cost = player.participant.transfer_cost = next(transfer_cost)
-            player.participant.demand_history = demand
-            # player.role = "A"
-
-            # Ensure that each 2 player get the same treatment
-            if i % 2 == 1:
-                treatment = next(treatments)
-                transfer_cost = itertools.cycle(C.TREATMENTS[treatment]["transfer_cost"])
-
-
-    else:
-        subsession.group_like_round(1)
-
-
 class Group(BaseGroup):
     pass
 
@@ -85,19 +55,12 @@ class Instructions1(Page):
 
 
 class Instructions2(Page):
-    def vars_for_template(player: Player):
-        return {
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
-            'p1_transfer_cost': player.transfer_cost,
-            'p2_transfer_cost': player.get_matched_player().transfer_cost
-
-        }
+    pass
 
 
 class Instructions3(Page):
     def vars_for_template(player: Player):
         return {
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
             'draw_earnings_num_rounds': player.session.config['draw_earnings_num_rounds'],
             'conversion_rate': 1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
 
@@ -112,11 +75,6 @@ class Comprehension1(Page):
 
 
 class Comprehension2(Page):
-    def vars_for_template(player: Player):
-        return {
-            'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
-        }
-
     @staticmethod
     def live_method(player, data):
         epoch_time = int(time.time())

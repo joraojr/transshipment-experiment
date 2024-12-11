@@ -1,3 +1,5 @@
+import random
+
 from otree.api import *
 from sqlalchemy.testing.plugin.plugin_base import options
 
@@ -46,7 +48,7 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    random_selected_dictator = models.IntegerField(initial=0)
 
 
 class Group(BaseGroup):
@@ -177,8 +179,17 @@ class Demographics(Page):
 
     @staticmethod
     def before_next_page(player, timeout_happened):
-        # TODO change it from here and make it random selected
-        player.participant.payoff += cu(player.participant.earning_dictator)
+        # Select 5 random players to earn the dictator game
+
+        subsession = player.subsession
+        number_selected = subsession.random_selected_dictator
+        player.participant.selected_for_earning_dictator = False
+
+        if number_selected < 5:
+            if random.choice([True]):
+                player.participant.selected_for_earning_dictator = True
+                player.participant.payoff += cu(player.participant.earning_dictator)
+                subsession.random_selected_dictator += 1
 
 
 class FinalPage(Page):
@@ -189,6 +200,7 @@ class FinalPage(Page):
             total_payoff=player.participant.payoff_plus_participation_fee(),
             show_up_fee=player.session.config['participation_fee'],
             draw_earnings_dictator=player.session.config['draw_earnings_dictator'],
+            result_part1_selected=player.participant.selected_for_earning_dictator,
             result_part1_currency=cu(player.participant.earning_dictator).to_real_world_currency(player.session),
             result_part3_currency=cu(max(player.participant.avg_earnings, 0)).to_real_world_currency(player.session),
             result_part4_currency=cu(player.participant.earning_risk).to_real_world_currency(player.session),
