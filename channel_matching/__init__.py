@@ -52,7 +52,7 @@ class ResultsWaitPage(WaitPage):
 
     def after_all_players_arrive(group: Group):
         # TODO to be changed to be dynamic
-        next_app_subsessions = group.session.get_subsessions()[4:C.MAIN_GAME_NUM_ROUNDS + 1]
+        next_app_subsessions = group.session.get_subsessions()[4:(C.MAIN_GAME_NUM_ROUNDS + 4)]
 
         subsession = group.subsession
 
