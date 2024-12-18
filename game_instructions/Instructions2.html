@@ -64,8 +64,7 @@
     {#        {% endif %}#}
 
 
-    <p>To deal with excess inventory and excess demand, you and the other retailer may engage in transfers. Transfers, if applicable, will be carried
-        out automatically according to predefined rules.</p>
+    <p>To deal with excess inventory and excess demand, transfers can be carried out. Transfer are subject to the following rules:</p>
 
     <p><b>If you face excess demand (Demand > Order): </b></p>
     <ol>
@@ -105,12 +104,13 @@
 
     {#    <p>If only you or only the other retailer decide to engage in a transfer, or if neither one of you decides to engage in a transfer, this will#}
     {#        happen:</p>#}
-    <p> A transfer only occurs if <b>both retailers</b> decide to engage in a transfer. If a transfer does not happen:</p>
-    <ol>
-        <li> No transfer of units takes place.</li>
-        <li> If you face excess demand, none of your excess demand is met.</li>
-        <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>
-    </ol>
+
+    {#    <p> A transfer only occurs if <b>both retailers</b> decide to engage in a transfer. If a transfer does not happen:</p>#}
+    {#    <ol>#}
+    {#        <li> No transfer of units takes place.</li>#}
+    {#        <li> If you face excess demand, none of your excess demand is met.</li>#}
+    {#        <li> If you face excess inventory, all is salvaged at a salvage price of <b>10 ECU</b> per unit.</li>#}
+    {#    </ol>#}
 
 
     {% next_button %}

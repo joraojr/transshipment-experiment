@@ -18,8 +18,8 @@
             {% else %}
                 <li> Part 1: You were not randomly selected.</li>
             {% endif %}
-            <li> Part 3: Rounds X,Y,Z were randomly selected. You earned a bonus of <b>{{ result_part3_currency }}</b></li>
-            <li> Part 4: You earned a bonus of <b>{{ result_part4_currency }}</b>.</li>
+            <li> Part 3: Rounds {% result_part3_rounds %} were randomly selected. You earned a bonus of <b>{{ result_part3_currency }}</b></li>
+            <li> Part 4: {% result_part4_selection %} was randomly selected. You earned a bonus of <b>{{ result_part4_currency }}</b>.</li>
             <li> In total, you earned a bonus payment of <b> {% payoff %}</b></li>
         </ul>
     </ol>
@@ -29,32 +29,35 @@
 
     <p style="font-weight: bold; font-size: 30px; text-align: center;"><b>{% total_payoff %}</b></p>
 
-    {#     TODO See how to do the same on Prolific #}
+    <p>
+        Click <a href="{% session.prolific_completion_url %}">here</a> to complete the study.
+    </p>
+
     {#    <p><b>Please click <a href="https://dontpad.com/exp_trasnshipment_WU">here</a> or wait <span id="countdown">20</span> seconds to be automatically redirected to enter your payment information. </b></p>#}
 
 
-    <style>
-        #countdown {
-            color: red;
-            font-size: 1.3em;
-        }
-    </style>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var countdown = 20; // countdown time in seconds
-            var countdownElement = document.getElementById('countdown');
-
-            var interval = setInterval(function () {
-                countdown--;
-                countdownElement.textContent = countdown;
-
-                if (countdown <= 0) {
-                    clearInterval(interval);
-                    {#            var additional_info = $('#additional_info').val();#}
-                    window.location.href = 'https://dontpad.com/exp_trasnshipment_WU';
-                }
-            }, 1000);
-        });
-    </script>
+{#    <style>#}
+    {#        #countdown {#}
+    {#            color: red;#}
+    {#            font-size: 1.3em;#}
+    {#        }#}
+    {#    </style>#}
+    {##}
+    {#    <script type="text/javascript">#}
+    {#        $(document).ready(function () {#}
+    {#            var countdown = 20; // countdown time in seconds#}
+    {#            var countdownElement = document.getElementById('countdown');#}
+    {##}
+    {#            var interval = setInterval(function () {#}
+    {#                countdown--;#}
+    {#                countdownElement.textContent = countdown;#}
+    {##}
+    {#                if (countdown <= 0) {#}
+    {#                    clearInterval(interval);#}
+    {#            var additional_info = $('#additional_info').val();#}
+    {#                    window.location.href = 'https://dontpad.com/exp_trasnshipment_WU';#}
+    {#                }#}
+    {#            }, 1000);#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}

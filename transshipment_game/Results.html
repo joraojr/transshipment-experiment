@@ -62,9 +62,9 @@
                     <p>
                         <b>Transfer Revenue</b> <br>
                         You receive {{ p2_transfer_cost }} ECU from the other retailer for each unit transferred to them. <br>
-                        You transferred {{ transfer_cost.0 }} units <br>
+                        You transferred {{ transfer_price.0 }} units <br>
                         Your total revenue from transfers is: <b>{{ p2_transfer_cost }}
-                        * {{ transfer_cost.0 }} = {{ transfer_cost.1 }} ECU</b>
+                        * {{ transfer_price.0 }} = {{ transfer_price.1 }} ECU</b>
                     </p>
 
                     <p>
@@ -76,7 +76,7 @@
                     </p>
 
                     <p><b>Total Revenue</b> <br>
-                        Your overall revenue is the sum of retail, transfer, and salvage revenues: <b>  {{ retail_price.1 }} + {{ transfer_cost.1 }}
+                        Your overall revenue is the sum of retail, transfer, and salvage revenues: <b>  {{ retail_price.1 }} + {{ transfer_price.1 }}
                             + {{ salvage_price.1 }} = {{ total_price }} ECU</b>
                     </p>
                 </div>
@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    {% next_button %}
+    {#    {% next_button %}#}
 
     <style>
 

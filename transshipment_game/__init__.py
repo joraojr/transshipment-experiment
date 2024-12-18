@@ -1,3 +1,5 @@
+from email.policy import default
+
 from otree.api import *
 
 import settings
@@ -27,7 +29,7 @@ class Subsession(BaseSubsession):
 ################# GROUP #######################################
 
 class Group(BaseGroup):
-    transfer_engagement = models.BooleanField()
+    transfer_engagement = models.BooleanField(default=False)
     transfer_engagement_message_text = models.StringField()
 
     def all_transfer_engagement_yes(self):
@@ -54,6 +56,8 @@ class Group(BaseGroup):
 ###################### PLAYER ####################################
 
 class Player(BasePlayer):
+    is_dropout = models.BooleanField(default=0)
+    is_timeout_engagement = models.BooleanField(default=0)
     treatment = models.StringField()
     transfer_cost = models.IntegerField()
     transfer_price = models.IntegerField()
@@ -133,7 +137,7 @@ class Instructions(Page):
             'draw_earnings_num_rounds': self.session.config['draw_earnings_num_rounds'],
             'p1_transfer_cost': self.transfer_cost,
             'p2_transfer_cost': self.transfer_price,
-            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            'conversion_rate': round(1 / self.session.config['real_world_currency_per_point']),  # 1EUR * conversion_rate
 
         }
 
@@ -143,12 +147,11 @@ class TransferEngagement(Page):
     form_fields = ['transfer_engagement']
 
     @staticmethod
-    @staticmethod
     def get_timeout_seconds(player):
         if player.round_number == 1:
-            return 30
-        elif 2 <= player.round_number <= 5:
             return 15
+        elif 2 <= player.round_number <= 5:
+            return 10
         elif 6 <= player.round_number <= 15:
             return 10
 
@@ -162,8 +165,15 @@ class TransferEngagement(Page):
             'CURRENT_ROUND': self.round_number,
         }
 
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if timeout_happened:
+            player.is_timeout_engagement = True
+
 
 class TransferEngagementResultsWaitPage(WaitPage):
+    body_text = "Waiting for the other participant. Please refresh this page at last every 30 second otherwise you might skip one or several rounds."
+
     @staticmethod
     def is_displayed(player):
         return C.TREATMENTS[player.treatment]["decision_frequency"] == "PER_ROUND"
@@ -175,12 +185,11 @@ class TransferEngagementResultsWaitPage(WaitPage):
 
 class TransferEngagementResult(Page):
     @staticmethod
-    @staticmethod
     def get_timeout_seconds(player):
         if player.round_number == 1:
-            return 30
-        elif 2 <= player.round_number <= 5:
             return 15
+        elif 2 <= player.round_number <= 5:
+            return 10
         elif 6 <= player.round_number <= 15:
             return 10
 
@@ -204,9 +213,9 @@ class InventoryOrder(Page):
     @staticmethod
     def get_timeout_seconds(player):
         if player.round_number == 1:
-            return 60
-        elif 2 <= player.round_number <= 5:
             return 30
+        elif 2 <= player.round_number <= 5:
+            return 20
         elif 6 <= player.round_number <= 15:
             return 15
 
@@ -225,11 +234,15 @@ class InventoryOrder(Page):
 
     @staticmethod
     def before_next_page(player, timeout_happened):
+        if timeout_happened:
+            player.is_dropout = True
         player.participant.inventory_order_history.append(player.inventory_order)
         # player.participant.demand_history.append(player.demand)
 
 
 class ResultsWaitPage(WaitPage):
+    body_text = "Waiting for the other participant. Please refresh this page at last every 30 second otherwise you might skip one or several rounds."
+
     @staticmethod
     def after_all_players_arrive(group: Group):
 
@@ -313,9 +326,9 @@ class Results(Page):
     @staticmethod
     def get_timeout_seconds(player):
         if player.round_number == 1:
-            return 60
+            return 40
         elif 2 <= player.round_number <= 5:
-            return 45
+            return 30
         elif 6 <= player.round_number <= 15:
             return 20
 
@@ -351,11 +364,11 @@ class Results(Page):
             'result_message_text': result_message_text,
             'CURRENT_ROUND': player.round_number,
             'retail_price': [total_retail_units, total_retail_unit_price],
-            'transfer_cost': [player.send_units, total_transfer_units],
+            'transfer_cost': [player.received_units, transfer_cost],
             'salvage_price': [total_savage_units, total_savage_unit_price],
             'total_price': total_price,
             'procurement_cost': [player.inventory_order, procurement_cost],
-            'transfer_cost': [player.received_units, transfer_cost],
+            'transfer_price': [player.send_units, total_transfer_units],
             'total_cost': total_cost,
             'earnings': earnings,
             'decision_frequency': C.TREATMENTS[player.treatment]["decision_frequency"],
@@ -392,7 +405,7 @@ class RandomDraw(Page):
     def vars_for_template(player: Player):
         return dict(
             DRAW_EARNINGS_NUM_ROUNDS=player.session.config['draw_earnings_num_rounds'],
-            conversion_rate=1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            conversion_rate=round(1 / player.session.config['real_world_currency_per_point']),  # 1EUR * conversion_rate
             show_up_fee=player.session.config['participation_fee'],
 
         )
@@ -410,7 +423,9 @@ class RandomDrawResult(Page):
             avg_earnings=player.participant.avg_earnings,
             payoff=player.participant.payoff_in_real_world_currency(),
             total_payoff=player.participant.payoff_plus_participation_fee(),
-            conversion_rate=1 / player.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            drawn_earnings=player.participant.drawn_earnings,
+            drawn_rouds=[x + 1 for x in player.participant.draw_earnings_indexes],
+            conversion_rate=round(1 / player.session.config['real_world_currency_per_point']),  # 1EUR * conversion_rate
             show_up_fee=player.session.config['participation_fee'],
 
         )

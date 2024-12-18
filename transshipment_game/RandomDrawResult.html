@@ -7,12 +7,12 @@
 {% block content %}
     <p>The following rounds were drawn randomly:
 
-    <ul>{% for item in player.participant.draw_earnings_indexes %}
+    <ul>{% for item in drawn_rouds %}
         <li>Round {% item %}</li> {% endfor %}</ul></p>
 
     <p>Your earnings in these rounds were:
 
-    <ul>{% for item in player.participant.drawn_earnings %}
+    <ul>{% for item in drawn_earnings %}
         <li>{% item %} ECU</li> {% endfor %}</ul></p>
 
     <p>This means, your average in this experiment is <b>{{ avg_earnings }} ECU </b>. At a rate of <b>{{ conversion_rate }} ECU = £1</b>, your average

@@ -37,7 +37,7 @@ class Introduction(Page):
         return {
             'MAIN_GAME_NUM_ROUNDS': C.MAIN_GAME_NUM_ROUNDS,
             'show_up_fee': self.session.config['participation_fee'],
-            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate
+            'conversion_rate': round(1 / self.session.config['real_world_currency_per_point']),  # 1EUR * conversion_rate
             'draw_earnings_num_rounds': self.session.config['draw_earnings_num_rounds']
         }
 

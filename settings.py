@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
     dict(
         name='Transshipment_Game',
         app_sequence=['welcome', 'pre_survey', 'game_instructions', 'channel_matching', 'transshipment_game', 'post_survey'],
-        num_demo_participants=18,
+        num_demo_participants=6,
     ),
     # dict(
     #     name='Channel_testing',
@@ -77,17 +77,17 @@ GAME_CONFIG_DEFAULTS = dict(
             "transfer_cost": [10, 40]
         },
 
-        "C6_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": "non-identical",
-            "transfer_cost": [8, 40]
-        },
-
-        "C6_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_cost": [8, 40]
-        },
+        # "C6_PER_ROUND": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "roles": "non-identical",
+        #     "transfer_cost": [8, 40]
+        # },
+        #
+        # "C6_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_cost": [8, 40]
+        # },
     }
 )
 
@@ -98,11 +98,14 @@ GAME_CONFIG_DEFAULTS = dict(
 
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1 / 1000,  # 0.05% => 200 ECU = 1 EUR, 0.10% => 100 ECU = 1 EUR, 0.003 => 333.33 ECU = 1 EUR
-    participation_fee=7,  # ==> 8.5 EUR (range 6-9 GBP)
+    participation_fee=5,  # ==> 8.5 EUR (range 6-9 GBP)
     draw_earnings_num_rounds=4,
+    draw_dictator_endowments=500,
     draw_earnings_dictator=5,
     doc="",
 )
+
+# TODO add conversion_rate round to 0 decimal places here
 
 PARTICIPANT_FIELDS = [
     "treatment", "transfer_cost", "transfer_price", "inventory_order_history", "demand_history",
@@ -110,9 +113,10 @@ PARTICIPANT_FIELDS = [
     "channel_done", "channel_matching",
     "selected_for_earning_dictator", "earning_dictator",
     "earnings_list", "draw_earnings_indexes", "drawn_earnings", "avg_earnings",
-    "earning_risk", "selected_risk"
+    "earning_risk", "selected_risk",
+    "finished"
 ]
-SESSION_FIELDS = []
+SESSION_FIELDS = ["prolific_completion_url"]
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans

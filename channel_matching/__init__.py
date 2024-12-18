@@ -49,6 +49,7 @@ class Player(BasePlayer):
 
 class ResultsWaitPage(WaitPage):
     group_by_arrival_time = True
+    body_text = "Waiting for the other participant. Please remain on this page until all participants have arrived."
 
     def after_all_players_arrive(group: Group):
         # TODO to be changed to be dynamic

@@ -1,5 +1,6 @@
 from otree.api import *
 
+import settings
 from welcome import Welcome
 
 doc = """
@@ -13,7 +14,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
 
     # Initial amount allocated to the dictator
-    ENDOWMENT = cu(1000)
+    ENDOWMENT = cu(settings.SESSION_CONFIG_DEFAULTS['draw_dictator_endowments'])
 
     LIKERT = [
         [0, ''],
@@ -86,7 +87,7 @@ class Q2(Page):
 
     def vars_for_template(self):
         return {
-            'conversion_rate': 1 / self.session.config['real_world_currency_per_point'],  # 1EUR * conversion_rate,
+            'conversion_rate': round(1 / self.session.config['real_world_currency_per_point']),  # 1EUR * conversion_rate,
             'draw_earnings_dictator': self.session.config['draw_earnings_dictator']
 
         }

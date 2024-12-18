@@ -79,7 +79,7 @@ class Player(BasePlayer):
     )
 
     economics = models.StringField(
-        label="How would you rate your expertise in Economics on a scale of 1 (not knowledgeable at all) to 10 (expert)??",
+        label="How would you rate your expertise in Economics on a scale of 1 (not knowledgeable at all) to 10 (expert)?",
         choices=range(1, 11),
         widget=widgets.RadioSelectHorizontal()
 
@@ -139,9 +139,12 @@ def calculate_risk_reward(player: Player):
         'Option B': [385.00, 10.00]
     }
 
+    # TODO deal with it when the player does not select any option
+
     i = random.randint(1, 10)
-    player.participant.selected_risk = selected_risk = 'rq' + str(i)
+    selected_risk = 'rq' + str(i)
     choice_option = options[getattr(player, selected_risk)]
+    player.participant.selected_risk = "Decision {}, {}".format(str(i), getattr(player, selected_risk))
 
     chance = random.randint(1, 10)
     player.participant.earning_risk = choice_option[0] if chance <= i else choice_option[1]
@@ -179,6 +182,7 @@ class Demographics(Page):
 
     @staticmethod
     def before_next_page(player, timeout_happened):
+        player.participant.finished = True
         # Select 5 random players to earn the dictator game
 
         subsession = player.subsession
@@ -203,8 +207,9 @@ class FinalPage(Page):
             result_part1_selected=player.participant.selected_for_earning_dictator,
             result_part1_currency=cu(player.participant.earning_dictator).to_real_world_currency(player.session),
             result_part3_currency=cu(max(player.participant.avg_earnings, 0)).to_real_world_currency(player.session),
+            result_part3_rounds=sorted([x + 1 for x in player.participant.draw_earnings_indexes]),
             result_part4_currency=cu(player.participant.earning_risk).to_real_world_currency(player.session),
-            # result_part3_ecu=cu(max(player.participant.avg_earnings, 0)),
+            result_part4_selection=player.participant.selected_risk,
         )
 
 
