@@ -102,7 +102,6 @@ class Player(BasePlayer):
         
     """
 
-    @staticmethod
     def make_risk_decision(label, choices=['Option A', 'Option B']):
         return models.StringField(
             choices=choices,

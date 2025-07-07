@@ -53,41 +53,52 @@ GAME_CONFIG_DEFAULTS = dict(
 
     },
     treatments={
-        "C4_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": "non-identical",
-            "transfer_cost": [18, 24]  # demands [A,B]
-        },
-
-        "C4_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_cost": [18, 24]  # demands [A,B]
-        },
-
-        "C5_PER_ROUND": {
-            "decision_frequency": "PER_ROUND",
-            "roles": "non-identical",
-            "transfer_cost": [10, 40]
-        },
-
-        "C5_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_cost": [10, 40]
-        },
-
-        # "C6_PER_ROUND": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "roles": "non-identical",
-        #     "transfer_cost": [8, 40]
-        # },
+        #     "C4_PER_ROUND": {
+        #         "decision_frequency": "PER_ROUND",
+        #         "roles": "non-identical",
+        #         "transfer_cost": [18, 24]  # demands [A,B]
+        #     },
         #
-        # "C6_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "non-identical",
-        #     "transfer_cost": [8, 40]
+        #     "C4_ENFORCED": {
+        #         "decision_frequency": "ENFORCED",
+        #         "roles": "non-identical",
+        #         "transfer_cost": [18, 24]  # demands [A,B]
+        #     },
+        #
+        #     "C5_PER_ROUND": {
+        #         "decision_frequency": "PER_ROUND",
+        #         "roles": "non-identical",
+        #         "transfer_cost": [10, 40]
+        #     },
+        #
+        #     "C5_ENFORCED": {
+        #         "decision_frequency": "ENFORCED",
+        #         "roles": "non-identical",
+        #         "transfer_cost": [10, 40]
+        #     },
+
+        # "C2_PER_ROUND": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "roles": "identical",
+        #     "transfer_cost": [18]
         # },
+        # "C2_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "identical",
+        #     "transfer_cost": [18]
+        # },
+
+        "C6_PER_ROUND": {
+            "decision_frequency": "PER_ROUND",
+            "roles": "non-identical",
+            "transfer_cost": [8, 24]
+        },
+
+        "C6_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "non-identical",
+            "transfer_cost": [8, 24]
+        },
     }
 )
 
@@ -156,12 +167,12 @@ BROWSER_COMMAND = "brave-browser"
 #     "C2_PER_ROUND": {
 #         "decision_frequency": "PER_ROUND",
 #         "roles": "identical",
-#         "transfer_cost": [21]
+#         "transfer_cost": [18]
 #     },
 #     # "C2_ENFORCED": {
 #     #     "decision_frequency": "ENFORCED",
 #     #     "roles": "identical",
-#     #     "transfer_cost": [21]
+#     #     "transfer_cost": [18]
 #     # },
 #     ##################################################
 #
@@ -215,13 +226,13 @@ BROWSER_COMMAND = "brave-browser"
 #     "C6_PER_ROUND": {
 #         "decision_frequency": "PER_ROUND",
 #         "roles": "non-identical",
-#         "transfer_cost": [8, 40]
+#         "transfer_cost": [8, 24]
 #     },
 #
 #     # "C6_ENFORCED": {
 #     #     "decision_frequency": "ENFORCED",
 #     #     "roles": "non-identical",
-#     #     "transfer_cost": [8, 40]
+#     #     "transfer_cost": [8, 24]
 #     # },
 #     ##################################################
 #
