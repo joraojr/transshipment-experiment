@@ -30,7 +30,7 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     transfer_engagement = models.BooleanField(default=False)
-    transfer_engagement_message_text = models.StringField()
+    transfer_engagement_message_text = models.StringField(default="")
 
     def all_transfer_engagement_yes(self):
         # Check if all players in the group have answered 'yes' to transfer_engagement

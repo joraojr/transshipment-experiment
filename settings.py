@@ -77,28 +77,28 @@ GAME_CONFIG_DEFAULTS = dict(
         #         "transfer_cost": [10, 40]
         #     },
 
-        # "C2_PER_ROUND": {
-        #     "decision_frequency": "PER_ROUND",
-        #     "roles": "identical",
-        #     "transfer_cost": [18]
-        # },
-        # "C2_ENFORCED": {
-        #     "decision_frequency": "ENFORCED",
-        #     "roles": "identical",
-        #     "transfer_cost": [18]
-        # },
-
-        "C6_PER_ROUND": {
+        "C2_PER_ROUND": {
             "decision_frequency": "PER_ROUND",
-            "roles": "non-identical",
-            "transfer_cost": [8, 24]
+            "roles": "identical",
+            "transfer_cost": [18]
+        },
+        "C2_ENFORCED": {
+            "decision_frequency": "ENFORCED",
+            "roles": "identical",
+            "transfer_cost": [18]
         },
 
-        "C6_ENFORCED": {
-            "decision_frequency": "ENFORCED",
-            "roles": "non-identical",
-            "transfer_cost": [8, 24]
-        },
+        # "C6_PER_ROUND": {
+        #     "decision_frequency": "PER_ROUND",
+        #     "roles": "non-identical",
+        #     "transfer_cost": [8, 24]
+        # },
+        #
+        # "C6_ENFORCED": {
+        #     "decision_frequency": "ENFORCED",
+        #     "roles": "non-identical",
+        #     "transfer_cost": [8, 24]
+        # },
     }
 )
 
